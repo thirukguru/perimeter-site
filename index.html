@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perimeter — Cloud Security Posture Management</title>
+    <meta name="description"
+        content="Detect misconfiguration, exposed secrets, and real attack paths across every AWS account, region, and service." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#0a0f1a',
+                        surface: '#0f1525',
+                        'surface-alt': '#141b2d',
+                        border: '#1e2a42',
+                        cyan: '#06d6d6',
+                        'cyan-dim': '#06b6d4',
+                        amber: '#f59e0b',
+                        red: '#ef4444',
+                        'text-primary': '#e2e8f0',
+                        'text-muted': '#64748b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    keyframes: {
+                        'fade-up': {
+                            '0%': { opacity: '0', transform: 'translateY(24px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                    animation: {
+                        'fade-up': 'fade-up 0.7s ease-out forwards',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0f1a;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .bg-grid {
+            background-image:
+                linear-gradient(rgba(30, 42, 66, 0.35) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 42, 66, 0.35) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #06d6d6, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glow {
+            box-shadow: 0 0 40px -10px rgba(6, 214, 214, 0.35);
+        }
+
+        .card-gradient {
+            background: linear-gradient(145deg, #0f1525, #0b1020);
+        }
+
+        .fade-target {
+            opacity: 0;
+        }
+
+        .fade-target.visible {
+            animation: fade-up 0.7s ease-out forwards;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <style>
+        @font-face {
+            font-family: 'CameraPlainVariable';
+            src: url('https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        #lovable-badge {
+            --badge-bg: #1b1b1b;
+            --badge-text: #c5c1b9;
+            --badge-text-hover: #dcdad5;
+            --badge-radius: 6px;
+            --badge-padding: 8px;
+            --badge-gap: 6px;
+            --badge-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.88),
+                0 1px 0 0 rgba(0, 0, 0, 0.04),
+                0 2px 2px -1px rgba(0, 0, 0, 0.08),
+                0 4px 4px -2px rgba(0, 0, 0, 0.08),
+                0 8px 8px -4px rgba(0, 0, 0, 0.08),
+                0 16px 16px -8px rgba(0, 0, 0, 0.08);
+            --badge-transition-duration: 0.2s;
+            --badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
+            --focus-color: #575ECF;
+            --focus-offset: 2px;
+            --focus-width: 2px;
+
+            position: fixed;
+            bottom: 12px;
+            right: 12px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            z-index: 1000000;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            border-radius: var(--badge-radius);
+            box-shadow: var(--badge-shadow);
+            font-size: 12px;
+            font-family: CameraPlainVariable, "CameraPlainVariable Fallback", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 400 !important;
+            text-transform: none !important;
+            font-feature-settings: normal !important;
+            transform: translateZ(0);
+            will-change: transform, opacity;
+        }
+
+        #lovable-badge-cta {
+            display: flex;
+            align-items: center;
+            gap: var(--badge-gap);
+            padding: 0 var(--badge-padding);
+            height: 100%;
+            color: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            border-radius: var(--badge-radius) 0 0 var(--badge-radius);
+            transition:
+                background-color var(--badge-transition-duration) ease,
+                color var(--badge-transition-duration) ease,
+                transform 0.1s ease;
+        }
+
+        #lovable-badge-cta:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--badge-text-hover);
+        }
+
+        #lovable-badge-cta:active {
+            transform: scale(0.98);
+        }
+
+        #lovable-badge-cta:focus {
+            outline: none;
+        }
+
+        #lovable-badge-cta:focus-visible {
+            outline: var(--focus-width) solid var(--focus-color);
+            outline-offset: var(--focus-offset);
+            z-index: 1;
+        }
+
+        #lovable-badge-text {
+            line-height: 1;
+        }
+
+        #lovable-badge-divider {
+            width: 1px;
+            height: 24px;
+            background-color: rgba(255, 255, 255, 0.04);
+            flex-shrink: 0;
+        }
+
+        #lovable-badge-close {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0 var(--badge-radius) var(--badge-radius) 0;
+            flex-shrink: 0;
+            transition:
+                background-color var(--badge-transition-duration) ease,
+                transform 0.1s ease;
+        }
+
+        #lovable-badge-close:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        #lovable-badge-close:active {
+            transform: scale(0.92);
+        }
+
+        #lovable-badge-close:focus {
+            outline: none;
+        }
+
+        #lovable-badge-close:focus-visible {
+            outline: var(--focus-width) solid var(--focus-color);
+            outline-offset: calc(var(--focus-offset) * -1);
+            z-index: 1;
+        }
+
+        #lovable-badge-close svg path {
+            fill: var(--badge-text);
+            transition: fill var(--badge-transition-duration) ease;
+        }
+
+        #lovable-badge-close:hover svg path {
+            fill: var(--badge-text-hover);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            #lovable-badge-cta,
+            #lovable-badge-close,
+            #lovable-badge-close svg path {
+                transition: none;
+            }
+
+            #lovable-badge-cta:active,
+            #lovable-badge-close:active {
+                transform: none;
+            }
+        }
+
+        @media (prefers-contrast: high) {
+            #lovable-badge {
+                --badge-bg: #000;
+                --badge-text: #fff;
+                --badge-text-hover: #fff;
+                border: 2px solid currentColor;
+            }
+
+            #lovable-badge-cta:focus-visible,
+            #lovable-badge-close:focus-visible {
+                outline-width: 3px;
+            }
+        }
+    </style>
+    <meta name="twitter:image"
+        content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b7f31969-b2fd-487c-b3d4-8c0f7ef99170/id-preview-1f9155c4--92bdd05f-e52f-4dcb-9230-0b982fed6af8.lovable.app-1771165367182.png" />
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-bg/80 backdrop-blur-xl">
+        <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
+            <a href="#" class=" mt-1 items-center gap-2.5">
+                <img src="logonew.png" alt="Perimeter" class="max-w-xl h-16" />
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features"
+                    class="text-sm text-text-muted hover:text-text-primary transition-colors">Features</a>
+                <a href="#use-cases" class="text-sm text-text-muted hover:text-text-primary transition-colors">Use
+                    Cases</a>
+                <a href="#get-started"
+                    class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get
+                    Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-grid opacity-40"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan/[0.08] rounded-full blur-3xl"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
+            <!-- Badge -->
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface-alt/50 mb-8 animate-fade-up">
+                <img src="logo.png" alt="Perimeter" class="w-5 h-5" />
+                <span class="text-sm font-medium text-text-muted">Cloud Security Posture Scanner</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-up" style="animation-delay:.1s">
+                Secure your <span class="text-gradient">cloud perimeter</span> at scale
+            </h1>
+
+            <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up"
+                style="animation-delay:.2s">
+                Detect misconfiguration, exposed secrets, and real attack paths across every account, region, and
+                service — with clear, actionable output.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up"
+                style="animation-delay:.3s">
+                <a href="#features"
+                    class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
+                    Explore Capabilities
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </a>
+                <a href="#dashboard"
+                    class="inline-flex items-center gap-2 px-8 py-4 rounded-lg border border-border bg-surface-alt/50 font-semibold text-lg hover:bg-surface-alt transition-colors">
+                    <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    View Dashboard
+                </a>
+            </div>
+
+            <!-- Dashboard Mockup -->
+            <div id="dashboard" class="mt-16 animate-fade-up" style="animation-delay:.45s">
+                <div
+                    class="relative mx-auto max-w-5xl rounded-xl border border-border bg-surface overflow-hidden shadow-2xl">
+                    <div class="flex items-center gap-2 px-4 py-3 border-b border-border bg-surface-alt/30">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red/60"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber/60"></div>
+                            <div class="w-3 h-3 rounded-full bg-cyan/40"></div>
+                        </div>
+                        <div
+                            class="mx-auto bg-surface-alt/50 px-3 py-1 rounded text-xs font-medium text-text-muted flex items-center gap-2">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            app.perimeter.security
+                        </div>
+                    </div>
+                    <div class="p-6 grid grid-cols-12 gap-6 text-left">
+                        <!-- Sidebar -->
+                        <div class="col-span-3 space-y-2 border-r border-border pr-2">
+                            <div class="px-3 py-1 text-xs font-semibold text-text-muted uppercase tracking-wider">
+                                Platform
+                            </div>
+                            <!-- Dashboard (Active) -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan/10 text-cyan cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                <span class="font-medium">Dashboard</span>
+                            </div>
+                            <!-- Findings -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Findings</span>
+                            </div>
+                            <!-- Assets -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                </svg>
+                                <span>Assets</span>
+                            </div>
+                            <!-- Attack Paths -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                                <span>Attack Paths</span>
+                            </div>
+                            <!-- Cost -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Cost</span>
+                            </div>
+                            <!-- Compliance -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                                <span>Compliance</span>
+                            </div>
+                            <!-- Intelligence -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                <span>Intelligence</span>
+                            </div>
+                            <!-- Accounts -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>Accounts</span>
+                            </div>
+                            <!-- Integrations -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                                </svg>
+                                <span>Integrations</span>
+                            </div>
+                            <!-- Reports -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span>Reports</span>
+                            </div>
+                            <!-- Settings -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                </svg>
+                                <span>Settings</span>
+                            </div>
+                        </div>
+                        <!-- Main Content -->
+                        <div class="col-span-9">
+                            <div class="grid grid-cols-3 gap-4 mb-6">
+                                <div class="p-4 rounded-lg bg-surface-alt/30 border border-border">
+                                    <div class="text-sm text-text-muted mb-1">Security Score</div>
+                                    <div class="text-2xl font-bold text-cyan">A+</div>
+                                </div>
+                                <div class="p-4 rounded-lg bg-surface-alt/30 border border-border">
+                                    <div class="text-sm text-text-muted mb-1">Critical Issues</div>
+                                    <div class="text-2xl font-bold text-red">0</div>
+                                </div>
+                                <div class="p-4 rounded-lg bg-surface-alt/30 border border-border">
+                                    <div class="text-sm text-text-muted mb-1">Monitored Assets</div>
+                                    <div class="text-2xl font-bold text-text-primary">1,248</div>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div
+                                    class="p-3 rounded border border-border/50 bg-surface-alt/20 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                        <span class="text-sm">Production-US-East-1</span>
+                                    </div>
+                                    <span class="text-xs text-text-muted">Last scan: 2m ago</span>
+                                </div>
+                                <div
+                                    class="p-3 rounded border border-border/50 bg-surface-alt/20 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                        <span class="text-sm">Staging-EU-West-1</span>
+                                    </div>
+                                    <span class="text-xs text-text-muted">Last scan: 5m ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="py-32">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-20 fade-target">
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Capabilities</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Complete Cloud Security Platform</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">From identity to network to secrets — Perimeter
+                    provides continuous visibility and protection.</p>
+            </div>
+
+            <!-- Cloud Support Status -->
+            <div class="flex flex-wrap justify-center gap-6 mb-12 fade-target">
+                <!-- AWS -->
+                <div class="flex items-center gap-3 px-6 py-3 rounded-xl border border-cyan/30 bg-cyan/10">
+                    <svg class="w-6 h-6 text-cyan" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.295 12.08c-.687-.361-1.396-.653-2.112-.876l-.427 1.408c.613.197 1.22.451 1.808.76l.731-1.292zm-3.805-1.55c-1.353-.298-2.738-.298-4.09 0l.307 1.44c1.155-.255 2.34-.255 3.477 0l.306-1.44zm-4.305 1.096c-.718.223-1.428.514-2.116.873l.728 1.293c.588-.307 1.194-.559 1.808-.755l-.42-1.411zm-1.87 2.073c-.563.486-1.092 1.054-1.572 1.691l1.19 1.002c.412-.544.864-1.026 1.346-1.44l-.964-1.253zm8.283 1.253c.48.413.933.896 1.345 1.44l1.196-1.003c-.482-.638-1.012-1.205-1.577-1.691l-.964 1.254zm-6.22 3.444c1.17 1.047 2.76 1.564 4.312 1.564 1.55 0 3.14-.517 4.31-1.564l-1.006-1.33c-.886.79-2.074 1.182-3.303 1.182-1.23 0-2.418-.391-3.308-1.182l-1.005 1.33z" />
+                    </svg>
+                    <div>
+                        <div class="font-bold text-sm">AWS</div>
+                        <div class="text-xs text-cyan font-medium">Active Support</div>
+                    </div>
+                </div>
+                <!-- Azure -->
+                <div
+                    class="flex items-center gap-3 px-6 py-3 rounded-xl border border-border bg-surface-alt/30 opacity-60">
+                    <svg class="w-6 h-6 text-text-muted" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12.01 1.5c-4.14 0-7.79 2.52-9.45 6.15L2 7.5l.79 1.73c1.78-3.34 5.26-5.63 9.22-5.63s7.44 2.29 9.22 5.63l.79-1.73-.56-.15c-1.66-3.63-5.31-6.15-9.45-6.15zM2 13l2 4h16l2-4H2zm3.5 1h13l-1 2H5.5l-1-2z" />
+                    </svg>
+                    <div>
+                        <div class="font-bold text-sm text-text-muted">Azure</div>
+                        <div class="text-xs text-text-muted">Coming Soon</div>
+                    </div>
+                </div>
+                <!-- GCP -->
+                <div
+                    class="flex items-center gap-3 px-6 py-3 rounded-xl border border-border bg-surface-alt/30 opacity-60">
+                    <svg class="w-6 h-6 text-text-muted" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                    </svg>
+                    <div>
+                        <div class="font-bold text-sm text-text-muted">GCP</div>
+                        <div class="text-xs text-text-muted">Coming Soon</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domain pills -->
+            <div class="flex flex-wrap justify-center gap-3 mb-16 fade-target">
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    IAM
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                    </svg>
+                    S3
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    VPC
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    CloudTrail
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                    ECS/EKS
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                    AI/ML
+                </span>
+            </div>
+
+            <!-- Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Security Detection</h3>
+                    <p class="text-text-muted leading-relaxed">VPC, IAM, S3, CloudTrail, GuardDuty, ELB, KMS, and more —
+                        deep checks across every AWS surface.</p>
+                </div>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Deep Secrets Detection</h3>
+                    <p class="text-text-muted leading-relaxed">Scan Lambda env vars, deployment packages, EC2 user data,
+                        public S3 objects, and ECR image layers.</p>
+                </div>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Multi-Region & Multi-Account</h3>
+                    <p class="text-text-muted leading-relaxed">Fan out across AWS Organizations with role assumption,
+                        bounded parallelism, and retry resilience.</p>
+                </div>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Historical Risk Intelligence</h3>
+                    <p class="text-text-muted leading-relaxed">SQLite-backed scan history with trend queries,
+                        comparisons, and lifecycle tracking over time.</p>
+                </div>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Reporting & Export</h3>
+                    <p class="text-text-muted leading-relaxed">Rich interactive dashboards, exportable PDF reports for
+                        executives, and rigorous compliance mapping.</p>
+                </div>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Actionable Output</h3>
+                    <p class="text-text-muted leading-relaxed">Severity-based prioritization with embedded remediation
+                        guidance and consolidated summaries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section id="use-cases" class="py-32">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <!-- Left -->
+                <div class="fade-target">
+                    <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Use Cases</p>
+                    <h2 class="text-4xl font-bold tracking-tight mb-10">Built for real security workflows</h2>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
+                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1">Daily Posture Checks</h3>
+                                <p class="text-text-muted leading-relaxed">Run automated scans across production
+                                    accounts on a schedule to catch drift before it becomes a breach.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
+                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1">CI/CD Validation</h3>
+                                <p class="text-text-muted leading-relaxed">Embed security checks into delivery pipelines
+                                    for pre-deployment and post-change validation.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
+                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1">Incident Response</h3>
+                                <p class="text-text-muted leading-relaxed">Enrich investigations with deep IAM and
+                                    network context when suspicious activity is detected.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
+                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1">Compliance & Reporting</h3>
+                                <p class="text-text-muted leading-relaxed">Generate exportable evidence with historical
+                                    trends for audit readiness and compliance workflows.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="space-y-8 fade-target">
+                    <div class="rounded-xl border border-border card-gradient p-8">
+                        <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-6">Who It Helps
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">Cloud Security
+                                    Engineers</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">Platform & SRE
+                                    Teams</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">DevSecOps
+                                    Engineers</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">Security
+                                    Leadership</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
+                            <div class="text-3xl font-bold text-gradient mb-1">800+</div>
+                            <div class="text-sm text-text-muted">Security checks</div>
+                        </div>
+                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
+                            <div class="text-3xl font-bold text-gradient mb-1">16+</div>
+                            <div class="text-sm text-text-muted">AWS regions</div>
+                        </div>
+                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
+                            <div class="text-3xl font-bold text-gradient mb-1">6</div>
+                            <div class="text-sm text-text-muted">Detection domains</div>
+                        </div>
+                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
+                            <div class="text-3xl font-bold text-gradient mb-1">5</div>
+                            <div class="text-sm text-text-muted">Output formats</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="get-started" class="py-32">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div
+                class="relative rounded-2xl border border-cyan/20 card-gradient p-12 md:p-16 overflow-hidden fade-target">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-40 bg-cyan/10 blur-3xl rounded-full"></div>
+                <div class="relative z-10">
+                    <svg class="w-12 h-12 text-cyan mx-auto mb-6" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Start scanning in minutes</h2>
+                    <p class="text-text-muted text-lg mb-8 max-w-xl mx-auto">
+                        Connect your cloud accounts in minutes. No agents to deploy, no complex configuration.
+                        Get immediate visibility into your security posture.
+                    </p>
+                    <div
+                        class="inline-flex items-center gap-3 px-6 py-3 rounded-lg bg-surface-alt border border-border font-medium text-sm text-cyan/90 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span>Free 14-day trial available</span>
+                    </div>
+                    <div class="mt-8">
+                        <a href="#"
+                            class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
+                            Start Scanning
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-border py-12">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <img src="logo.png" alt="Perimeter" class="w-6 h-6" />
+                <span class="font-semibold">Perimeter</span>
+            </div>
+            <p class="text-sm text-text-muted">Agentless. Continuous. Secure.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll fade-in -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-target').forEach(el => observer.observe(el));
+    </script>
+
+
+
+    <script>
+        // Don't show the lovable-badge if the page is in an iframe or if it's being rendered by puppeteer (screenshot service)
+        if (window.self !== window.top || navigator.userAgent.includes('puppeteer')) {
+            // the page is in an iframe
+            var badge = document.getElementById('lovable-badge');
+            if (badge) {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Add click event listener to close button with animation
+        var closeButton = document.getElementById('lovable-badge-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var badge = document.getElementById('lovable-badge');
+                if (badge) {
+                    badge.classList.add('closing');
+                    setTimeout(function () {
+                        if (badge) {
+                            badge.style.display = 'none';
+                        }
+                    }, 240);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
