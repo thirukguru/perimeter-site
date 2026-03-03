@@ -283,6 +283,7 @@
                     class="text-sm text-text-muted hover:text-text-primary transition-colors">Features</a>
                 <a href="#use-cases" class="text-sm text-text-muted hover:text-text-primary transition-colors">Use
                     Cases</a>
+                <a href="#plans" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
                 <a href="#get-started"
                     class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get
                     Started</a>
@@ -660,13 +661,12 @@
                         class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
                         <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Multi-Region & Multi-Account</h3>
-                    <p class="text-text-muted leading-relaxed">Fan out across AWS Organizations with role assumption,
-                        bounded parallelism, and retry resilience.</p>
+                    <h3 class="text-xl font-bold mb-3">Real-Time Drift Detection</h3>
+                    <p class="text-text-muted leading-relaxed">EventBridge API Destinations push CloudTrail events
+                        within 30–90 seconds. No Lambda needed.</p>
                 </div>
                 <div
                     class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
@@ -675,12 +675,12 @@
                         <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Historical Risk Intelligence</h3>
-                    <p class="text-text-muted leading-relaxed">SQLite-backed scan history with trend queries,
-                        comparisons, and lifecycle tracking over time.</p>
+                    <h3 class="text-xl font-bold mb-3">IaC & Dockerfile Analysis</h3>
+                    <p class="text-text-muted leading-relaxed">Shift-left by scanning Terraform, CloudFormation, Pulumi,
+                        and Dockerfiles before deployment.</p>
                 </div>
                 <div
                     class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
@@ -702,12 +702,13 @@
                         class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
                         <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Actionable Output</h3>
-                    <p class="text-text-muted leading-relaxed">Severity-based prioritization with embedded remediation
-                        guidance and consolidated summaries.</p>
+                    <h3 class="text-xl font-bold mb-3">AI Security Chat</h3>
+                    <p class="text-text-muted leading-relaxed">Claude-powered assistant with full awareness of your
+                        actual findings, accounts, and compliance state.</p>
                 </div>
             </div>
         </div>
@@ -809,22 +810,305 @@
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">800+</div>
-                            <div class="text-sm text-text-muted">Security checks</div>
+                            <div class="text-3xl font-bold text-gradient mb-1">600+</div>
+                            <div class="text-sm text-text-muted">Security rules</div>
                         </div>
                         <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">16+</div>
-                            <div class="text-sm text-text-muted">AWS regions</div>
+                            <div class="text-3xl font-bold text-gradient mb-1">60+</div>
+                            <div class="text-sm text-text-muted">AWS services</div>
                         </div>
                         <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">6</div>
+                            <div class="text-3xl font-bold text-gradient mb-1">11</div>
                             <div class="text-sm text-text-muted">Detection domains</div>
                         </div>
                         <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">5</div>
-                            <div class="text-sm text-text-muted">Output formats</div>
+                            <div class="text-3xl font-bold text-gradient mb-1">13</div>
+                            <div class="text-sm text-text-muted">Compliance frameworks</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="plans" class="py-32 relative">
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan/[0.03] rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 fade-target">
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Plans & Pricing</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Choose the right plan for your team</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">
+                    Base platform fee per tenant + seat packs + usage. Scale securely with confidence.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <!-- ESSENTIALS -->
+                <div
+                    class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Essentials</h3>
+                        <p class="text-sm text-text-muted h-10">Core cloud security findings for small teams.</p>
+                        <div class="mt-4">
+                            <span class="text-3xl font-bold text-white">$499</span>
+                            <span class="text-text-muted">/ month</span>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
+                            <div class="text-sm text-text-primary">2 Included</div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
+                            <div class="text-sm text-text-primary">3 Included</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>424+ AWS security rules</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>IaC & Dockerfile scanning</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Real-time drift detection</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Findings workflow & remediation</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted opacity-60">
+                            <svg class="w-5 h-5 text-text-muted shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span>No compliance module</span>
+                        </li>
+                    </ul>
+                    <a href="/signup?plan=essentials"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start
+                        Trial</a>
+                </div>
+
+                <!-- GROWTH -->
+                <div
+                    class="flex flex-col rounded-xl border border-cyan/30 bg-cyan/[0.02] p-6 relative overflow-hidden hover:border-cyan/50 transition-all duration-300 fade-target">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-cyan/20 text-cyan text-xs font-bold rounded-bl-lg">
+                        POPULAR</div>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Growth</h3>
+                        <p class="text-sm text-text-muted h-10">Operational security + optimization for scaling teams.
+                        </p>
+                        <div class="mt-4">
+                            <span class="text-3xl font-bold text-white">$1,499</span>
+                            <span class="text-text-muted">/ month</span>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
+                            <div class="text-sm text-text-primary">10 Included</div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
+                            <div class="text-sm text-text-primary">10 Included</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-3 text-sm text-text-primary font-medium">
+                            <div class="w-full h-px bg-border my-2"></div>
+                        </li>
+                        <li class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Everything in
+                            Essentials, plus:</li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Asset intelligence & posture</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>CVE Scanner & GuardDuty</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>AI/ML & Insider Threat detection</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Attack paths & Webhooks</span>
+                        </li>
+                    </ul>
+                    <a href="/signup?plan=growth"
+                        class="block w-full py-3 rounded-lg bg-cyan text-bg text-center font-bold text-sm hover:opacity-90 transition-opacity shadow-[0_0_20px_-5px_rgba(6,214,214,0.3)]">Get
+                        Started</a>
+                </div>
+
+                <!-- ASSURE -->
+                <div
+                    class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Assure</h3>
+                        <p class="text-sm text-text-muted h-10">Compliance and audit-ready posture.</p>
+                        <div class="mt-4">
+                            <span class="text-3xl font-bold text-white">$2,999</span>
+                            <span class="text-text-muted">/ month</span>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
+                            <div class="text-sm text-text-primary">25 Included</div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
+                            <div class="text-sm text-text-primary">20 Included</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-3 text-sm text-text-primary font-medium">
+                            <div class="w-full h-px bg-border my-2"></div>
+                        </li>
+                        <li class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Everything in Growth,
+                            plus:</li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>13+ framework mappings</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>MITRE ATT&CK tags</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Audit-ready evidence packs</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>"Run Compliance" backfill</span>
+                        </li>
+                    </ul>
+                    <a href="/contact-sales?plan=assure"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact
+                        Sales</a>
+                </div>
+
+                <!-- ENTERPRISE -->
+                <div
+                    class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
+                        <p class="text-sm text-text-muted h-10">Custom controls, integrations, and support.</p>
+                        <div class="mt-4">
+                            <span class="text-3xl font-bold text-white">Custom</span>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
+                            <div class="text-sm text-text-primary">Custom</div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
+                            <div class="text-sm text-text-primary">Custom</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-3 text-sm text-text-primary font-medium">
+                            <div class="w-full h-px bg-border my-2"></div>
+                        </li>
+                        <li class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Everything in Assure,
+                            plus:</li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>SSO / SAML integration</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>AI Security Chat (Claude)</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Custom frameworks & RBAC</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-text-muted">
+                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Premium Support & SLA</span>
+                        </li>
+                    </ul>
+                    <a href="/contact-sales?plan=enterprise"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact
+                        Sales</a>
                 </div>
             </div>
         </div>
