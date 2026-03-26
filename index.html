@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perimeter — Cloud Security Posture Management</title>
+    <title>Perimeter Cloud — Secure Before & After Deployment</title>
     <meta name="description"
-        content="Detect misconfiguration, exposed secrets, and real attack paths across every AWS account, region, and service." />
+        content="Two products. Complete lifecycle. Perimeter for runtime security. InfraPilot for preflight intelligence." />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,6 +26,7 @@
                         'cyan-dim': '#06b6d4',
                         amber: '#f59e0b',
                         red: '#ef4444',
+                        purple: '#8b5cf6',
                         'text-primary': '#e2e8f0',
                         'text-muted': '#64748b',
                     },
@@ -47,227 +48,25 @@
         }
     </script>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0a0f1a;
-            color: #e2e8f0;
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .font-mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
+        * { box-sizing: border-box; }
+        body { background: #0a0f1a; color: #e2e8f0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
         .bg-grid {
-            background-image:
-                linear-gradient(rgba(30, 42, 66, 0.35) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(30, 42, 66, 0.35) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(30, 42, 66, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 42, 66, 0.35) 1px, transparent 1px);
             background-size: 60px 60px;
         }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #06d6d6, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .glow {
-            box-shadow: 0 0 40px -10px rgba(6, 214, 214, 0.35);
-        }
-
-        .card-gradient {
-            background: linear-gradient(145deg, #0f1525, #0b1020);
-        }
-
-        .fade-target {
-            opacity: 0;
-        }
-
-        .fade-target.visible {
-            animation: fade-up 0.7s ease-out forwards;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        .text-gradient { background: linear-gradient(135deg, #06d6d6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-gradient-purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glow { box-shadow: 0 0 40px -10px rgba(6, 214, 214, 0.35); }
+        .glow-purple { box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.35); }
+        .card-gradient { background: linear-gradient(145deg, #0f1525, #0b1020); }
+        .fade-target { opacity: 0; }
+        .fade-target.visible { animation: fade-up 0.7s ease-out forwards; }
+        html { scroll-behavior: smooth; }
+        .product-tab { transition: all 0.3s ease; }
+        .product-tab.active-perimeter { border-color: #06d6d6; background: rgba(6, 214, 214, 0.08); }
+        .product-tab.active-infrapilot { border-color: #8b5cf6; background: rgba(139, 92, 246, 0.08); }
     </style>
-
-    <style>
-        @font-face {
-            font-family: 'CameraPlainVariable';
-            src: url('https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2') format('woff2');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        #lovable-badge {
-            --badge-bg: #1b1b1b;
-            --badge-text: #c5c1b9;
-            --badge-text-hover: #dcdad5;
-            --badge-radius: 6px;
-            --badge-padding: 8px;
-            --badge-gap: 6px;
-            --badge-shadow:
-                0 0 0 1px rgba(0, 0, 0, 0.88),
-                0 1px 0 0 rgba(0, 0, 0, 0.04),
-                0 2px 2px -1px rgba(0, 0, 0, 0.08),
-                0 4px 4px -2px rgba(0, 0, 0, 0.08),
-                0 8px 8px -4px rgba(0, 0, 0, 0.08),
-                0 16px 16px -8px rgba(0, 0, 0, 0.08);
-            --badge-transition-duration: 0.2s;
-            --badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
-            --focus-color: #575ECF;
-            --focus-offset: 2px;
-            --focus-width: 2px;
-
-            position: fixed;
-            bottom: 12px;
-            right: 12px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            z-index: 1000000;
-            background-color: var(--badge-bg);
-            color: var(--badge-text);
-            border-radius: var(--badge-radius);
-            box-shadow: var(--badge-shadow);
-            font-size: 12px;
-            font-family: CameraPlainVariable, "CameraPlainVariable Fallback", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-weight: 400 !important;
-            text-transform: none !important;
-            font-feature-settings: normal !important;
-            transform: translateZ(0);
-            will-change: transform, opacity;
-        }
-
-        #lovable-badge-cta {
-            display: flex;
-            align-items: center;
-            gap: var(--badge-gap);
-            padding: 0 var(--badge-padding);
-            height: 100%;
-            color: inherit;
-            text-decoration: none;
-            white-space: nowrap;
-            border-radius: var(--badge-radius) 0 0 var(--badge-radius);
-            transition:
-                background-color var(--badge-transition-duration) ease,
-                color var(--badge-transition-duration) ease,
-                transform 0.1s ease;
-        }
-
-        #lovable-badge-cta:hover {
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--badge-text-hover);
-        }
-
-        #lovable-badge-cta:active {
-            transform: scale(0.98);
-        }
-
-        #lovable-badge-cta:focus {
-            outline: none;
-        }
-
-        #lovable-badge-cta:focus-visible {
-            outline: var(--focus-width) solid var(--focus-color);
-            outline-offset: var(--focus-offset);
-            z-index: 1;
-        }
-
-        #lovable-badge-text {
-            line-height: 1;
-        }
-
-        #lovable-badge-divider {
-            width: 1px;
-            height: 24px;
-            background-color: rgba(255, 255, 255, 0.04);
-            flex-shrink: 0;
-        }
-
-        #lovable-badge-close {
-            width: 24px;
-            height: 24px;
-            min-width: 24px;
-            min-height: 24px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0 var(--badge-radius) var(--badge-radius) 0;
-            flex-shrink: 0;
-            transition:
-                background-color var(--badge-transition-duration) ease,
-                transform 0.1s ease;
-        }
-
-        #lovable-badge-close:hover {
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        #lovable-badge-close:active {
-            transform: scale(0.92);
-        }
-
-        #lovable-badge-close:focus {
-            outline: none;
-        }
-
-        #lovable-badge-close:focus-visible {
-            outline: var(--focus-width) solid var(--focus-color);
-            outline-offset: calc(var(--focus-offset) * -1);
-            z-index: 1;
-        }
-
-        #lovable-badge-close svg path {
-            fill: var(--badge-text);
-            transition: fill var(--badge-transition-duration) ease;
-        }
-
-        #lovable-badge-close:hover svg path {
-            fill: var(--badge-text-hover);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            #lovable-badge-cta,
-            #lovable-badge-close,
-            #lovable-badge-close svg path {
-                transition: none;
-            }
-
-            #lovable-badge-cta:active,
-            #lovable-badge-close:active {
-                transform: none;
-            }
-        }
-
-        @media (prefers-contrast: high) {
-            #lovable-badge {
-                --badge-bg: #000;
-                --badge-text: #fff;
-                --badge-text-hover: #fff;
-                border: 2px solid currentColor;
-            }
-
-            #lovable-badge-cta:focus-visible,
-            #lovable-badge-close:focus-visible {
-                outline-width: 3px;
-            }
-        }
-    </style>
-    <meta name="twitter:image"
-        content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b7f31969-b2fd-487c-b3d4-8c0f7ef99170/id-preview-1f9155c4--92bdd05f-e52f-4dcb-9230-0b982fed6af8.lovable.app-1771165367182.png" />
 </head>
 
 <body>
@@ -275,18 +74,22 @@
     <!-- NAV -->
     <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-bg/80 backdrop-blur-xl">
         <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-            <a href="#" class=" mt-1 items-center gap-2.5">
-                <img src="logonew.png" alt="Perimeter" class="max-w-xl h-16" />
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-cyan/20 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                </div>
+                <span class="text-lg font-bold">Perimeter Cloud</span>
             </a>
             <div class="hidden md:flex items-center gap-8">
-                <a href="#features"
-                    class="text-sm text-text-muted hover:text-text-primary transition-colors">Features</a>
-                <a href="#use-cases" class="text-sm text-text-muted hover:text-text-primary transition-colors">Use
-                    Cases</a>
-                <a href="#plans" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
-                <a href="#get-started"
-                    class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get
-                    Started</a>
+                <a href="#products" class="text-sm text-text-muted hover:text-text-primary transition-colors">Products</a>
+                <a href="#perimeter" class="text-sm text-text-muted hover:text-text-primary transition-colors">Perimeter</a>
+                <a href="#foresight" class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
+                <a href="#infrapilot" class="text-sm text-text-muted hover:text-text-primary transition-colors">InfraPilot</a>
+                <a href="#integrations" class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
+                <a href="#pricing" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
+                <a href="#get-started" class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get Started</a>
             </div>
         </div>
     </nav>
@@ -295,843 +98,772 @@
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-grid opacity-40"></div>
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan/[0.08] rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-purple/5 rounded-full blur-3xl"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
-            <!-- Badge -->
-            <div
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface-alt/50 mb-8 animate-fade-up">
-                <span class="text-sm font-medium text-text-muted">Cloud Security Posture Scanner</span>
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface-alt/50 mb-8 animate-fade-up">
+                <span class="w-2 h-2 rounded-full bg-cyan"></span>
+                <span class="text-sm font-medium text-text-muted">Perimeter</span>
+                <span class="text-text-muted/30">+</span>
+                <span class="w-2 h-2 rounded-full bg-purple"></span>
+                <span class="text-sm font-medium text-text-muted">InfraPilot</span>
             </div>
 
             <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-up" style="animation-delay:.1s">
-                Secure your <span class="text-gradient">cloud perimeter</span> at scale
+                Secure your cloud<br><span class="text-gradient">before</span> and <span class="text-gradient">after</span> deploy
             </h1>
 
-            <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up"
-                style="animation-delay:.2s">
-                Detect misconfiguration, exposed secrets, and real attack paths across every account, region, and
-                service — with clear, actionable output.
+            <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up" style="animation-delay:.2s">
+                Two products. One platform. InfraPilot validates what you\u2019re planning. Perimeter monitors what\u2019s running. Together, complete lifecycle coverage.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up"
-                style="animation-delay:.3s">
-                <a href="#features"
-                    class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
-                    Explore Capabilities
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style="animation-delay:.3s">
+                <a href="#perimeter" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
+                    Explore Perimeter
                 </a>
-                <a href="#dashboard"
-                    class="inline-flex items-center gap-2 px-8 py-4 rounded-lg border border-border bg-surface-alt/50 font-semibold text-lg hover:bg-surface-alt transition-colors">
-                    <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <a href="#infrapilot" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-lg glow-purple hover:opacity-90 transition-opacity">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
-                    View Dashboard
+                    Explore InfraPilot
                 </a>
-            </div>
-
-            <!-- Dashboard Mockup -->
-            <div id="dashboard" class="mt-16 animate-fade-up" style="animation-delay:.45s">
-                <div
-                    class="relative mx-auto max-w-5xl rounded-xl border border-border bg-surface overflow-hidden shadow-2xl">
-                    <div class="flex items-center gap-2 px-4 py-3 border-b border-border bg-surface-alt/30">
-                        <div class="flex gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red/60"></div>
-                            <div class="w-3 h-3 rounded-full bg-amber/60"></div>
-                            <div class="w-3 h-3 rounded-full bg-cyan/40"></div>
-                        </div>
-                        <div
-                            class="mx-auto bg-surface-alt/50 px-3 py-1 rounded text-xs font-medium text-text-muted flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                            app.perimeter.security
-                        </div>
-                    </div>
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-12 gap-6 text-left">
-                        <!-- Mobile Menu Toggle (Visible only on small screens) -->
-                        <div class="md:hidden mb-4 flex items-center justify-between border-b border-border pb-2">
-                            <div class="flex items-center gap-2 text-cyan font-bold">
-                                <div class="w-6 h-6 rounded bg-cyan/20 flex items-center justify-center">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                </div>
-                                Dashboard
-                            </div>
-                            <svg class="w-6 h-6 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h16m-7 6h7" />
-                            </svg>
-                        </div>
-                        <!-- Sidebar (Hidden on mobile for mock simplicity, visible on desktop) -->
-                        <div class="hidden md:block md:col-span-3 space-y-2 border-r border-border pr-2">
-                            <div class="px-3 py-1 text-xs font-semibold text-text-muted uppercase tracking-wider">
-                                Platform
-                            </div>
-                            <!-- Dashboard (Active) -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan/10 text-cyan cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                </svg>
-                                <span class="font-medium">Dashboard</span>
-                            </div>
-                            <!-- Findings -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Findings</span>
-                            </div>
-                            <!-- Assets -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                </svg>
-                                <span>Assets</span>
-                            </div>
-                            <!-- Attack Paths -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                </svg>
-                                <span>Attack Paths</span>
-                            </div>
-                            <!-- Cost -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Cost</span>
-                            </div>
-                            <!-- Compliance -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                </svg>
-                                <span>Compliance</span>
-                            </div>
-                            <!-- Intelligence -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                </svg>
-                                <span>Intelligence</span>
-                            </div>
-                            <!-- Accounts -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                <span>Accounts</span>
-                            </div>
-                            <!-- Integrations -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                                </svg>
-                                <span>Integrations</span>
-                            </div>
-                            <!-- Reports -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                                <span>Reports</span>
-                            </div>
-                            <!-- Settings -->
-                            <div
-                                class="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-alt/30 cursor-pointer transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                </svg>
-                                <span>Settings</span>
-                            </div>
-                        </div>
-                        <!-- Main Content -->
-                        <div class="col-span-1 md:col-span-9">
-                            <div class="grid grid-cols-3 gap-4 mb-6">
-                                <div class="p-4 rounded-lg bg-surface-alt/30 border border-border">
-                                    <div class="text-sm text-text-muted mb-1">Security Score</div>
-                                    <div class="text-2xl font-bold text-cyan">A+</div>
-                                </div>
-                                <div class="p-4 rounded-lg bg-surface-alt/30 border border-border">
-                                    <div class="text-sm text-text-muted mb-1">Critical Issues</div>
-                                    <div class="text-2xl font-bold text-red">0</div>
-                                </div>
-                                <div class="p-4 rounded-lg bg-surface-alt/30 border border-border">
-                                    <div class="text-sm text-text-muted mb-1">Monitored Assets</div>
-                                    <div class="text-2xl font-bold text-text-primary">1,248</div>
-                                </div>
-                            </div>
-                            <div class="space-y-3">
-                                <div
-                                    class="p-3 rounded border border-border/50 bg-surface-alt/20 flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
-                                        <span class="text-sm">Production-US-East-1</span>
-                                    </div>
-                                    <span class="text-xs text-text-muted">Last scan: 2m ago</span>
-                                </div>
-                                <div
-                                    class="p-3 rounded border border-border/50 bg-surface-alt/20 flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
-                                        <span class="text-sm">Staging-EU-West-1</span>
-                                    </div>
-                                    <span class="text-xs text-text-muted">Last scan: 5m ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- FEATURES -->
-    <section id="features" class="py-32">
+    <!-- TWO PRODUCTS -->
+    <section id="products" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-20 fade-target">
-                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Capabilities</p>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Complete Cloud Security Platform</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">From identity to network to secrets — Perimeter
-                    provides continuous visibility and protection.</p>
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Two Products, One Platform</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Complete cloud lifecycle security</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Each product works standalone. Together, they create compound intelligence no competitor can match.</p>
             </div>
 
-            <!-- Cloud Support Status -->
-            <div class="flex flex-wrap justify-center gap-6 mb-12 fade-target">
-                <!-- AWS -->
-                <div class="flex items-center gap-3 px-6 py-3 rounded-xl border border-cyan/30 bg-cyan/10">
-                    <svg class="w-6 h-6 text-cyan" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M17.295 12.08c-.687-.361-1.396-.653-2.112-.876l-.427 1.408c.613.197 1.22.451 1.808.76l.731-1.292zm-3.805-1.55c-1.353-.298-2.738-.298-4.09 0l.307 1.44c1.155-.255 2.34-.255 3.477 0l.306-1.44zm-4.305 1.096c-.718.223-1.428.514-2.116.873l.728 1.293c.588-.307 1.194-.559 1.808-.755l-.42-1.411zm-1.87 2.073c-.563.486-1.092 1.054-1.572 1.691l1.19 1.002c.412-.544.864-1.026 1.346-1.44l-.964-1.253zm8.283 1.253c.48.413.933.896 1.345 1.44l1.196-1.003c-.482-.638-1.012-1.205-1.577-1.691l-.964 1.254zm-6.22 3.444c1.17 1.047 2.76 1.564 4.312 1.564 1.55 0 3.14-.517 4.31-1.564l-1.006-1.33c-.886.79-2.074 1.182-3.303 1.182-1.23 0-2.418-.391-3.308-1.182l-1.005 1.33z" />
-                    </svg>
-                    <div>
-                        <div class="font-bold text-sm">AWS</div>
-                        <div class="text-xs text-cyan font-medium">Active Support</div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Perimeter Card -->
+                <div class="group rounded-2xl border border-border hover:border-cyan/40 card-gradient p-8 transition-all duration-300 fade-target">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center group-hover:bg-cyan/20 transition-colors">
+                            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Perimeter</h3>
+                            <p class="text-cyan text-sm font-medium">Runtime Security Platform</p>
+                        </div>
                     </div>
+                    <p class="text-text-muted mb-6 leading-relaxed">Continuous AWS security posture management. 476 scanner rules across 60+ services, real-time drift detection, CIEM, insider threat, compliance mapping, and AI Security Chat.</p>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient">476</div>
+                            <div class="text-xs text-text-muted">Scanner rules</div>
+                        </div>
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient">60+</div>
+                            <div class="text-xs text-text-muted">AWS services</div>
+                        </div>
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient">19</div>
+                            <div class="text-xs text-text-muted">Compliance frameworks</div>
+                        </div>
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient">30s</div>
+                            <div class="text-xs text-text-muted">Drift detection</div>
+                        </div>
+                    </div>
+                    <a href="#perimeter" class="inline-flex items-center gap-2 text-cyan text-sm font-semibold hover:opacity-80 transition-opacity">
+                        Learn more
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    </a>
                 </div>
-                <!-- Azure -->
-                <div
-                    class="flex items-center gap-3 px-6 py-3 rounded-xl border border-border bg-surface-alt/30 opacity-60">
-                    <svg class="w-6 h-6 text-text-muted" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12.01 1.5c-4.14 0-7.79 2.52-9.45 6.15L2 7.5l.79 1.73c1.78-3.34 5.26-5.63 9.22-5.63s7.44 2.29 9.22 5.63l.79-1.73-.56-.15c-1.66-3.63-5.31-6.15-9.45-6.15zM2 13l2 4h16l2-4H2zm3.5 1h13l-1 2H5.5l-1-2z" />
-                    </svg>
-                    <div>
-                        <div class="font-bold text-sm text-text-muted">Azure</div>
-                        <div class="text-xs text-text-muted">Coming Soon</div>
+
+                <!-- InfraPilot Card -->
+                <div class="group rounded-2xl border border-border hover:border-purple/40 card-gradient p-8 transition-all duration-300 fade-target">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-purple/10 flex items-center justify-center group-hover:bg-purple/20 transition-colors">
+                            <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">InfraPilot AI</h3>
+                            <p class="text-purple text-sm font-medium">Architecture Intelligence Platform</p>
+                        </div>
                     </div>
-                </div>
-                <!-- GCP -->
-                <div
-                    class="flex items-center gap-3 px-6 py-3 rounded-xl border border-border bg-surface-alt/30 opacity-60">
-                    <svg class="w-6 h-6 text-text-muted" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                    </svg>
-                    <div>
-                        <div class="font-bold text-sm text-text-muted">GCP</div>
-                        <div class="text-xs text-text-muted">Coming Soon</div>
+                    <p class="text-text-muted mb-6 leading-relaxed">Cloud Preflight Engine. Describe infrastructure in natural language, get cost prediction, readiness scoring, risk detection, and guided architecture coaching \u2014 all before deployment.</p>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient-purple">130+</div>
+                            <div class="text-xs text-text-muted">IaC rules</div>
+                        </div>
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient-purple">5</div>
+                            <div class="text-xs text-text-muted">Readiness dimensions</div>
+                        </div>
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient-purple">30</div>
+                            <div class="text-xs text-text-muted">Arch diagram rules</div>
+                        </div>
+                        <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
+                            <div class="text-xl font-bold text-gradient-purple">$0</div>
+                            <div class="text-xs text-text-muted">No AWS acct needed</div>
+                        </div>
                     </div>
+                    <a href="#infrapilot" class="inline-flex items-center gap-2 text-purple text-sm font-semibold hover:opacity-80 transition-opacity">
+                        Learn more
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    </a>
                 </div>
             </div>
 
-            <!--          Domain pills 
-            <div class="flex flex-wrap justify-center gap-3 mb-16 fade-target">
-                <span
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    IAM
-                </span>
-                <span
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                    </svg>
-                    S3
-                </span>
-                <span
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    VPC
-                </span>
-                <span
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    CloudTrail
-                </span>
-                <span
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                    ECS/EKS
-                </span>
-                <span
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-surface-alt/40 text-sm font-medium hover:border-cyan/40 transition-colors">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                    AI/ML
-                </span>
-            </div>
- -->
-            <!-- Cards -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div
-                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div
-                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+            <!-- Lifecycle Flow -->
+            <div class="mt-16 rounded-2xl border border-border card-gradient p-8 fade-target">
+                <p class="text-center text-sm font-mono text-text-muted tracking-widest uppercase mb-8">The Lifecycle</p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
+                    <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-purple/10 border border-purple/30">
+                        <div class="w-8 h-8 rounded-lg bg-purple/20 flex items-center justify-center">
+                            <span class="text-purple font-bold text-sm">1</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Design</div>
+                            <div class="text-xs text-text-muted">InfraPilot InfraCoach</div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Security Detection</h3>
-                    <p class="text-text-muted leading-relaxed">VPC, IAM, S3, CloudTrail, GuardDuty, ELB, KMS, and more —
-                        deep checks across every AWS surface.</p>
-                </div>
-                <div
-                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div
-                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                        </svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block rotate-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-purple/10 border border-purple/30">
+                        <div class="w-8 h-8 rounded-lg bg-purple/20 flex items-center justify-center">
+                            <span class="text-purple font-bold text-sm">2</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Review Code</div>
+                            <div class="text-xs text-text-muted">InfraPilot IaC Scan</div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Deep Secrets Detection</h3>
-                    <p class="text-text-muted leading-relaxed">Scan Lambda env vars, deployment packages, EC2 user data,
-                        public S3 objects, and ECR image layers.</p>
-                </div>
-                <div
-                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div
-                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-purple/10 border border-purple/30">
+                        <div class="w-8 h-8 rounded-lg bg-purple/20 flex items-center justify-center">
+                            <span class="text-purple font-bold text-sm">3</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Gate Deploy</div>
+                            <div class="text-xs text-text-muted">InfraPilot CI/CD</div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Real-Time Drift Detection</h3>
-                    <p class="text-text-muted leading-relaxed">EventBridge API Destinations push CloudTrail events
-                        within 30–90 seconds. No Lambda needed.</p>
-                </div>
-                <div
-                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div
-                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                        </svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-cyan/10 border border-cyan/30">
+                        <div class="w-8 h-8 rounded-lg bg-cyan/20 flex items-center justify-center">
+                            <span class="text-cyan font-bold text-sm">4</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Monitor</div>
+                            <div class="text-xs text-text-muted">Perimeter Runtime</div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">IaC & Dockerfile Analysis</h3>
-                    <p class="text-text-muted leading-relaxed">Shift-left by scanning Terraform, CloudFormation, Pulumi,
-                        and Dockerfiles before deployment.</p>
-                </div>
-                <div
-                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div
-                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-amber/10 border border-amber/30">
+                        <div class="w-8 h-8 rounded-lg bg-amber/20 flex items-center justify-center">
+                            <span class="text-amber font-bold text-sm">5</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Predict</div>
+                            <div class="text-xs text-text-muted">Foresight Module</div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Reporting & Export</h3>
-                    <p class="text-text-muted leading-relaxed">Rich interactive dashboards, exportable PDF reports for
-                        executives, and rigorous compliance mapping.</p>
-                </div>
-                <div
-                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div
-                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">AI Security Chat</h3>
-                    <p class="text-text-muted leading-relaxed">Claude-powered assistant with full awareness of your
-                        actual findings, accounts, and compliance state.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- USE CASES -->
-    <section id="use-cases" class="py-32">
+    <!-- PERIMETER SECTION -->
+    <section id="perimeter" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-start">
-                <!-- Left -->
-                <div class="fade-target">
-                    <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Use Cases</p>
-                    <h2 class="text-4xl font-bold tracking-tight mb-10">Built for real security workflows</h2>
-                    <div class="space-y-6">
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
-                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1">Real-Time Posture Monitoring</h3>
-                                <p class="text-text-muted leading-relaxed">Catch drift within 30-90 seconds using
-                                    EventBridge, and run nightly CVE and GuardDuty correlations to stay ahead of
-                                    threats.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
-                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1">Shift-Left IaC Review</h3>
-                                <p class="text-text-muted leading-relaxed">Analyze Terraform, CloudFormation, Pulumi,
-                                    and Dockerfiles before deployment. Catch hardcoded secrets and risky configurations
-                                    in your pipelines.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
-                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1">Insider Threat & AI Detection</h3>
-                                <p class="text-text-muted leading-relaxed">Detect geo-location anomalies, mass secret
-                                    reads, LLMjacking, and lateral movement using advanced CloudTrail behavioral
-                                    analysis.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0 mt-1">
-                                <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1">Compliance & Audit Readiness</h3>
-                                <p class="text-text-muted leading-relaxed">Instantly map findings to 13+ frameworks
-                                    across CIS, PCI-DSS, SOC 2, HIPAA, ISO 27001, and MITRE ATT&CK for rapid evidence
-                                    generation.</p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="text-center mb-16 fade-target">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan/30 bg-cyan/10 mb-6">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <span class="text-sm font-semibold text-cyan">Perimeter</span>
                 </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Runtime Security at <span class="text-gradient">AWS Depth</span></h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Continuous posture management with 476 rules, real-time drift, CIEM, insider threat detection, and 19 compliance frameworks.</p>
+            </div>
 
-                <!-- Right -->
-                <div class="space-y-8 fade-target">
-                    <div class="rounded-xl border border-border card-gradient p-8">
-                        <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-6">Who It Helps
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">Cloud Security
-                                    Engineers</span>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">476 Security Rules</h3>
+                    <p class="text-text-muted leading-relaxed">Deep checks across 60+ AWS services \u2014 VPC, IAM, S3, ECS, EKS, Lambda, RDS, and rare services competitors miss.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Real-Time Drift</h3>
+                    <p class="text-text-muted leading-relaxed">EventBridge API Destinations push CloudTrail events within 30\u201390 seconds. 31 monitored actions. No Lambda needed.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">CIEM & Insider Threat</h3>
+                    <p class="text-text-muted leading-relaxed">8 entitlement rules + 6 behavioral CloudTrail rules. Detect over-permissioned roles, mass secret reads, and geo anomalies.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Secrets & LLMjacking</h3>
+                    <p class="text-text-muted leading-relaxed">Scan 5 secret sources + 15 AI/ML threat rules. Detect GPU abuse, Bedrock misconfig, and lateral movement chains.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">19 Compliance Frameworks</h3>
+                    <p class="text-text-muted leading-relaxed">CIS, PCI-DSS, SOC 2, HIPAA, ISO 27001, NIST, MITRE ATT&CK, FedRAMP, GDPR, and more. PDF evidence packs.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">AI Security Chat</h3>
+                    <p class="text-text-muted leading-relaxed">Claude-powered assistant aware of your actual findings, accounts, and compliance state. Not generic advice.</p>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center fade-target">
+                <a href="#pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-cyan text-bg font-semibold glow hover:opacity-90 transition-opacity">
+                    Perimeter from $499/mo
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                </a>
+            </div>
+
+            <!-- FORESIGHT ADD-ON MODULE -->
+            <div id="foresight" class="mt-24 fade-target">
+                <div class="rounded-2xl border border-amber/20 bg-gradient-to-br from-surface via-surface-alt/50 to-surface overflow-hidden">
+                    <!-- Header -->
+                    <div class="p-8 border-b border-border/50 bg-amber/[0.03]">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-xl bg-amber/10 border border-amber/30 flex items-center justify-center">
+                                    <svg class="w-7 h-7 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3">
+                                        <h3 class="text-2xl font-bold">FORESIGHT</h3>
+                                        <span class="px-2.5 py-1 rounded-full bg-amber/10 border border-amber/30 text-amber text-xs font-bold">ADD-ON MODULE</span>
+                                    </div>
+                                    <p class="text-text-muted text-sm mt-1">Predictive Security & Operations Agent for Perimeter</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">Platform & SRE
-                                    Teams</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">DevSecOps
-                                    Engineers</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-cyan"></div><span class="font-medium">Security
-                                    Leadership</span>
+                            <div class="text-right">
+                                <div class="text-xs text-text-muted">Available with Perimeter Growth+</div>
+                                <div class="text-sm text-amber font-semibold mt-1">Predict what will go wrong — before it does</div>
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">600+</div>
-                            <div class="text-sm text-text-muted">Security rules</div>
+
+                    <!-- Value Prop -->
+                    <div class="p-8 border-b border-border/50">
+                        <p class="text-text-muted leading-relaxed mb-6">
+                            FORESIGHT is a SENTINEL sub-agent that shifts Perimeter from reactive detection to proactive forecasting. While existing tools answer "what is wrong now?", FORESIGHT answers "<span class="text-text-primary font-semibold">what will go wrong next, and when?</span>" — by analyzing CloudTrail patterns, CloudWatch metrics, IAM policy evolution, and configuration drift history to forecast security issues 24–72 hours before they materialize.
+                        </p>
+                        <!-- Before/After comparison -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="rounded-xl bg-surface-alt/40 border border-border p-5">
+                                <div class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">Without FORESIGHT (Reactive)</div>
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-2 text-sm text-text-muted">
+                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                        Detect misconfiguration <span class="text-red font-medium">after</span> it occurs
+                                    </div>
+                                    <div class="flex items-start gap-2 text-sm text-text-muted">
+                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                        Alert on Lambda timeout <span class="text-red font-medium">after</span> invocation fails
+                                    </div>
+                                    <div class="flex items-start gap-2 text-sm text-text-muted">
+                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                        Report cost anomaly <span class="text-red font-medium">after</span> billing cycle
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rounded-xl bg-amber/[0.04] border border-amber/20 p-5">
+                                <div class="text-xs font-semibold text-amber uppercase tracking-wider mb-4">With FORESIGHT (Predictive)</div>
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-2 text-sm text-text-muted">
+                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        Predict misconfiguration <span class="text-amber font-medium">24–72 hours before</span>
+                                    </div>
+                                    <div class="flex items-start gap-2 text-sm text-text-muted">
+                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        Forecast timeout risk <span class="text-amber font-medium">15 days ahead</span>
+                                    </div>
+                                    <div class="flex items-start gap-2 text-sm text-text-muted">
+                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        Forecast cost spike <span class="text-amber font-medium">3–5 days before</span> it hits
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">60+</div>
-                            <div class="text-sm text-text-muted">AWS services</div>
+                    </div>
+
+                    <!-- 6 Prediction Domains -->
+                    <div class="p-8 border-b border-border/50">
+                        <h4 class="font-bold text-lg mb-6">Six Prediction Domains</h4>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    </div>
+                                    <h5 class="font-semibold text-sm">Security Drift Forecasting</h5>
+                                </div>
+                                <p class="text-xs text-text-muted">Predict when teams will create misconfigurations based on sprint-cycle behavioral patterns.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                    </div>
+                                    <h5 class="font-semibold text-sm">Lambda Timeout Prediction</h5>
+                                </div>
+                                <p class="text-xs text-text-muted">Forecast timeout failures and memory exhaustion using P99 duration trend analysis.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                                    </div>
+                                    <h5 class="font-semibold text-sm">EKS Capacity Forecasting</h5>
+                                </div>
+                                <p class="text-xs text-text-muted">Predict cluster capacity exhaustion and pod scheduling failures 1–2 weeks ahead.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                                    </div>
+                                    <h5 class="font-semibold text-sm">IAM Permission Creep</h5>
+                                </div>
+                                <p class="text-xs text-text-muted">Track IAM policy velocity to predict admin-equivalent permissions within 6 weeks.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    </div>
+                                    <h5 class="font-semibold text-sm">Cost Anomaly Forecasting</h5>
+                                </div>
+                                <p class="text-xs text-text-muted">Predict cost spikes and budget overruns 3–5 days before they hit your billing cycle.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    </div>
+                                    <h5 class="font-semibold text-sm">Drift Window Prediction</h5>
+                                </div>
+                                <p class="text-xs text-text-muted">Identify when manual infra changes will occur based on on-call rotation and team behavior.</p>
+                            </div>
                         </div>
-                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">11</div>
-                            <div class="text-sm text-text-muted">Detection domains</div>
+                    </div>
+
+                    <!-- ML Models + Pre-staged Remediation -->
+                    <div class="p-8 border-b border-border/50">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-bold text-sm mb-4">ML Model Stack</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <span class="w-2 h-2 rounded-full bg-amber"></span>
+                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Meta Prophet</span> — seasonality-aware time-series forecasting</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <span class="w-2 h-2 rounded-full bg-amber"></span>
+                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Isolation Forest</span> — anomaly detection on IAM velocity</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <span class="w-2 h-2 rounded-full bg-amber"></span>
+                                        <span class="text-text-muted"><span class="text-text-primary font-medium">LSTM</span> — multi-variate prediction (CPU + memory + network)</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <span class="w-2 h-2 rounded-full bg-amber"></span>
+                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Claude Haiku</span> — narrative generation & root cause hypothesis</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm mb-4">Pre-Staged Remediation</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        <span class="text-text-muted">SG drift → time-scoped rule that auto-expires</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        <span class="text-text-muted">Lambda timeout → CloudFormation changeset ready</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        <span class="text-text-muted">IAM creep → least-privilege policy PR generated</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm">
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        <span class="text-text-muted">Drift window → Terraform plan/apply before window</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="rounded-xl border border-border card-gradient p-6 text-center">
-                            <div class="text-3xl font-bold text-gradient mb-1">13</div>
-                            <div class="text-sm text-text-muted">Compliance frameworks</div>
+                    </div>
+
+                    <!-- Accuracy Targets + EventBridge -->
+                    <div class="p-8">
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="text-center p-4 rounded-lg bg-surface-alt/30 border border-border/50">
+                                <div class="text-2xl font-bold text-amber mb-1">≥0.74</div>
+                                <div class="text-xs text-text-muted">Target F1 score across all 6 domains</div>
+                            </div>
+                            <div class="text-center p-4 rounded-lg bg-surface-alt/30 border border-border/50">
+                                <div class="text-2xl font-bold text-amber mb-1">&lt;60s</div>
+                                <div class="text-xs text-text-muted">Feedback loop latency via EventBridge</div>
+                            </div>
+                            <div class="text-center p-4 rounded-lg bg-surface-alt/30 border border-border/50">
+                                <div class="text-2xl font-bold text-amber mb-1">≥30%</div>
+                                <div class="text-xs text-text-muted">Pre-remediation rate target (Critical/High)</div>
+                            </div>
                         </div>
+                        <p class="text-center text-text-muted text-sm mt-6">
+                            FORESIGHT is available as an add-on to Perimeter Growth and above. Predicted findings appear in your existing dashboard with a <span class="text-amber">⬡</span> badge.
+                        </p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- INFRAPILOT SECTION -->
+    <section id="infrapilot" class="py-32 relative">
+        <div class="absolute inset-0 bg-grid opacity-20"></div>
+        <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple/[0.04] rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-target">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple/30 bg-purple/10 mb-6">
+                    <svg class="w-4 h-4 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                    <span class="text-sm font-semibold text-purple">InfraPilot AI</span>
+                    <span class="px-2 py-0.5 rounded-full bg-purple/20 text-purple text-xs font-bold ml-1">NEW</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Validate <span class="text-gradient-purple">before</span> you provision</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Describe infrastructure in natural language. Get cost prediction, readiness scoring, and guided architecture coaching. No AWS account needed.</p>
+            </div>
+
+            <!-- InfraCoach Flow -->
+            <div class="rounded-2xl border border-purple/20 card-gradient p-8 mb-12 fade-target">
+                <h3 class="text-xl font-bold mb-6 text-center">InfraCoach: Your AI Cloud Architect</h3>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-purple font-bold text-lg">1</span>
+                        </div>
+                        <h4 class="font-semibold mb-1">Describe</h4>
+                        <p class="text-xs text-text-muted">\u201CDeploy a Node.js app with PostgreSQL on AWS\u201D</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-purple font-bold text-lg">2</span>
+                        </div>
+                        <h4 class="font-semibold mb-1">Analyze</h4>
+                        <p class="text-xs text-text-muted">Detect gaps in region, scaling, security, backup</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-purple font-bold text-lg">3</span>
+                        </div>
+                        <h4 class="font-semibold mb-1">Coach</h4>
+                        <p class="text-xs text-text-muted">One-click fixes for security, scale, reliability</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-purple font-bold text-lg">4</span>
+                        </div>
+                        <h4 class="font-semibold mb-1">Evaluate</h4>
+                        <p class="text-xs text-text-muted">Cost estimate, readiness score, risk report</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- InfraPilot Features -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cost Prediction</h3>
+                    <p class="text-text-muted leading-relaxed">Baseline, peak, and hidden costs (NAT Gateway, data transfer, logging) with \u00B125% accuracy and confidence scoring.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Readiness Scoring</h3>
+                    <p class="text-text-muted leading-relaxed">0\u2013100 composite score across security, scalability, reliability, observability, and cost efficiency.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">IaC & Arch Scanning</h3>
+                    <p class="text-text-muted leading-relaxed">130+ Terraform, CloudFormation, Dockerfile rules + 30 architecture diagram rules. Shared engine with Perimeter.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">What-If Simulation</h3>
+                    <p class="text-text-muted leading-relaxed">Simulate 5\u00D7 traffic spikes and AZ failures. See concrete cost, latency, and recovery time impact.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">CI/CD Integration</h3>
+                    <p class="text-text-muted leading-relaxed">GitHub Actions, GitLab CI, Bitbucket. PR scanning, policy gates, diff-aware analysis. Block merge on critical findings.</p>
+                </div>
+                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Auto-Fix Recs</h3>
+                    <p class="text-text-muted leading-relaxed">Every risk paired with prioritized, actionable recommendations ranked by impact-to-effort ratio with cost impact.</p>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center fade-target">
+                <a href="#pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-purple text-white font-semibold glow-purple hover:opacity-90 transition-opacity">
+                    InfraPilot from $49/mo
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section id="integrations" class="py-32">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-target">
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Integrations</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Fits into your workflow</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Both products integrate with the tools your team already uses.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 fade-target">
+                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                    <div class="text-2xl mb-2">\uD83D\uDCCB</div>
+                    <div class="font-semibold text-sm">Jira</div>
+                    <div class="text-xs text-text-muted">Tickets</div>
+                </div>
+                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                    <div class="text-2xl mb-2">\uD83D\uDCAC</div>
+                    <div class="font-semibold text-sm">Slack</div>
+                    <div class="text-xs text-text-muted">Alerts</div>
+                </div>
+                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                    <div class="text-2xl mb-2">\uD83D\uDEA8</div>
+                    <div class="font-semibold text-sm">PagerDuty</div>
+                    <div class="text-xs text-text-muted">On-call</div>
+                </div>
+                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                    <div class="text-2xl mb-2">\uD83D\uDD12</div>
+                    <div class="font-semibold text-sm">Okta SSO</div>
+                    <div class="text-xs text-text-muted">Identity</div>
+                </div>
+                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                    <div class="text-2xl mb-2">\uD83D\uDCCA</div>
+                    <div class="font-semibold text-sm">Splunk</div>
+                    <div class="text-xs text-text-muted">SIEM</div>
+                </div>
+                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                    <div class="text-2xl mb-2">\u2699\uFE0F</div>
+                    <div class="font-semibold text-sm">Webhooks</div>
+                    <div class="text-xs text-text-muted">Custom</div>
+                </div>
+            </div>
+            <p class="text-center text-text-muted text-sm mt-6 fade-target">Plus: Linear, Asana, OpsGenie, ServiceNow, Microsoft Teams, Datadog, GitHub Actions, GitLab CI, Azure AD, and SAML 2.0.</p>
         </div>
     </section>
 
     <!-- PRICING -->
-    <section id="plans" class="py-32 relative">
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan/[0.03] rounded-full blur-3xl pointer-events-none">
-        </div>
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-20 fade-target">
-                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Plans & Pricing</p>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Choose the right plan for your team</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">
-                    Base platform fee per tenant + seat packs + usage. Scale securely with confidence.
-                </p>
+    <section id="pricing" class="py-32 relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan/[0.03] rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-target">
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Pricing</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Two products. Buy separately or bundle.</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Each product works standalone. Bundle both for 25% savings.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-                <!-- ESSENTIALS -->
-                <div
-                    class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold text-white mb-2">Essentials</h3>
-                        <p class="text-sm text-text-muted h-10">Core cloud security findings for small teams.</p>
-                        <div class="mt-4">
-                            <span class="text-3xl font-bold text-white">$499</span>
-                            <span class="text-text-muted">/ month</span>
-                        </div>
-                    </div>
-                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
-                            <div class="text-sm text-text-primary">2 Included</div>
-                            <div class="text-xs text-text-muted mt-1">+$75 / extra</div>
-                        </div>
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
-                            <div class="text-sm text-text-primary">3 Included</div>
-                            <div class="text-xs text-text-muted mt-1">+$19 / extra</div>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 mb-8 flex-1">
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>424+ AWS security rules</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>IaC & Dockerfile scanning</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>Real-time drift detection</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>Findings workflow & remediation</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted opacity-60">
-                            <svg class="w-5 h-5 text-text-muted shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                            <span>No compliance module</span>
-                        </li>
-                    </ul>
-                    <a href="/signup?plan=essentials"
-                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start
-                        Trial</a>
-                </div>
+            <!-- Product Toggle Tabs -->
+            <div class="flex justify-center gap-4 mb-12 fade-target">
+                <button onclick="showPricing('perimeter')" id="tab-perimeter" class="product-tab active-perimeter px-6 py-3 rounded-xl border-2 border-cyan bg-cyan/[0.08] font-semibold text-sm transition-all">
+                    <span class="text-cyan">\u25CF</span> Perimeter
+                </button>
+                <button onclick="showPricing('infrapilot')" id="tab-infrapilot" class="product-tab px-6 py-3 rounded-xl border-2 border-border font-semibold text-sm text-text-muted transition-all hover:border-purple/40">
+                    <span class="text-purple">\u25CF</span> InfraPilot
+                </button>
+                <button onclick="showPricing('bundle')" id="tab-bundle" class="product-tab px-6 py-3 rounded-xl border-2 border-border font-semibold text-sm text-text-muted transition-all hover:border-amber/40">
+                    <span class="text-amber">\u25CF</span> Bundle (25% off)
+                </button>
+            </div>
 
-                <!-- GROWTH -->
-                <div
-                    class="flex flex-col rounded-xl border border-cyan/30 bg-cyan/[0.02] p-6 relative overflow-hidden hover:border-cyan/50 transition-all duration-300 fade-target">
-                    <div class="absolute top-0 right-0 px-3 py-1 bg-cyan/20 text-cyan text-xs font-bold rounded-bl-lg">
-                        POPULAR</div>
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold text-white mb-2">Growth</h3>
-                        <p class="text-sm text-text-muted h-10">Operational security + optimization for scaling teams.
-                        </p>
-                        <div class="mt-4">
-                            <span class="text-3xl font-bold text-white">$1,499</span>
-                            <span class="text-text-muted">/ month</span>
-                        </div>
-                    </div>
-                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
-                            <div class="text-sm text-text-primary">10 Included</div>
-                            <div class="text-xs text-text-muted mt-1">+$99 / extra</div>
-                        </div>
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
-                            <div class="text-sm text-text-primary">10 Included</div>
-                            <div class="text-xs text-text-muted mt-1">+$29 / extra</div>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 mb-8 flex-1">
-                        <li class="flex items-start gap-3 text-sm text-text-primary font-medium">
-                            <div class="w-full h-px bg-border my-2"></div>
-                        </li>
-                        <li class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Everything in
-                            Essentials, plus:</li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>Asset intelligence & posture</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>CVE Scanner & GuardDuty</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>AI/ML & Insider Threat detection</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>Attack paths & Webhooks</span>
-                        </li>
+            <!-- Perimeter Pricing -->
+            <div id="pricing-perimeter" class="grid md:grid-cols-4 gap-6">
+                <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target">
+                    <h3 class="text-xl font-bold mb-1">Essentials</h3>
+                    <p class="text-xs text-text-muted mb-4">Core cloud security</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">$499</span><span class="text-text-muted">/mo</span></div>
+                    <div class="text-xs text-text-muted mb-4">2 AWS accounts \u00B7 3 seats</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>476 security rules</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Real-time drift</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>IaC scanning</li>
                     </ul>
-                    <a href="/signup?plan=growth"
-                        class="block w-full py-3 rounded-lg bg-cyan text-bg text-center font-bold text-sm hover:opacity-90 transition-opacity shadow-[0_0_20px_-5px_rgba(6,214,214,0.3)]">Get
-                        Started</a>
+                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start Trial</a>
                 </div>
-
-                <!-- ASSURE -->
-                <div
-                    class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold text-white mb-2">Assure</h3>
-                        <p class="text-sm text-text-muted h-10">Compliance and audit-ready posture.</p>
-                        <div class="mt-4">
-                            <span class="text-3xl font-bold text-white">$2,999</span>
-                            <span class="text-text-muted">/ month</span>
-                        </div>
-                    </div>
-                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
-                            <div class="text-sm text-text-primary">25 Included</div>
-                            <div class="text-xs text-text-muted mt-1">+$129 / extra</div>
-                        </div>
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
-                            <div class="text-sm text-text-primary">20 Included</div>
-                            <div class="text-xs text-text-muted mt-1">+$39 / extra</div>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 mb-8 flex-1">
-                        <li class="flex items-start gap-3 text-sm text-text-primary font-medium">
-                            <div class="w-full h-px bg-border my-2"></div>
-                        </li>
-                        <li class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Everything in Growth,
-                            plus:</li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>13+ framework mappings</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>MITRE ATT&CK tags</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>Audit-ready evidence packs</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>"Run Compliance" backfill</span>
-                        </li>
+                <div class="flex flex-col rounded-xl border-2 border-cyan/30 bg-cyan/[0.02] p-6 relative fade-target">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-cyan/20 text-cyan text-xs font-bold rounded-bl-lg">POPULAR</div>
+                    <h3 class="text-xl font-bold mb-1">Growth</h3>
+                    <p class="text-xs text-text-muted mb-4">Full detection suite</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">$1,499</span><span class="text-text-muted">/mo</span></div>
+                    <div class="text-xs text-text-muted mb-4">10 accounts \u00B7 10 seats</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Essentials</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>CIEM + Insider Threat</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>CVE Scanner + AI Chat</li>
                     </ul>
-                    <a href="/contact-sales?plan=assure"
-                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact
-                        Sales</a>
+                    <a href="#" class="block w-full py-3 rounded-lg bg-cyan text-bg text-center font-bold text-sm hover:opacity-90 transition-opacity">Get Started</a>
                 </div>
-
-                <!-- ENTERPRISE -->
-                <div
-                    class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
-                        <p class="text-sm text-text-muted h-10">Custom controls, integrations, and support.</p>
-                        <div class="mt-4">
-                            <span class="text-3xl font-bold text-white">Custom</span>
-                        </div>
-                    </div>
-                    <div class="mb-6 p-4 rounded-lg bg-surface-alt/40 border border-border/50 grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Accounts</div>
-                            <div class="text-sm text-text-primary">Custom</div>
-                        </div>
-                        <div>
-                            <div class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Seats</div>
-                            <div class="text-sm text-text-primary">Custom</div>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 mb-8 flex-1">
-                        <li class="flex items-start gap-3 text-sm text-text-primary font-medium">
-                            <div class="w-full h-px bg-border my-2"></div>
-                        </li>
-                        <li class="text-xs font-semibold text-cyan uppercase tracking-wider mb-1">Everything in Assure,
-                            plus:</li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>SSO / SAML integration</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>AI Security Chat (Claude)</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>Custom frameworks & RBAC</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-text-muted">
-                            <svg class="w-5 h-5 text-cyan shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span>Premium Support & SLA</span>
-                        </li>
+                <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target">
+                    <h3 class="text-xl font-bold mb-1">Assure</h3>
+                    <p class="text-xs text-text-muted mb-4">Compliance & audit</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">$2,999</span><span class="text-text-muted">/mo</span></div>
+                    <div class="text-xs text-text-muted mb-4">25 accounts \u00B7 20 seats</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Growth</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>19 compliance frameworks</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>PDF evidence packs</li>
                     </ul>
-                    <a href="/contact-sales?plan=enterprise"
-                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact
-                        Sales</a>
+                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact Sales</a>
+                </div>
+                <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target">
+                    <h3 class="text-xl font-bold mb-1">Enterprise</h3>
+                    <p class="text-xs text-text-muted mb-4">Custom everything</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">Custom</span></div>
+                    <div class="text-xs text-text-muted mb-4">Unlimited accounts + seats</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>SSO / SAML</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Custom rules + RBAC</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Premium support</li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact Sales</a>
                 </div>
             </div>
 
-            <div class="mt-12 flex justify-center fade-target">
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface-alt/50">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <p class="text-text-muted text-sm">
-                        <span class="font-semibold text-text-primary">Annual commitment discount:</span> Save 15% on the
-                        base platform fee.
-                    </p>
+            <!-- InfraPilot Pricing (hidden by default) -->
+            <div id="pricing-infrapilot" class="hidden grid md:grid-cols-4 gap-6">
+                <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target visible">
+                    <h3 class="text-xl font-bold mb-1">Free</h3>
+                    <p class="text-xs text-text-muted mb-4">Try it instantly</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">$0</span></div>
+                    <div class="text-xs text-text-muted mb-4">No AWS account needed</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>10 NL evaluations/mo</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>3 IaC scans/mo</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Public arch scan</li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start Free</a>
+                </div>
+                <div class="flex flex-col rounded-xl border-2 border-purple/30 bg-purple/[0.02] p-6 relative fade-target visible">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-purple/20 text-purple text-xs font-bold rounded-bl-lg">BEST VALUE</div>
+                    <h3 class="text-xl font-bold mb-1">Pro</h3>
+                    <p class="text-xs text-text-muted mb-4">Full preflight engine</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">$49</span><span class="text-text-muted">/mo</span></div>
+                    <div class="text-xs text-text-muted mb-4">Unlimited evaluations</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited NL evals</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Cost + readiness + simulation</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>50 IaC scans + CLI</li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 rounded-lg bg-purple text-white text-center font-bold text-sm hover:opacity-90 transition-opacity">Get Started</a>
+                </div>
+                <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target visible">
+                    <h3 class="text-xl font-bold mb-1">Growth</h3>
+                    <p class="text-xs text-text-muted mb-4">Teams + CI/CD</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">$149</span><span class="text-text-muted">/mo</span></div>
+                    <div class="text-xs text-text-muted mb-4">5 team seats \u00B7 10 repos</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Pro</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>CI/CD + policy gates</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited IaC + arch scans</li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Get Started</a>
+                </div>
+                <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target visible">
+                    <h3 class="text-xl font-bold mb-1">Enterprise</h3>
+                    <p class="text-xs text-text-muted mb-4">Custom everything</p>
+                    <div class="mb-4"><span class="text-3xl font-bold">Custom</span></div>
+                    <div class="text-xs text-text-muted mb-4">Unlimited repos + seats</div>
+                    <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>SSO / SAML</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Custom rules + API</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Dedicated support</li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact Sales</a>
+                </div>
+            </div>
+
+            <!-- Bundle Pricing (hidden by default) -->
+            <div id="pricing-bundle" class="hidden fade-target visible">
+                <div class="max-w-3xl mx-auto">
+                    <div class="rounded-2xl border-2 border-amber/30 bg-amber/[0.02] p-8 text-center">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber/10 border border-amber/30 mb-6">
+                            <span class="text-amber font-bold text-sm">25% SAVINGS</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Perimeter Cloud Suite</h3>
+                        <p class="text-text-muted mb-8 max-w-lg mx-auto">Both products together with cross-product data flows. Design \u2192 Scan \u2192 Gate \u2192 Monitor. Complete lifecycle.</p>
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="rounded-xl border border-border card-gradient p-6">
+                                <div class="text-xs text-text-muted mb-1">Starter Bundle</div>
+                                <div class="text-2xl font-bold">$399<span class="text-sm text-text-muted font-normal">/mo</span></div>
+                                <div class="text-xs text-text-muted mt-1">InfraPilot Pro + Perimeter Essentials</div>
+                                <div class="text-xs text-amber mt-2">Save $149/mo</div>
+                            </div>
+                            <div class="rounded-xl border border-amber/30 bg-amber/[0.03] p-6">
+                                <div class="text-xs text-amber mb-1">Most Popular</div>
+                                <div class="text-2xl font-bold">$1,198<span class="text-sm text-text-muted font-normal">/mo</span></div>
+                                <div class="text-xs text-text-muted mt-1">InfraPilot Growth + Perimeter Growth</div>
+                                <div class="text-xs text-amber mt-2">Save $450/mo</div>
+                            </div>
+                            <div class="rounded-xl border border-border card-gradient p-6">
+                                <div class="text-xs text-text-muted mb-1">Enterprise</div>
+                                <div class="text-2xl font-bold">Custom</div>
+                                <div class="text-xs text-text-muted mt-1">Both products, Enterprise tier</div>
+                                <div class="text-xs text-amber mt-2">Negotiated discount</div>
+                            </div>
+                        </div>
+                        <a href="#" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-amber text-bg font-semibold hover:opacity-90 transition-opacity">
+                            Get the Bundle
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1140,33 +872,20 @@
     <!-- CTA -->
     <section id="get-started" class="py-32">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <div
-                class="relative rounded-2xl border border-cyan/20 card-gradient p-12 md:p-16 overflow-hidden fade-target">
-                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-40 bg-cyan/10 blur-3xl rounded-full"></div>
+            <div class="relative rounded-2xl border border-cyan/20 card-gradient p-12 md:p-16 overflow-hidden fade-target">
+                <div class="absolute top-0 left-1/3 w-80 h-40 bg-cyan/10 blur-3xl rounded-full"></div>
+                <div class="absolute bottom-0 right-1/3 w-60 h-40 bg-purple/10 blur-3xl rounded-full"></div>
                 <div class="relative z-10">
-                    <svg class="w-12 h-12 text-cyan mx-auto mb-6" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Secure your cloud in minutes</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Secure your cloud lifecycle</h2>
                     <p class="text-text-muted text-lg mb-8 max-w-xl mx-auto">
-                        Connect your AWS accounts instantly via STS AssumeRole. <strong class="text-text-primary">Zero
-                            credentials stored.</strong> No agents to deploy, no complex configuration. Get immediate
-                        visibility into your posture.
+                        Start with InfraPilot for free \u2014 no AWS account needed. Add Perimeter when you\u2019re ready to monitor production. <strong class="text-text-primary">Zero credentials stored.</strong>
                     </p>
-                    <div
-                        class="inline-flex items-center gap-3 px-6 py-3 rounded-lg bg-surface-alt border border-border font-medium text-sm text-cyan/90 mb-6">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span>Free 14-day trial available</span>
-                    </div>
-                    <div class="mt-8">
-                        <a href="#"
-                            class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
-                            Start Scanning
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-lg glow-purple hover:opacity-90 transition-opacity">
+                            Try InfraPilot Free
+                        </a>
+                        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
+                            Start Perimeter Trial
                         </a>
                     </div>
                 </div>
@@ -1176,52 +895,82 @@
 
     <!-- FOOTER -->
     <footer class="border-t border-border py-12">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
-                <p class="text-sm text-text-muted">Copyright © 2026 Perimeter. All rights reserved.</p>
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-cyan/20 flex items-center justify-center">
+                            <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                        </div>
+                        <span class="font-bold">Perimeter Cloud</span>
+                    </div>
+                    <p class="text-sm text-text-muted">Complete cloud lifecycle security for AWS-native teams.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-sm mb-3">Products</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="#perimeter" class="hover:text-text-primary transition-colors">Perimeter</a></li>
+                        <li><a href="#infrapilot" class="hover:text-text-primary transition-colors">InfraPilot AI</a></li>
+                        <li><a href="#pricing" class="hover:text-text-primary transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-sm mb-3">Resources</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="#" class="hover:text-text-primary transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-text-primary transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-text-primary transition-colors">Compliance Guides</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-sm mb-3">Company</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="#" class="hover:text-text-primary transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-text-primary transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-text-primary transition-colors">Terms</a></li>
+                    </ul>
+                </div>
             </div>
-            <p class="text-sm text-text-muted">Agentless. Continuous. Secure.</p>
+            <div class="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-text-muted">Copyright \u00A9 2026 Perimeter Cloud. All rights reserved.</p>
+                <p class="text-sm text-text-muted">Agentless. Continuous. Secure.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Scroll fade-in -->
+    <!-- Scripts -->
     <script>
+        // Scroll fade-in
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
         }, { threshold: 0.15 });
         document.querySelectorAll('.fade-target').forEach(el => observer.observe(el));
-    </script>
 
+        // Pricing tabs
+        function showPricing(product) {
+            document.getElementById('pricing-perimeter').classList.add('hidden');
+            document.getElementById('pricing-infrapilot').classList.add('hidden');
+            document.getElementById('pricing-bundle').classList.add('hidden');
+            document.getElementById('pricing-' + product).classList.remove('hidden');
 
-
-    <script>
-        // Don't show the lovable-badge if the page is in an iframe or if it's being rendered by puppeteer (screenshot service)
-        if (window.self !== window.top || navigator.userAgent.includes('puppeteer')) {
-            // the page is in an iframe
-            var badge = document.getElementById('lovable-badge');
-            if (badge) {
-                badge.style.display = 'none';
-            }
-        }
-
-        // Add click event listener to close button with animation
-        var closeButton = document.getElementById('lovable-badge-close');
-        if (closeButton) {
-            closeButton.addEventListener('click', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                var badge = document.getElementById('lovable-badge');
-                if (badge) {
-                    badge.classList.add('closing');
-                    setTimeout(function () {
-                        if (badge) {
-                            badge.style.display = 'none';
-                        }
-                    }, 240);
-                }
+            document.querySelectorAll('.product-tab').forEach(tab => {
+                tab.classList.remove('active-perimeter', 'active-infrapilot');
+                tab.classList.add('border-border', 'text-text-muted');
+                tab.classList.remove('border-cyan', 'border-purple', 'border-amber');
             });
+
+            const activeTab = document.getElementById('tab-' + product);
+            activeTab.classList.remove('border-border', 'text-text-muted');
+            if (product === 'perimeter') {
+                activeTab.classList.add('active-perimeter', 'border-cyan');
+            } else if (product === 'infrapilot') {
+                activeTab.classList.add('active-infrapilot', 'border-purple');
+                activeTab.style.background = 'rgba(139, 92, 246, 0.08)';
+            } else {
+                activeTab.style.borderColor = '#f59e0b';
+                activeTab.style.background = 'rgba(245, 158, 11, 0.08)';
+            }
         }
     </script>
 </body>
-
 </html>
