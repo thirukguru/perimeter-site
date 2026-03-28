@@ -7,13 +7,14 @@
     <title>Perimeter Cloud — Secure Before & After Deployment</title>
     <meta name="description"
         content="Two products. Complete lifecycle. Perimeter for runtime security. InfraPilot for preflight intelligence." />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
     <script>
+        if (typeof tailwind !== 'undefined') {
         tailwind.config = {
             theme: {
                 extend: {
@@ -45,6 +46,7 @@
                     },
                 },
             },
+        }
         }
     </script>
     <style>
@@ -88,6 +90,7 @@
                 <a href="#foresight" class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
                 <a href="#infrapilot" class="text-sm text-text-muted hover:text-text-primary transition-colors">InfraPilot</a>
                 <a href="#integrations" class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
+                <a href="#ai-engine" class="text-sm text-text-muted hover:text-text-primary transition-colors">AI Engine</a>
                 <a href="#pricing" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
                 <a href="#get-started" class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get Started</a>
             </div>
@@ -273,6 +276,12 @@
                             <div class="font-semibold text-sm">Predict</div>
                             <div class="text-xs text-text-muted">Foresight Module</div>
                         </div>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/[0.06] border border-green-500/20">
+                        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                        <span class="text-xs text-green-400 font-medium">Powered by tiered AI (Claude + Ollama) &bull; AutoResearch optimizes every step nightly</span>
                     </div>
                 </div>
             </div>
@@ -710,6 +719,295 @@
                 </div>
             </div>
             <p class="text-center text-text-muted text-sm mt-6 fade-target">Plus: Linear, Asana, OpsGenie, ServiceNow, Microsoft Teams, Datadog, GitHub Actions, GitLab CI, Azure AD, and SAML 2.0.</p>
+        </div>
+    </section>
+
+    <!-- AI ENGINE: TIERED LLM + OLLAMA -->
+    <section id="ai-engine" class="py-32 relative">
+        <div class="absolute inset-0 bg-grid opacity-20"></div>
+        <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-green-500/[0.04] rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-target">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 mb-6">
+                    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span class="text-sm font-semibold text-green-400">AI Engine</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Tiered AI. <span class="text-gradient">Local-first</span> inference.</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Claude for complex reasoning. Ollama for high-volume tasks. Zero API cost on 70% of LLM calls. Full data sovereignty option.</p>
+            </div>
+
+            <!-- Two-tier visual -->
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Tier 1: Claude -->
+                <div class="rounded-2xl border border-cyan/20 card-gradient p-8 fade-target">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Tier 1: Claude API</h3>
+                            <p class="text-cyan text-xs font-medium">Complex reasoning &bull; Customer-facing</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">AI Security Chat</span> &mdash; multi-finding reasoning</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">InfraCoach</span> &mdash; guided architecture coaching</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">Vision analysis</span> &mdash; architecture diagram scanning</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">Root cause</span> &mdash; FORESIGHT causal reasoning</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 px-4 py-3 rounded-lg bg-surface-alt/40 border border-border/50">
+                        <div class="text-xs text-text-muted">~30% of LLM calls &bull; High-value, low-volume</div>
+                    </div>
+                </div>
+
+                <!-- Tier 2: Ollama -->
+                <div class="rounded-2xl border border-green-500/20 card-gradient p-8 fade-target">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Tier 2: Ollama (Local)</h3>
+                            <p class="text-green-400 text-xs font-medium">Zero API cost &bull; Data stays in VPC</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">FORESIGHT narratives</span> &mdash; prediction summaries</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">Intent extraction</span> &mdash; NL to infra components</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">IaC explanations</span> &mdash; finding remediation text</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">AutoResearch agent</span> &mdash; autonomous optimization</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 px-4 py-3 rounded-lg bg-green-500/[0.06] border border-green-500/20">
+                        <div class="text-xs text-green-400">~70% of LLM calls &bull; $0/call &bull; Llama 3.1 8B / Mistral 7B on CPU</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key benefits row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 fade-target">
+                <div class="rounded-xl border border-border card-gradient p-5 text-center">
+                    <div class="text-2xl font-bold text-green-400 mb-1">$0</div>
+                    <div class="text-xs text-text-muted">Per Ollama call</div>
+                </div>
+                <div class="rounded-xl border border-border card-gradient p-5 text-center">
+                    <div class="text-2xl font-bold text-green-400 mb-1">No GPU</div>
+                    <div class="text-xs text-text-muted">CPU-only inference</div>
+                </div>
+                <div class="rounded-xl border border-border card-gradient p-5 text-center">
+                    <div class="text-2xl font-bold text-green-400 mb-1">100%</div>
+                    <div class="text-xs text-text-muted">Data stays in VPC</div>
+                </div>
+                <div class="rounded-xl border border-border card-gradient p-5 text-center">
+                    <div class="text-2xl font-bold text-green-400 mb-1">Auto</div>
+                    <div class="text-xs text-text-muted">Fallback between tiers</div>
+                </div>
+            </div>
+
+            <!-- Enterprise callout -->
+            <div class="rounded-xl border border-border card-gradient p-6 text-center fade-target">
+                <div class="flex items-center justify-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <span class="font-semibold text-sm">Full Data Sovereignty Mode</span>
+                </div>
+                <p class="text-text-muted text-sm max-w-xl mx-auto">Enterprise customers can run all AI tasks through Ollama locally &mdash; zero external API calls. Meets QCB (Qatar) and MAS (Singapore) data residency requirements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTORESEARCH -->
+    <section id="autoresearch" class="py-32">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-target">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber/30 bg-amber/10 mb-6">
+                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    <span class="text-sm font-semibold text-amber">AutoResearch</span>
+                    <span class="px-2 py-0.5 rounded-full bg-amber/20 text-amber text-xs font-bold ml-1">AUTONOMOUS</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">The platform gets <span style="background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">smarter every night</span></h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Inspired by Karpathy's autoresearch. An LLM agent autonomously tunes parameters, runs evaluations, keeps improvements, discards regressions. 200+ experiments per night at $5/month.</p>
+            </div>
+
+            <!-- How it works -->
+            <div class="rounded-2xl border border-amber/20 card-gradient p-8 mb-12 fade-target">
+                <h3 class="text-lg font-bold mb-6 text-center">The Autonomous Loop</h3>
+                <div class="grid md:grid-cols-5 gap-4">
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-amber font-bold">1</span>
+                        </div>
+                        <h4 class="font-semibold text-sm mb-1">Read Brief</h4>
+                        <p class="text-xs text-text-muted">Agent reads program.md with optimization goals</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-amber font-bold">2</span>
+                        </div>
+                        <h4 class="font-semibold text-sm mb-1">Mutate Config</h4>
+                        <p class="text-xs text-text-muted">Ollama agent tweaks parameters in config.yaml</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-amber font-bold">3</span>
+                        </div>
+                        <h4 class="font-semibold text-sm mb-1">Evaluate</h4>
+                        <p class="text-xs text-text-muted">Immutable eval harness scores against labeled data</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-amber font-bold">4</span>
+                        </div>
+                        <h4 class="font-semibold text-sm mb-1">Keep or Discard</h4>
+                        <p class="text-xs text-text-muted">Better? Keep. Worse? Revert. Ratchet forward.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </div>
+                        <h4 class="font-semibold text-sm mb-1">Repeat</h4>
+                        <p class="text-xs text-text-muted">200-500 experiments per night. Autonomous.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 Optimization domains -->
+            <h3 class="text-xl font-bold mb-6 text-center fade-target">What Gets Better Every Night</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-purple/10 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-sm">Cost Prediction Accuracy</h4>
+                            <p class="text-xs text-purple">InfraPilot</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-text-muted mb-3">Tunes NAT Gateway, data transfer, and logging cost multipliers against real AWS bills.</p>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-text-muted">Metric: MAPE</span>
+                        <span class="text-amber font-medium">500 experiments/night</span>
+                    </div>
+                </div>
+
+                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-purple/10 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-sm">Readiness Score Calibration</h4>
+                            <p class="text-xs text-purple">InfraPilot</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-text-muted mb-3">Optimizes dimension weights so scores predict real deployment outcomes.</p>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-text-muted">Metric: Spearman r</span>
+                        <span class="text-amber font-medium">300 experiments/night</span>
+                    </div>
+                </div>
+
+                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-sm">Scanner Severity Tuning</h4>
+                            <p class="text-xs text-cyan">Perimeter</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-text-muted mb-3">Calibrates severity thresholds to maximize real incident detection, minimize false positives.</p>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-text-muted">Metric: F1 score</span>
+                        <span class="text-amber font-medium">200 experiments/week</span>
+                    </div>
+                </div>
+
+                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-sm">FORESIGHT Model Tuning</h4>
+                            <p class="text-xs text-amber">Foresight</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-text-muted mb-3">Tunes Prophet and Isolation Forest hyperparameters for better prediction accuracy.</p>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-text-muted">Metric: Composite F1</span>
+                        <span class="text-amber font-medium">100 experiments/night</span>
+                    </div>
+                </div>
+
+                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-purple/10 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-sm">Suggestion Ranking</h4>
+                            <p class="text-xs text-purple">InfraPilot</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-text-muted mb-3">Optimizes InfraCoach suggestion ordering to maximize user acceptance rate.</p>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-text-muted">Metric: acceptance@3</span>
+                        <span class="text-amber font-medium">200 experiments/week</span>
+                    </div>
+                </div>
+
+                <!-- Summary card -->
+                <div class="p-6 rounded-xl border border-amber/20 bg-amber/[0.03] flex flex-col items-center justify-center text-center fade-target">
+                    <div class="text-3xl font-bold text-amber mb-2">$5/mo</div>
+                    <div class="text-sm text-text-muted mb-1">Total infrastructure cost</div>
+                    <div class="text-xs text-text-muted">Runs on Ollama (zero API cost)</div>
+                    <div class="text-xs text-text-muted mt-1">No GPU required</div>
+                    <div class="w-16 h-px bg-amber/30 my-3"></div>
+                    <div class="text-xs text-amber font-medium">Compound advantage: competitors using static rules can't keep up</div>
+                </div>
+            </div>
+
+            <!-- Karpathy credit -->
+            <div class="text-center fade-target">
+                <p class="text-text-muted text-sm">Inspired by <a href="https://github.com/karpathy/autoresearch" target="_blank" class="text-amber hover:underline">Karpathy's autoresearch</a> &mdash; adapted from ML training to SaaS configuration optimization. Same three-file pattern: human writes the brief, agent runs the experiments, eval harness can't be gamed.</p>
+            </div>
         </div>
     </section>
 
