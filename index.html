@@ -7,51 +7,17 @@
     <title>Perimeter Cloud — Secure Before & After Deployment</title>
     <meta name="description"
         content="Two products. Complete lifecycle. Perimeter for runtime security. InfraPilot for preflight intelligence." />
-    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <!-- Replaced Tailwind CDN with local build -->
+    <link href="output.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
-    <script>
-        if (typeof tailwind !== 'undefined') {
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bg: '#0a0f1a',
-                        surface: '#0f1525',
-                        'surface-alt': '#141b2d',
-                        border: '#1e2a42',
-                        cyan: '#06d6d6',
-                        'cyan-dim': '#06b6d4',
-                        amber: '#f59e0b',
-                        red: '#ef4444',
-                        purple: '#8b5cf6',
-                        'text-primary': '#e2e8f0',
-                        'text-muted': '#64748b',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    keyframes: {
-                        'fade-up': {
-                            '0%': { opacity: '0', transform: 'translateY(24px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    },
-                    animation: {
-                        'fade-up': 'fade-up 0.7s ease-out forwards',
-                    },
-                },
-            },
-        }
-        }
     </script>
     <style>
         * { box-sizing: border-box; }
-        body { background: #0a0f1a; color: #e2e8f0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background: #0a0f1a; color: #e2e8f0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         .bg-grid {
             background-image: linear-gradient(rgba(30, 42, 66, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 42, 66, 0.35) 1px, transparent 1px);
@@ -84,7 +50,14 @@
                 </div>
                 <span class="text-lg font-bold">Perimeter Cloud</span>
             </a>
-            <div class="hidden md:flex items-center gap-8">
+            
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-text-muted hover:text-text-primary focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <div class="hidden md:flex items-center gap-6">
                 <a href="#products" class="text-sm text-text-muted hover:text-text-primary transition-colors">Products</a>
                 <a href="#perimeter" class="text-sm text-text-muted hover:text-text-primary transition-colors">Perimeter</a>
                 <a href="#foresight" class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
@@ -92,8 +65,18 @@
                 <a href="#integrations" class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
                 <a href="#ai-engine" class="text-sm text-text-muted hover:text-text-primary transition-colors">AI Engine</a>
                 <a href="#pricing" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
-                <a href="#get-started" class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get Started</a>
+                <a href="#get-started" class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">Get Started</a>
             </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl px-6 py-4 flex-col gap-4">
+            <a href="#products" class="text-sm text-text-muted hover:text-text-primary transition-colors">Products</a>
+            <a href="#perimeter" class="text-sm text-text-muted hover:text-text-primary transition-colors">Perimeter</a>
+            <a href="#foresight" class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
+            <a href="#infrapilot" class="text-sm text-text-muted hover:text-text-primary transition-colors">InfraPilot</a>
+            <a href="#integrations" class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
+            <a href="#ai-engine" class="text-sm text-text-muted hover:text-text-primary transition-colors">AI Engine</a>
+            <a href="#pricing" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
+            <a href="#get-started" class="text-center px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get Started</a>
         </div>
     </nav>
 
@@ -112,23 +95,23 @@
                 <span class="text-sm font-medium text-text-muted">InfraPilot</span>
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-up" style="animation-delay:.1s">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-up" style="animation-delay:.1s">
                 Secure your cloud<br><span class="text-gradient">before</span> and <span class="text-gradient">after</span> deploy
             </h1>
 
-            <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up" style="animation-delay:.2s">
+            <p class="text-base sm:text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up" style="animation-delay:.2s">
                 Two products. One platform. InfraPilot validates what you’re planning. Perimeter monitors what’s running. Together, complete lifecycle coverage.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style="animation-delay:.3s">
-                <a href="#perimeter" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <a href="#perimeter" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-base sm:text-lg glow hover:opacity-90 transition-opacity whitespace-nowrap">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                     Explore Perimeter
                 </a>
-                <a href="#infrapilot" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-lg glow-purple hover:opacity-90 transition-opacity">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <a href="#infrapilot" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-base sm:text-lg glow-purple hover:opacity-90 transition-opacity whitespace-nowrap">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                     Explore InfraPilot
@@ -140,10 +123,10 @@
     <!-- TWO PRODUCTS -->
     <section id="products" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-20 fade-target">
-                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Two Products, One Platform</p>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Complete cloud lifecycle security</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Each product works standalone. Together, they create compound intelligence no competitor can match.</p>
+            <div class="text-center mb-16 md:mb-20 fade-target">
+                <p class="text-cyan font-mono text-xs md:text-sm font-semibold tracking-widest uppercase mb-4">Two Products, One Platform</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">Complete cloud lifecycle security</h2>
+                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Each product works standalone. Together, they create compound intelligence no competitor can match.</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
@@ -291,15 +274,15 @@
     <!-- PERIMETER SECTION -->
     <section id="perimeter" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-target">
+            <div class="text-center mb-12 md:mb-16 fade-target">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan/30 bg-cyan/10 mb-6">
                     <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                     <span class="text-sm font-semibold text-cyan">Perimeter</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Runtime Security at <span class="text-gradient">AWS Depth</span></h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Continuous posture management with 476 rules, real-time drift, CIEM, insider threat detection, and 19 compliance frameworks.</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Runtime Security at <span class="text-gradient">AWS Depth</span></h2>
+                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Continuous posture management with 476 rules, real-time drift, CIEM, insider threat detection, and 19 compliance frameworks.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -560,7 +543,7 @@
     </section>
 
     <!-- INFRAPILOT SECTION -->
-    <section id="infrapilot" class="py-32 relative">
+    <section id="infrapilot" class="py-32 relative overflow-hidden">
         <div class="absolute inset-0 bg-grid opacity-20"></div>
         <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple/[0.04] rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
@@ -669,10 +652,10 @@
     <!-- INTEGRATIONS -->
     <section id="integrations" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-target">
-                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Integrations</p>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Fits into your workflow</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Both products integrate with the tools your team already uses.</p>
+            <div class="text-center mb-16 md:mb-16 fade-target">
+                <p class="text-cyan font-mono text-xs md:text-sm font-semibold tracking-widest uppercase mb-4">Integrations</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">Fits into your workflow</h2>
+                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Both products integrate with the tools your team already uses.</p>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 fade-target">
                 <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
@@ -723,19 +706,19 @@
     </section>
 
     <!-- AI ENGINE: TIERED LLM + OLLAMA -->
-    <section id="ai-engine" class="py-32 relative">
+    <section id="ai-engine" class="py-32 relative overflow-hidden">
         <div class="absolute inset-0 bg-grid opacity-20"></div>
         <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-green-500/[0.04] rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 fade-target">
+            <div class="text-center mb-12 md:mb-16 fade-target">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 mb-6">
                     <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <span class="text-sm font-semibold text-green-400">AI Engine</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Tiered AI. <span class="text-gradient">Local-first</span> inference.</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Claude for complex reasoning. Ollama for high-volume tasks. Zero API cost on 70% of LLM calls. Full data sovereignty option.</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Tiered AI. <span class="text-gradient">Local-first</span> inference.</h2>
+                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Claude for complex reasoning. Ollama for high-volume tasks. Zero API cost on 70% of LLM calls. Full data sovereignty option.</p>
             </div>
 
             <!-- Two-tier visual -->
@@ -849,7 +832,7 @@
     <!-- AUTORESEARCH -->
     <section id="autoresearch" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-target">
+            <div class="text-center mb-12 md:mb-16 fade-target">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber/30 bg-amber/10 mb-6">
                     <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -857,8 +840,8 @@
                     <span class="text-sm font-semibold text-amber">AutoResearch</span>
                     <span class="px-2 py-0.5 rounded-full bg-amber/20 text-amber text-xs font-bold ml-1">AUTONOMOUS</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">The platform gets <span style="background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">smarter every night</span></h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Inspired by Karpathy's autoresearch. An LLM agent autonomously tunes parameters, runs evaluations, keeps improvements, discards regressions. 200+ experiments per night at $5/month.</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">The platform gets <span style="background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">smarter every night</span></h2>
+                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Inspired by Karpathy's autoresearch. An LLM agent autonomously tunes parameters, runs evaluations, keeps improvements, discards regressions. 200+ experiments per night at $5/month.</p>
             </div>
 
             <!-- How it works -->
@@ -1012,17 +995,17 @@
     </section>
 
     <!-- PRICING -->
-    <section id="pricing" class="py-32 relative">
+    <section id="pricing" class="py-32 relative overflow-hidden">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan/[0.03] rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 fade-target">
-                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Pricing</p>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Two products. Buy separately or bundle.</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Each product works standalone. Bundle both for 25% savings.</p>
+            <div class="text-center mb-12 md:mb-16 fade-target">
+                <p class="text-cyan font-mono text-xs md:text-sm font-semibold tracking-widest uppercase mb-4">Pricing</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">Two products. Buy separately or bundle.</h2>
+                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Each product works standalone. Bundle both for 25% savings.</p>
             </div>
 
             <!-- Product Toggle Tabs -->
-            <div class="flex justify-center gap-4 mb-12 fade-target">
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-12 fade-target">
                 <button onclick="showPricing('perimeter')" id="tab-perimeter" class="product-tab active-perimeter px-6 py-3 rounded-xl border-2 border-cyan bg-cyan/[0.08] font-semibold text-sm transition-all">
                     <span class="inline-block w-2 h-2 rounded-full bg-cyan mr-1"></span> Perimeter
                 </button>
@@ -1255,6 +1238,24 @@
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
         }, { threshold: 0.15 });
         document.querySelectorAll('.fade-target').forEach(el => observer.observe(el));
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+            });
+            
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                });
+            });
+        }
 
         // Pricing tabs
         function showPricing(product) {
