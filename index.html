@@ -7,33 +7,189 @@
     <title>Perimeter Cloud — Secure Before & After Deployment</title>
     <meta name="description"
         content="Two products. Complete lifecycle. Perimeter for runtime security. InfraPilot for preflight intelligence." />
-    <!-- Replaced Tailwind CDN with local build -->
-    <link href="output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        /* Fallback: retry Tailwind CDN if first load failed */
+        if (typeof tailwind === 'undefined') {
+            var s = document.createElement('script');
+            s.src = 'https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/lib/cdn.min.js';
+            document.head.appendChild(s);
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
+    <script>
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            bg: '#0a0f1a',
+                            surface: '#0f1525',
+                            'surface-alt': '#141b2d',
+                            border: '#1e2a42',
+                            cyan: '#06d6d6',
+                            'cyan-dim': '#06b6d4',
+                            amber: '#f59e0b',
+                            red: '#ef4444',
+                            purple: '#8b5cf6',
+                            'text-primary': '#e2e8f0',
+                            'text-muted': '#64748b',
+                        },
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            mono: ['JetBrains Mono', 'monospace'],
+                        },
+                        keyframes: {
+                            'fade-up': {
+                                '0%': { opacity: '0', transform: 'translateY(24px)' },
+                                '100%': { opacity: '1', transform: 'translateY(0)' },
+                            },
+                        },
+                        animation: {
+                            'fade-up': 'fade-up 0.7s ease-out forwards',
+                        },
+                    },
+                },
+            }
+        }
     </script>
     <style>
-        * { box-sizing: border-box; }
-        body { background: #0a0f1a; color: #e2e8f0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0a0f1a;
+            color: #e2e8f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         .bg-grid {
             background-image: linear-gradient(rgba(30, 42, 66, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 42, 66, 0.35) 1px, transparent 1px);
             background-size: 60px 60px;
         }
-        .text-gradient { background: linear-gradient(135deg, #06d6d6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .text-gradient-purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .glow { box-shadow: 0 0 40px -10px rgba(6, 214, 214, 0.35); }
-        .glow-purple { box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.35); }
-        .card-gradient { background: linear-gradient(145deg, #0f1525, #0b1020); }
-        .fade-target { opacity: 0; }
-        .fade-target.visible { animation: fade-up 0.7s ease-out forwards; }
-        html { scroll-behavior: smooth; }
-        .product-tab { transition: all 0.3s ease; }
-        .product-tab.active-perimeter { border-color: #06d6d6; background: rgba(6, 214, 214, 0.08); }
-        .product-tab.active-infrapilot { border-color: #8b5cf6; background: rgba(139, 92, 246, 0.08); }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #06d6d6, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-purple {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glow {
+            box-shadow: 0 0 40px -10px rgba(6, 214, 214, 0.35);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.35);
+        }
+
+        .card-gradient {
+            background: linear-gradient(145deg, #0f1525, #0b1020);
+        }
+
+        .fade-target {
+            opacity: 0;
+        }
+
+        .fade-target.visible {
+            animation: fade-up 0.7s ease-out forwards;
+        }
+
+        @keyframes fade-up {
+            0% {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .product-tab {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-tab.active-perimeter {
+            border-color: #06d6d6;
+            background: rgba(6, 214, 214, 0.08);
+        }
+
+        .product-tab.active-infrapilot {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.08);
+        }
+
+        img,
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Mobile Edge backdrop-blur fallback */
+        nav {
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            background: rgba(10, 15, 26, 0.85) !important;
+        }
+
+        /* Ensure readable text on mobile without Tailwind */
+        section {
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 0;
+            }
+
+            .text-4xl,
+            .text-5xl {
+                font-size: 1.75rem !important;
+                line-height: 1.2;
+            }
+
+            h2 {
+                font-size: 1.75rem !important;
+            }
+        }
     </style>
 </head>
 
@@ -44,39 +200,32 @@
         <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
             <a href="#" class="flex items-center gap-2">
                 <div class="w-8 h-8 rounded-lg bg-cyan/20 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                 </div>
                 <span class="text-lg font-bold">Perimeter Cloud</span>
             </a>
-            
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-text-muted hover:text-text-primary focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-
-            <div class="hidden md:flex items-center gap-6">
-                <a href="#products" class="text-sm text-text-muted hover:text-text-primary transition-colors">Products</a>
-                <a href="#perimeter" class="text-sm text-text-muted hover:text-text-primary transition-colors">Perimeter</a>
-                <a href="#foresight" class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
-                <a href="#infrapilot" class="text-sm text-text-muted hover:text-text-primary transition-colors">InfraPilot</a>
-                <a href="#integrations" class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
-                <a href="#ai-engine" class="text-sm text-text-muted hover:text-text-primary transition-colors">AI Engine</a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#products"
+                    class="text-sm text-text-muted hover:text-text-primary transition-colors">Products</a>
+                <a href="#perimeter"
+                    class="text-sm text-text-muted hover:text-text-primary transition-colors">Perimeter</a>
+                <a href="#foresight"
+                    class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
+                <a href="#infrapilot"
+                    class="text-sm text-text-muted hover:text-text-primary transition-colors">InfraPilot</a>
+                <a href="#integrations"
+                    class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
+                <a href="#ai-engine" class="text-sm text-text-muted hover:text-text-primary transition-colors">AI
+                    Engine</a>
                 <a href="#pricing" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
-                <a href="#get-started" class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">Get Started</a>
+                <a href="#get-started"
+                    class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get
+                    Started</a>
             </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl px-6 py-4 flex-col gap-4">
-            <a href="#products" class="text-sm text-text-muted hover:text-text-primary transition-colors">Products</a>
-            <a href="#perimeter" class="text-sm text-text-muted hover:text-text-primary transition-colors">Perimeter</a>
-            <a href="#foresight" class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
-            <a href="#infrapilot" class="text-sm text-text-muted hover:text-text-primary transition-colors">InfraPilot</a>
-            <a href="#integrations" class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
-            <a href="#ai-engine" class="text-sm text-text-muted hover:text-text-primary transition-colors">AI Engine</a>
-            <a href="#pricing" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
-            <a href="#get-started" class="text-center px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get Started</a>
         </div>
     </nav>
 
@@ -87,7 +236,8 @@
         <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-purple/5 rounded-full blur-3xl"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface-alt/50 mb-8 animate-fade-up">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface-alt/50 mb-8 animate-fade-up">
                 <span class="w-2 h-2 rounded-full bg-cyan"></span>
                 <span class="text-sm font-medium text-text-muted">Perimeter</span>
                 <span class="text-text-muted/30">+</span>
@@ -95,24 +245,32 @@
                 <span class="text-sm font-medium text-text-muted">InfraPilot</span>
             </div>
 
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-up" style="animation-delay:.1s">
-                Secure your cloud<br><span class="text-gradient">before</span> and <span class="text-gradient">after</span> deploy
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-up" style="animation-delay:.1s">
+                Secure your cloud<br><span class="text-gradient">before</span> and <span
+                    class="text-gradient">after</span> deploy
             </h1>
 
-            <p class="text-base sm:text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up" style="animation-delay:.2s">
-                Two products. One platform. InfraPilot validates what you’re planning. Perimeter monitors what’s running. Together, complete lifecycle coverage.
+            <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up"
+                style="animation-delay:.2s">
+                Two products. One platform. InfraPilot validates what you’re planning. Perimeter monitors what’s
+                running. Together, complete lifecycle coverage.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style="animation-delay:.3s">
-                <a href="#perimeter" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-base sm:text-lg glow hover:opacity-90 transition-opacity whitespace-nowrap">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up"
+                style="animation-delay:.3s">
+                <a href="#perimeter"
+                    class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                     Explore Perimeter
                 </a>
-                <a href="#infrapilot" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-base sm:text-lg glow-purple hover:opacity-90 transition-opacity whitespace-nowrap">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <a href="#infrapilot"
+                    class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-lg glow-purple hover:opacity-90 transition-opacity">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                     Explore InfraPilot
                 </a>
@@ -123,19 +281,25 @@
     <!-- TWO PRODUCTS -->
     <section id="products" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 md:mb-20 fade-target">
-                <p class="text-cyan font-mono text-xs md:text-sm font-semibold tracking-widest uppercase mb-4">Two Products, One Platform</p>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">Complete cloud lifecycle security</h2>
-                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Each product works standalone. Together, they create compound intelligence no competitor can match.</p>
+            <div class="text-center mb-20 fade-target">
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Two Products, One
+                    Platform</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Complete cloud lifecycle security</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Each product works standalone. Together, they
+                    create compound intelligence no competitor can match.</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Perimeter Card -->
-                <div class="group rounded-2xl border border-border hover:border-cyan/40 card-gradient p-8 transition-all duration-300 fade-target">
+                <div
+                    class="group rounded-2xl border border-border hover:border-cyan/40 card-gradient p-8 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center group-hover:bg-cyan/20 transition-colors">
-                            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        <div
+                            class="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center group-hover:bg-cyan/20 transition-colors">
+                            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg>
                         </div>
                         <div>
@@ -143,7 +307,9 @@
                             <p class="text-cyan text-sm font-medium">Runtime Security Platform</p>
                         </div>
                     </div>
-                    <p class="text-text-muted mb-6 leading-relaxed">Continuous AWS security posture management. 476 scanner rules across 60+ services, real-time drift detection, CIEM, insider threat, compliance mapping, and AI Security Chat.</p>
+                    <p class="text-text-muted mb-6 leading-relaxed">Continuous AWS security posture management. 476
+                        scanner rules across 60+ services, real-time drift detection, CIEM, insider threat, compliance
+                        mapping, and AI Security Chat.</p>
                     <div class="grid grid-cols-2 gap-3 mb-6">
                         <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
                             <div class="text-xl font-bold text-gradient">476</div>
@@ -162,18 +328,25 @@
                             <div class="text-xs text-text-muted">Drift detection</div>
                         </div>
                     </div>
-                    <a href="#perimeter" class="inline-flex items-center gap-2 text-cyan text-sm font-semibold hover:opacity-80 transition-opacity">
+                    <a href="#perimeter"
+                        class="inline-flex items-center gap-2 text-cyan text-sm font-semibold hover:opacity-80 transition-opacity">
                         Learn more
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
                     </a>
                 </div>
 
                 <!-- InfraPilot Card -->
-                <div class="group rounded-2xl border border-border hover:border-purple/40 card-gradient p-8 transition-all duration-300 fade-target">
+                <div
+                    class="group rounded-2xl border border-border hover:border-purple/40 card-gradient p-8 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-purple/10 flex items-center justify-center group-hover:bg-purple/20 transition-colors">
-                            <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        <div
+                            class="w-12 h-12 rounded-xl bg-purple/10 flex items-center justify-center group-hover:bg-purple/20 transition-colors">
+                            <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                             </svg>
                         </div>
                         <div>
@@ -181,7 +354,9 @@
                             <p class="text-purple text-sm font-medium">Architecture Intelligence Platform</p>
                         </div>
                     </div>
-                    <p class="text-text-muted mb-6 leading-relaxed">Cloud Preflight Engine. Describe infrastructure in natural language, get cost prediction, readiness scoring, risk detection, and guided architecture coaching — all before deployment.</p>
+                    <p class="text-text-muted mb-6 leading-relaxed">Cloud Preflight Engine. Describe infrastructure in
+                        natural language, get cost prediction, readiness scoring, risk detection, and guided
+                        architecture coaching — all before deployment.</p>
                     <div class="grid grid-cols-2 gap-3 mb-6">
                         <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
                             <div class="text-xl font-bold text-gradient-purple">130+</div>
@@ -200,16 +375,20 @@
                             <div class="text-xs text-text-muted">No AWS acct needed</div>
                         </div>
                     </div>
-                    <a href="#infrapilot" class="inline-flex items-center gap-2 text-purple text-sm font-semibold hover:opacity-80 transition-opacity">
+                    <a href="#infrapilot"
+                        class="inline-flex items-center gap-2 text-purple text-sm font-semibold hover:opacity-80 transition-opacity">
                         Learn more
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
                     </a>
                 </div>
             </div>
 
             <!-- Lifecycle Flow -->
             <div class="mt-16 rounded-2xl border border-border card-gradient p-8 fade-target">
-                <p class="text-center text-sm font-mono text-text-muted tracking-widest uppercase mb-8">The Lifecycle</p>
+                <p class="text-center text-sm font-mono text-text-muted tracking-widest uppercase mb-8">The Lifecycle
+                </p>
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
                     <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-purple/10 border border-purple/30">
                         <div class="w-8 h-8 rounded-lg bg-purple/20 flex items-center justify-center">
@@ -220,7 +399,10 @@
                             <div class="text-xs text-text-muted">InfraPilot InfraCoach</div>
                         </div>
                     </div>
-                    <svg class="w-6 h-6 text-text-muted hidden md:block rotate-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block rotate-0" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                     <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-purple/10 border border-purple/30">
                         <div class="w-8 h-8 rounded-lg bg-purple/20 flex items-center justify-center">
                             <span class="text-purple font-bold text-sm">2</span>
@@ -230,7 +412,10 @@
                             <div class="text-xs text-text-muted">InfraPilot IaC Scan</div>
                         </div>
                     </div>
-                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                     <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-purple/10 border border-purple/30">
                         <div class="w-8 h-8 rounded-lg bg-purple/20 flex items-center justify-center">
                             <span class="text-purple font-bold text-sm">3</span>
@@ -240,7 +425,10 @@
                             <div class="text-xs text-text-muted">InfraPilot CI/CD</div>
                         </div>
                     </div>
-                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                     <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-cyan/10 border border-cyan/30">
                         <div class="w-8 h-8 rounded-lg bg-cyan/20 flex items-center justify-center">
                             <span class="text-cyan font-bold text-sm">4</span>
@@ -250,7 +438,10 @@
                             <div class="text-xs text-text-muted">Perimeter Runtime</div>
                         </div>
                     </div>
-                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <svg class="w-6 h-6 text-text-muted hidden md:block" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                     <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-amber/10 border border-amber/30">
                         <div class="w-8 h-8 rounded-lg bg-amber/20 flex items-center justify-center">
                             <span class="text-amber font-bold text-sm">5</span>
@@ -262,9 +453,15 @@
                     </div>
                 </div>
                 <div class="mt-4 text-center">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/[0.06] border border-green-500/20">
-                        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                        <span class="text-xs text-green-400 font-medium">Powered by tiered AI (Claude + Ollama) &bull; AutoResearch optimizes every step nightly</span>
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/[0.06] border border-green-500/20">
+                        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        <span class="text-xs text-green-400 font-medium">Powered by tiered AI (Claude + Ollama) &bull;
+                            AutoResearch optimizes every step nightly</span>
                     </div>
                 </div>
             </div>
@@ -274,92 +471,149 @@
     <!-- PERIMETER SECTION -->
     <section id="perimeter" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12 md:mb-16 fade-target">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan/30 bg-cyan/10 mb-6">
-                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            <div class="text-center mb-16 fade-target">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan/30 bg-cyan/10 mb-6">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                     <span class="text-sm font-semibold text-cyan">Perimeter</span>
                 </div>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Runtime Security at <span class="text-gradient">AWS Depth</span></h2>
-                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Continuous posture management with 476 rules, real-time drift, CIEM, insider threat detection, and 19 compliance frameworks.</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Runtime Security at <span
+                        class="text-gradient">AWS Depth</span></h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Continuous posture management with 476 rules,
+                    real-time drift, CIEM, insider threat detection, and 19 compliance frameworks.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">476 Security Rules</h3>
-                    <p class="text-text-muted leading-relaxed">Deep checks across 60+ AWS services — VPC, IAM, S3, ECS, EKS, Lambda, RDS, and rare services competitors miss.</p>
+                    <p class="text-text-muted leading-relaxed">Deep checks across 60+ AWS services — VPC, IAM, S3, ECS,
+                        EKS, Lambda, RDS, and rare services competitors miss.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Real-Time Drift</h3>
-                    <p class="text-text-muted leading-relaxed">EventBridge API Destinations push CloudTrail events within 30–90 seconds. 31 monitored actions. No Lambda needed.</p>
+                    <p class="text-text-muted leading-relaxed">EventBridge API Destinations push CloudTrail events
+                        within 30–90 seconds. 31 monitored actions. No Lambda needed.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">CIEM & Insider Threat</h3>
-                    <p class="text-text-muted leading-relaxed">8 entitlement rules + 6 behavioral CloudTrail rules. Detect over-permissioned roles, mass secret reads, and geo anomalies.</p>
+                    <p class="text-text-muted leading-relaxed">8 entitlement rules + 6 behavioral CloudTrail rules.
+                        Detect over-permissioned roles, mass secret reads, and geo anomalies.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Secrets & LLMjacking</h3>
-                    <p class="text-text-muted leading-relaxed">Scan 5 secret sources + 15 AI/ML threat rules. Detect GPU abuse, Bedrock misconfig, and lateral movement chains.</p>
+                    <p class="text-text-muted leading-relaxed">Scan 5 secret sources + 15 AI/ML threat rules. Detect GPU
+                        abuse, Bedrock misconfig, and lateral movement chains.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">19 Compliance Frameworks</h3>
-                    <p class="text-text-muted leading-relaxed">CIS, PCI-DSS, SOC 2, HIPAA, ISO 27001, NIST, MITRE ATT&CK, FedRAMP, GDPR, and more. PDF evidence packs.</p>
+                    <p class="text-text-muted leading-relaxed">CIS, PCI-DSS, SOC 2, HIPAA, ISO 27001, NIST, MITRE
+                        ATT&CK, FedRAMP, GDPR, and more. PDF evidence packs.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
-                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-5 group-hover:bg-cyan/20 transition-colors">
+                        <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">AI Security Chat</h3>
-                    <p class="text-text-muted leading-relaxed">Claude-powered assistant aware of your actual findings, accounts, and compliance state. Not generic advice.</p>
+                    <p class="text-text-muted leading-relaxed">Claude-powered assistant aware of your actual findings,
+                        accounts, and compliance state. Not generic advice.</p>
                 </div>
             </div>
 
             <div class="mt-10 text-center fade-target">
-                <a href="#pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-cyan text-bg font-semibold glow hover:opacity-90 transition-opacity">
+                <a href="#pricing"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-cyan text-bg font-semibold glow hover:opacity-90 transition-opacity">
                     Perimeter from $499/mo
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                 </a>
             </div>
 
             <!-- FORESIGHT ADD-ON MODULE -->
             <div id="foresight" class="mt-24 fade-target">
-                <div class="rounded-2xl border border-amber/20 bg-gradient-to-br from-surface via-surface-alt/50 to-surface overflow-hidden">
+                <div
+                    class="rounded-2xl border border-amber/20 bg-gradient-to-br from-surface via-surface-alt/50 to-surface overflow-hidden">
                     <!-- Header -->
                     <div class="p-8 border-b border-border/50 bg-amber/[0.03]">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 rounded-xl bg-amber/10 border border-amber/30 flex items-center justify-center">
-                                    <svg class="w-7 h-7 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-amber/10 border border-amber/30 flex items-center justify-center">
+                                    <svg class="w-7 h-7 text-amber" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                     </svg>
                                 </div>
                                 <div>
                                     <div class="flex items-center gap-3">
                                         <h3 class="text-2xl font-bold">FORESIGHT</h3>
-                                        <span class="px-2.5 py-1 rounded-full bg-amber/10 border border-amber/30 text-amber text-xs font-bold">ADD-ON MODULE</span>
+                                        <span
+                                            class="px-2.5 py-1 rounded-full bg-amber/10 border border-amber/30 text-amber text-xs font-bold">ADD-ON
+                                            MODULE</span>
                                     </div>
-                                    <p class="text-text-muted text-sm mt-1">Predictive Security & Operations Agent for Perimeter</p>
+                                    <p class="text-text-muted text-sm mt-1">Predictive Security & Operations Agent for
+                                        Perimeter</p>
                                 </div>
                             </div>
                             <div class="text-right">
                                 <div class="text-xs text-text-muted">Available with Perimeter Growth+</div>
-                                <div class="text-sm text-amber font-semibold mt-1">Predict what will go wrong — before it does</div>
+                                <div class="text-sm text-amber font-semibold mt-1">Predict what will go wrong — before
+                                    it does</div>
                             </div>
                         </div>
                     </div>
@@ -367,41 +621,73 @@
                     <!-- Value Prop -->
                     <div class="p-8 border-b border-border/50">
                         <p class="text-text-muted leading-relaxed mb-6">
-                            FORESIGHT is a SENTINEL sub-agent that shifts Perimeter from reactive detection to proactive forecasting. While existing tools answer "what is wrong now?", FORESIGHT answers "<span class="text-text-primary font-semibold">what will go wrong next, and when?</span>" — by analyzing CloudTrail patterns, CloudWatch metrics, IAM policy evolution, and configuration drift history to forecast security issues 24–72 hours before they materialize.
+                            FORESIGHT is a SENTINEL sub-agent that shifts Perimeter from reactive detection to proactive
+                            forecasting. While existing tools answer "what is wrong now?", FORESIGHT answers "<span
+                                class="text-text-primary font-semibold">what will go wrong next, and when?</span>" — by
+                            analyzing CloudTrail patterns, CloudWatch metrics, IAM policy evolution, and configuration
+                            drift history to forecast security issues 24–72 hours before they materialize.
                         </p>
                         <!-- Before/After comparison -->
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="rounded-xl bg-surface-alt/40 border border-border p-5">
-                                <div class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">Without FORESIGHT (Reactive)</div>
+                                <div class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">Without
+                                    FORESIGHT (Reactive)</div>
                                 <div class="space-y-3">
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
-                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                                        Detect misconfiguration <span class="text-red font-medium">after</span> it occurs
+                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        Detect misconfiguration <span class="text-red font-medium">after</span> it
+                                        occurs
                                     </div>
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
-                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                                        Alert on Lambda timeout <span class="text-red font-medium">after</span> invocation fails
+                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        Alert on Lambda timeout <span class="text-red font-medium">after</span>
+                                        invocation fails
                                     </div>
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
-                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                                        Report cost anomaly <span class="text-red font-medium">after</span> billing cycle
+                                        <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        Report cost anomaly <span class="text-red font-medium">after</span> billing
+                                        cycle
                                     </div>
                                 </div>
                             </div>
                             <div class="rounded-xl bg-amber/[0.04] border border-amber/20 p-5">
-                                <div class="text-xs font-semibold text-amber uppercase tracking-wider mb-4">With FORESIGHT (Predictive)</div>
+                                <div class="text-xs font-semibold text-amber uppercase tracking-wider mb-4">With
+                                    FORESIGHT (Predictive)</div>
                                 <div class="space-y-3">
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
-                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                        Predict misconfiguration <span class="text-amber font-medium">24–72 hours before</span>
+                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        Predict misconfiguration <span class="text-amber font-medium">24–72 hours
+                                            before</span>
                                     </div>
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
-                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
                                         Forecast timeout risk <span class="text-amber font-medium">15 days ahead</span>
                                     </div>
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
-                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                        Forecast cost spike <span class="text-amber font-medium">3–5 days before</span> it hits
+                                        <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        Forecast cost spike <span class="text-amber font-medium">3–5 days before</span>
+                                        it hits
                                     </div>
                                 </div>
                             </div>
@@ -412,59 +698,95 @@
                     <div class="p-8 border-b border-border/50">
                         <h4 class="font-bold text-lg mb-6">Six Prediction Domains</h4>
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                            <div
+                                class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
                                     </div>
                                     <h5 class="font-semibold text-sm">Security Drift Forecasting</h5>
                                 </div>
-                                <p class="text-xs text-text-muted">Predict when teams will create misconfigurations based on sprint-cycle behavioral patterns.</p>
+                                <p class="text-xs text-text-muted">Predict when teams will create misconfigurations
+                                    based on sprint-cycle behavioral patterns.</p>
                             </div>
-                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                            <div
+                                class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
                                     </div>
                                     <h5 class="font-semibold text-sm">Lambda Timeout Prediction</h5>
                                 </div>
-                                <p class="text-xs text-text-muted">Forecast timeout failures and memory exhaustion using P99 duration trend analysis.</p>
+                                <p class="text-xs text-text-muted">Forecast timeout failures and memory exhaustion using
+                                    P99 duration trend analysis.</p>
                             </div>
-                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                            <div
+                                class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                        </svg>
                                     </div>
                                     <h5 class="font-semibold text-sm">EKS Capacity Forecasting</h5>
                                 </div>
-                                <p class="text-xs text-text-muted">Predict cluster capacity exhaustion and pod scheduling failures 1–2 weeks ahead.</p>
+                                <p class="text-xs text-text-muted">Predict cluster capacity exhaustion and pod
+                                    scheduling failures 1–2 weeks ahead.</p>
                             </div>
-                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                            <div
+                                class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        </svg>
                                     </div>
                                     <h5 class="font-semibold text-sm">IAM Permission Creep</h5>
                                 </div>
-                                <p class="text-xs text-text-muted">Track IAM policy velocity to predict admin-equivalent permissions within 6 weeks.</p>
+                                <p class="text-xs text-text-muted">Track IAM policy velocity to predict admin-equivalent
+                                    permissions within 6 weeks.</p>
                             </div>
-                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                            <div
+                                class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
                                     </div>
                                     <h5 class="font-semibold text-sm">Cost Anomaly Forecasting</h5>
                                 </div>
-                                <p class="text-xs text-text-muted">Predict cost spikes and budget overruns 3–5 days before they hit your billing cycle.</p>
+                                <p class="text-xs text-text-muted">Predict cost spikes and budget overruns 3–5 days
+                                    before they hit your billing cycle.</p>
                             </div>
-                            <div class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
+                            <div
+                                class="p-4 rounded-lg bg-surface-alt/30 border border-border/50 hover:border-amber/30 transition-colors">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
                                     </div>
                                     <h5 class="font-semibold text-sm">Drift Window Prediction</h5>
                                 </div>
-                                <p class="text-xs text-text-muted">Identify when manual infra changes will occur based on on-call rotation and team behavior.</p>
+                                <p class="text-xs text-text-muted">Identify when manual infra changes will occur based
+                                    on on-call rotation and team behavior.</p>
                             </div>
                         </div>
                     </div>
@@ -477,19 +799,25 @@
                                 <div class="space-y-2">
                                     <div class="flex items-center gap-3 text-sm">
                                         <span class="w-2 h-2 rounded-full bg-amber"></span>
-                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Meta Prophet</span> — seasonality-aware time-series forecasting</span>
+                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Meta
+                                                Prophet</span> — seasonality-aware time-series forecasting</span>
                                     </div>
                                     <div class="flex items-center gap-3 text-sm">
                                         <span class="w-2 h-2 rounded-full bg-amber"></span>
-                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Isolation Forest</span> — anomaly detection on IAM velocity</span>
+                                        <span class="text-text-muted"><span
+                                                class="text-text-primary font-medium">Isolation Forest</span> — anomaly
+                                            detection on IAM velocity</span>
                                     </div>
                                     <div class="flex items-center gap-3 text-sm">
                                         <span class="w-2 h-2 rounded-full bg-amber"></span>
-                                        <span class="text-text-muted"><span class="text-text-primary font-medium">LSTM</span> — multi-variate prediction (CPU + memory + network)</span>
+                                        <span class="text-text-muted"><span
+                                                class="text-text-primary font-medium">LSTM</span> — multi-variate
+                                            prediction (CPU + memory + network)</span>
                                     </div>
                                     <div class="flex items-center gap-3 text-sm">
                                         <span class="w-2 h-2 rounded-full bg-amber"></span>
-                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Claude Haiku</span> — narrative generation & root cause hypothesis</span>
+                                        <span class="text-text-muted"><span class="text-text-primary font-medium">Claude
+                                                Haiku</span> — narrative generation & root cause hypothesis</span>
                                     </div>
                                 </div>
                             </div>
@@ -497,20 +825,36 @@
                                 <h4 class="font-bold text-sm mb-4">Pre-Staged Remediation</h4>
                                 <div class="space-y-2">
                                     <div class="flex items-center gap-3 text-sm">
-                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                        <span class="text-text-muted">SG drift → time-scoped rule that auto-expires</span>
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="text-text-muted">SG drift → time-scoped rule that
+                                            auto-expires</span>
                                     </div>
                                     <div class="flex items-center gap-3 text-sm">
-                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                        <span class="text-text-muted">Lambda timeout → CloudFormation changeset ready</span>
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="text-text-muted">Lambda timeout → CloudFormation changeset
+                                            ready</span>
                                     </div>
                                     <div class="flex items-center gap-3 text-sm">
-                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                        <span class="text-text-muted">IAM creep → least-privilege policy PR generated</span>
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="text-text-muted">IAM creep → least-privilege policy PR
+                                            generated</span>
                                     </div>
                                     <div class="flex items-center gap-3 text-sm">
-                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                        <span class="text-text-muted">Drift window → Terraform plan/apply before window</span>
+                                        <svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="text-text-muted">Drift window → Terraform plan/apply before
+                                            window</span>
                                     </div>
                                 </div>
                             </div>
@@ -534,7 +878,8 @@
                             </div>
                         </div>
                         <p class="text-center text-text-muted text-sm mt-6">
-                            FORESIGHT is available as an add-on to Perimeter Growth and above. Predicted findings appear in your existing dashboard with a <span class="text-amber">⬡</span> badge.
+                            FORESIGHT is available as an add-on to Perimeter Growth and above. Predicted findings appear
+                            in your existing dashboard with a <span class="text-amber">⬡</span> badge.
                         </p>
                     </div>
                 </div>
@@ -543,20 +888,26 @@
     </section>
 
     <!-- INFRAPILOT SECTION -->
-    <section id="infrapilot" class="py-32 relative overflow-hidden">
+    <section id="infrapilot" class="py-32 relative">
         <div class="absolute inset-0 bg-grid opacity-20"></div>
-        <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple/[0.04] rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple/[0.04] rounded-full blur-3xl pointer-events-none">
+        </div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
             <div class="text-center mb-16 fade-target">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple/30 bg-purple/10 mb-6">
-                    <svg class="w-4 h-4 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple/30 bg-purple/10 mb-6">
+                    <svg class="w-4 h-4 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                     <span class="text-sm font-semibold text-purple">InfraPilot AI</span>
                     <span class="px-2 py-0.5 rounded-full bg-purple/20 text-purple text-xs font-bold ml-1">NEW</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Validate <span class="text-gradient-purple">before</span> you provision</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Describe infrastructure in natural language. Get cost prediction, readiness scoring, and guided architecture coaching. No AWS account needed.</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Validate <span
+                        class="text-gradient-purple">before</span> you provision</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Describe infrastructure in natural language. Get
+                    cost prediction, readiness scoring, and guided architecture coaching. No AWS account needed.</p>
             </div>
 
             <!-- InfraCoach Flow -->
@@ -564,28 +915,32 @@
                 <h3 class="text-xl font-bold mb-6 text-center">InfraCoach: Your AI Cloud Architect</h3>
                 <div class="grid md:grid-cols-4 gap-6">
                     <div class="text-center">
-                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                        <div
+                            class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
                             <span class="text-purple font-bold text-lg">1</span>
                         </div>
                         <h4 class="font-semibold mb-1">Describe</h4>
                         <p class="text-xs text-text-muted">“Deploy a Node.js app with PostgreSQL on AWS”</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                        <div
+                            class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
                             <span class="text-purple font-bold text-lg">2</span>
                         </div>
                         <h4 class="font-semibold mb-1">Analyze</h4>
                         <p class="text-xs text-text-muted">Detect gaps in region, scaling, security, backup</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                        <div
+                            class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
                             <span class="text-purple font-bold text-lg">3</span>
                         </div>
                         <h4 class="font-semibold mb-1">Coach</h4>
                         <p class="text-xs text-text-muted">One-click fixes for security, scale, reliability</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
+                        <div
+                            class="w-14 h-14 rounded-full bg-purple/10 border border-purple/30 flex items-center justify-center mx-auto mb-4">
                             <span class="text-purple font-bold text-lg">4</span>
                         </div>
                         <h4 class="font-semibold mb-1">Evaluate</h4>
@@ -596,54 +951,98 @@
 
             <!-- InfraPilot Features -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
-                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Cost Prediction</h3>
-                    <p class="text-text-muted leading-relaxed">Baseline, peak, and hidden costs (NAT Gateway, data transfer, logging) with ±25% accuracy and confidence scoring.</p>
+                    <p class="text-text-muted leading-relaxed">Baseline, peak, and hidden costs (NAT Gateway, data
+                        transfer, logging) with ±25% accuracy and confidence scoring.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
-                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Readiness Scoring</h3>
-                    <p class="text-text-muted leading-relaxed">0–100 composite score across security, scalability, reliability, observability, and cost efficiency.</p>
+                    <p class="text-text-muted leading-relaxed">0–100 composite score across security, scalability,
+                        reliability, observability, and cost efficiency.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
-                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">IaC & Arch Scanning</h3>
-                    <p class="text-text-muted leading-relaxed">130+ Terraform, CloudFormation, Dockerfile rules + 30 architecture diagram rules. Shared engine with Perimeter.</p>
+                    <p class="text-text-muted leading-relaxed">130+ Terraform, CloudFormation, Dockerfile rules + 30
+                        architecture diagram rules. Shared engine with Perimeter.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
-                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">What-If Simulation</h3>
-                    <p class="text-text-muted leading-relaxed">Simulate 5× traffic spikes and AZ failures. See concrete cost, latency, and recovery time impact.</p>
+                    <p class="text-text-muted leading-relaxed">Simulate 5× traffic spikes and AZ failures. See concrete
+                        cost, latency, and recovery time impact.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
-                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">CI/CD Integration</h3>
-                    <p class="text-text-muted leading-relaxed">GitHub Actions, GitLab CI, Bitbucket. PR scanning, policy gates, diff-aware analysis. Block merge on critical findings.</p>
+                    <p class="text-text-muted leading-relaxed">GitHub Actions, GitLab CI, Bitbucket. PR scanning, policy
+                        gates, diff-aware analysis. Block merge on critical findings.</p>
                 </div>
-                <div class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
-                    <div class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
-                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                <div
+                    class="group p-8 rounded-xl border border-border card-gradient hover:border-purple/30 transition-all duration-300 fade-target">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple/10 flex items-center justify-center mb-5 group-hover:bg-purple/20 transition-colors">
+                        <svg class="w-6 h-6 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Auto-Fix Recs</h3>
-                    <p class="text-text-muted leading-relaxed">Every risk paired with prioritized, actionable recommendations ranked by impact-to-effort ratio with cost impact.</p>
+                    <p class="text-text-muted leading-relaxed">Every risk paired with prioritized, actionable
+                        recommendations ranked by impact-to-effort ratio with cost impact.</p>
                 </div>
             </div>
 
             <div class="mt-10 text-center fade-target">
-                <a href="#pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-purple text-white font-semibold glow-purple hover:opacity-90 transition-opacity">
+                <a href="#pricing"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-purple text-white font-semibold glow-purple hover:opacity-90 transition-opacity">
                     InfraPilot from $49/mo
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                 </a>
             </div>
         </div>
@@ -652,73 +1051,112 @@
     <!-- INTEGRATIONS -->
     <section id="integrations" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 md:mb-16 fade-target">
-                <p class="text-cyan font-mono text-xs md:text-sm font-semibold tracking-widest uppercase mb-4">Integrations</p>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">Fits into your workflow</h2>
-                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Both products integrate with the tools your team already uses.</p>
+            <div class="text-center mb-16 fade-target">
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Integrations</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Fits into your workflow</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Both products integrate with the tools your team
+                    already uses.</p>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 fade-target">
-                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                <div
+                    class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
                     <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center mx-auto mb-2">
-                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
                     </div>
                     <div class="font-semibold text-sm">Jira</div>
                     <div class="text-xs text-text-muted">Tickets</div>
                 </div>
-                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                <div
+                    class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
                     <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center mx-auto mb-2">
-                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
                     </div>
                     <div class="font-semibold text-sm">Slack</div>
                     <div class="text-xs text-text-muted">Alerts</div>
                 </div>
-                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                <div
+                    class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
                     <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center mx-auto mb-2">
-                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
                     </div>
                     <div class="font-semibold text-sm">PagerDuty</div>
                     <div class="text-xs text-text-muted">On-call</div>
                 </div>
-                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                <div
+                    class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
                     <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center mx-auto mb-2">
-                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
                     </div>
                     <div class="font-semibold text-sm">Okta SSO</div>
                     <div class="text-xs text-text-muted">Identity</div>
                 </div>
-                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                <div
+                    class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
                     <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center mx-auto mb-2">
-                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
                     </div>
                     <div class="font-semibold text-sm">Splunk</div>
                     <div class="text-xs text-text-muted">SIEM</div>
                 </div>
-                <div class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
+                <div
+                    class="p-4 rounded-xl border border-border card-gradient text-center hover:border-cyan/30 transition-colors">
                     <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center mx-auto mb-2">
-                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                     </div>
                     <div class="font-semibold text-sm">Webhooks</div>
                     <div class="text-xs text-text-muted">Custom</div>
                 </div>
             </div>
-            <p class="text-center text-text-muted text-sm mt-6 fade-target">Plus: Linear, Asana, OpsGenie, ServiceNow, Microsoft Teams, Datadog, GitHub Actions, GitLab CI, Azure AD, and SAML 2.0.</p>
+            <p class="text-center text-text-muted text-sm mt-6 fade-target">Plus: Linear, Asana, OpsGenie, ServiceNow,
+                Microsoft Teams, Datadog, GitHub Actions, GitLab CI, Azure AD, and SAML 2.0.</p>
         </div>
     </section>
 
     <!-- AI ENGINE: TIERED LLM + OLLAMA -->
-    <section id="ai-engine" class="py-32 relative overflow-hidden">
+    <section id="ai-engine" class="py-32 relative">
         <div class="absolute inset-0 bg-grid opacity-20"></div>
-        <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-green-500/[0.04] rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-green-500/[0.04] rounded-full blur-3xl pointer-events-none">
+        </div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-12 md:mb-16 fade-target">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 mb-6">
-                    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <div class="text-center mb-16 fade-target">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 mb-6">
+                    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <span class="text-sm font-semibold text-green-400">AI Engine</span>
                 </div>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Tiered AI. <span class="text-gradient">Local-first</span> inference.</h2>
-                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Claude for complex reasoning. Ollama for high-volume tasks. Zero API cost on 70% of LLM calls. Full data sovereignty option.</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Tiered AI. <span
+                        class="text-gradient">Local-first</span> inference.</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Claude for complex reasoning. Ollama for
+                    high-volume tasks. Zero API cost on 70% of LLM calls. Full data sovereignty option.</p>
             </div>
 
             <!-- Two-tier visual -->
@@ -727,8 +1165,10 @@
                 <div class="rounded-2xl border border-cyan/20 card-gradient p-8 fade-target">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center">
-                            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <div>
@@ -739,19 +1179,23 @@
                     <div class="space-y-3">
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">AI Security Chat</span> &mdash; multi-finding reasoning</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">AI Security
+                                    Chat</span> &mdash; multi-finding reasoning</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">InfraCoach</span> &mdash; guided architecture coaching</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">InfraCoach</span>
+                                &mdash; guided architecture coaching</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">Vision analysis</span> &mdash; architecture diagram scanning</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">Vision
+                                    analysis</span> &mdash; architecture diagram scanning</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-cyan shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">Root cause</span> &mdash; FORESIGHT causal reasoning</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">Root cause</span>
+                                &mdash; FORESIGHT causal reasoning</span>
                         </div>
                     </div>
                     <div class="mt-6 px-4 py-3 rounded-lg bg-surface-alt/40 border border-border/50">
@@ -763,8 +1207,10 @@
                 <div class="rounded-2xl border border-green-500/20 card-gradient p-8 fade-target">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center">
-                            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
                             </svg>
                         </div>
                         <div>
@@ -775,23 +1221,28 @@
                     <div class="space-y-3">
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">FORESIGHT narratives</span> &mdash; prediction summaries</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">FORESIGHT
+                                    narratives</span> &mdash; prediction summaries</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">Intent extraction</span> &mdash; NL to infra components</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">Intent
+                                    extraction</span> &mdash; NL to infra components</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">IaC explanations</span> &mdash; finding remediation text</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">IaC
+                                    explanations</span> &mdash; finding remediation text</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
                             <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
-                            <span class="text-text-muted"><span class="text-text-primary font-medium">AutoResearch agent</span> &mdash; autonomous optimization</span>
+                            <span class="text-text-muted"><span class="text-text-primary font-medium">AutoResearch
+                                    agent</span> &mdash; autonomous optimization</span>
                         </div>
                     </div>
                     <div class="mt-6 px-4 py-3 rounded-lg bg-green-500/[0.06] border border-green-500/20">
-                        <div class="text-xs text-green-400">~70% of LLM calls &bull; $0/call &bull; Llama 3.1 8B / Mistral 7B on CPU</div>
+                        <div class="text-xs text-green-400">~70% of LLM calls &bull; $0/call &bull; Llama 3.1 8B /
+                            Mistral 7B on CPU</div>
                     </div>
                 </div>
             </div>
@@ -819,12 +1270,16 @@
             <!-- Enterprise callout -->
             <div class="rounded-xl border border-border card-gradient p-6 text-center fade-target">
                 <div class="flex items-center justify-center gap-2 mb-2">
-                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                     <span class="font-semibold text-sm">Full Data Sovereignty Mode</span>
                 </div>
-                <p class="text-text-muted text-sm max-w-xl mx-auto">Enterprise customers can run all AI tasks through Ollama locally &mdash; zero external API calls. Meets QCB (Qatar) and MAS (Singapore) data residency requirements.</p>
+                <p class="text-text-muted text-sm max-w-xl mx-auto">Enterprise customers can run all AI tasks through
+                    Ollama locally &mdash; zero external API calls. Meets QCB (Qatar) and MAS (Singapore) data residency
+                    requirements.</p>
             </div>
         </div>
     </section>
@@ -832,16 +1287,24 @@
     <!-- AUTORESEARCH -->
     <section id="autoresearch" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12 md:mb-16 fade-target">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber/30 bg-amber/10 mb-6">
-                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            <div class="text-center mb-16 fade-target">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber/30 bg-amber/10 mb-6">
+                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                     <span class="text-sm font-semibold text-amber">AutoResearch</span>
-                    <span class="px-2 py-0.5 rounded-full bg-amber/20 text-amber text-xs font-bold ml-1">AUTONOMOUS</span>
+                    <span
+                        class="px-2 py-0.5 rounded-full bg-amber/20 text-amber text-xs font-bold ml-1">AUTONOMOUS</span>
                 </div>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">The platform gets <span style="background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">smarter every night</span></h2>
-                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Inspired by Karpathy's autoresearch. An LLM agent autonomously tunes parameters, runs evaluations, keeps improvements, discards regressions. 200+ experiments per night at $5/month.</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">The platform gets <span
+                        style="background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">smarter
+                        every night</span></h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Inspired by Karpathy's autoresearch. An LLM agent
+                    autonomously tunes parameters, runs evaluations, keeps improvements, discards regressions. 200+
+                    experiments per night at $5/month.</p>
             </div>
 
             <!-- How it works -->
@@ -849,37 +1312,44 @@
                 <h3 class="text-lg font-bold mb-6 text-center">The Autonomous Loop</h3>
                 <div class="grid md:grid-cols-5 gap-4">
                     <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                        <div
+                            class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
                             <span class="text-amber font-bold">1</span>
                         </div>
                         <h4 class="font-semibold text-sm mb-1">Read Brief</h4>
                         <p class="text-xs text-text-muted">Agent reads program.md with optimization goals</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                        <div
+                            class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
                             <span class="text-amber font-bold">2</span>
                         </div>
                         <h4 class="font-semibold text-sm mb-1">Mutate Config</h4>
                         <p class="text-xs text-text-muted">Ollama agent tweaks parameters in config.yaml</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                        <div
+                            class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
                             <span class="text-amber font-bold">3</span>
                         </div>
                         <h4 class="font-semibold text-sm mb-1">Evaluate</h4>
                         <p class="text-xs text-text-muted">Immutable eval harness scores against labeled data</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                        <div
+                            class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
                             <span class="text-amber font-bold">4</span>
                         </div>
                         <h4 class="font-semibold text-sm mb-1">Keep or Discard</h4>
                         <p class="text-xs text-text-muted">Better? Keep. Worse? Revert. Ratchet forward.</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        <div
+                            class="w-12 h-12 rounded-full bg-amber/10 border border-amber/30 flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>
                         </div>
                         <h4 class="font-semibold text-sm mb-1">Repeat</h4>
@@ -891,85 +1361,115 @@
             <!-- 5 Optimization domains -->
             <h3 class="text-xl font-bold mb-6 text-center fade-target">What Gets Better Every Night</h3>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                <div
+                    class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-lg bg-purple/10 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                         </div>
                         <div>
                             <h4 class="font-semibold text-sm">Cost Prediction Accuracy</h4>
                             <p class="text-xs text-purple">InfraPilot</p>
                         </div>
                     </div>
-                    <p class="text-xs text-text-muted mb-3">Tunes NAT Gateway, data transfer, and logging cost multipliers against real AWS bills.</p>
+                    <p class="text-xs text-text-muted mb-3">Tunes NAT Gateway, data transfer, and logging cost
+                        multipliers against real AWS bills.</p>
                     <div class="flex items-center justify-between text-xs">
                         <span class="text-text-muted">Metric: MAPE</span>
                         <span class="text-amber font-medium">500 experiments/night</span>
                     </div>
                 </div>
 
-                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                <div
+                    class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-lg bg-purple/10 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
                         </div>
                         <div>
                             <h4 class="font-semibold text-sm">Readiness Score Calibration</h4>
                             <p class="text-xs text-purple">InfraPilot</p>
                         </div>
                     </div>
-                    <p class="text-xs text-text-muted mb-3">Optimizes dimension weights so scores predict real deployment outcomes.</p>
+                    <p class="text-xs text-text-muted mb-3">Optimizes dimension weights so scores predict real
+                        deployment outcomes.</p>
                     <div class="flex items-center justify-between text-xs">
                         <span class="text-text-muted">Metric: Spearman r</span>
                         <span class="text-amber font-medium">300 experiments/night</span>
                     </div>
                 </div>
 
-                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                <div
+                    class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                            <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
                         </div>
                         <div>
                             <h4 class="font-semibold text-sm">Scanner Severity Tuning</h4>
                             <p class="text-xs text-cyan">Perimeter</p>
                         </div>
                     </div>
-                    <p class="text-xs text-text-muted mb-3">Calibrates severity thresholds to maximize real incident detection, minimize false positives.</p>
+                    <p class="text-xs text-text-muted mb-3">Calibrates severity thresholds to maximize real incident
+                        detection, minimize false positives.</p>
                     <div class="flex items-center justify-between text-xs">
                         <span class="text-text-muted">Metric: F1 score</span>
                         <span class="text-amber font-medium">200 experiments/week</span>
                     </div>
                 </div>
 
-                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                <div
+                    class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
                         </div>
                         <div>
                             <h4 class="font-semibold text-sm">FORESIGHT Model Tuning</h4>
                             <p class="text-xs text-amber">Foresight</p>
                         </div>
                     </div>
-                    <p class="text-xs text-text-muted mb-3">Tunes Prophet and Isolation Forest hyperparameters for better prediction accuracy.</p>
+                    <p class="text-xs text-text-muted mb-3">Tunes Prophet and Isolation Forest hyperparameters for
+                        better prediction accuracy.</p>
                     <div class="flex items-center justify-between text-xs">
                         <span class="text-text-muted">Metric: Composite F1</span>
                         <span class="text-amber font-medium">100 experiments/night</span>
                     </div>
                 </div>
 
-                <div class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
+                <div
+                    class="group p-6 rounded-xl border border-border card-gradient hover:border-amber/30 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-lg bg-purple/10 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                            <svg class="w-5 h-5 text-purple" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
                         </div>
                         <div>
                             <h4 class="font-semibold text-sm">Suggestion Ranking</h4>
                             <p class="text-xs text-purple">InfraPilot</p>
                         </div>
                     </div>
-                    <p class="text-xs text-text-muted mb-3">Optimizes InfraCoach suggestion ordering to maximize user acceptance rate.</p>
+                    <p class="text-xs text-text-muted mb-3">Optimizes InfraCoach suggestion ordering to maximize user
+                        acceptance rate.</p>
                     <div class="flex items-center justify-between text-xs">
                         <span class="text-text-muted">Metric: acceptance@3</span>
                         <span class="text-amber font-medium">200 experiments/week</span>
@@ -977,42 +1477,54 @@
                 </div>
 
                 <!-- Summary card -->
-                <div class="p-6 rounded-xl border border-amber/20 bg-amber/[0.03] flex flex-col items-center justify-center text-center fade-target">
+                <div
+                    class="p-6 rounded-xl border border-amber/20 bg-amber/[0.03] flex flex-col items-center justify-center text-center fade-target">
                     <div class="text-3xl font-bold text-amber mb-2">$5/mo</div>
                     <div class="text-sm text-text-muted mb-1">Total infrastructure cost</div>
                     <div class="text-xs text-text-muted">Runs on Ollama (zero API cost)</div>
                     <div class="text-xs text-text-muted mt-1">No GPU required</div>
                     <div class="w-16 h-px bg-amber/30 my-3"></div>
-                    <div class="text-xs text-amber font-medium">Compound advantage: competitors using static rules can't keep up</div>
+                    <div class="text-xs text-amber font-medium">Compound advantage: competitors using static rules can't
+                        keep up</div>
                 </div>
             </div>
 
             <!-- Karpathy credit -->
             <div class="text-center fade-target">
-                <p class="text-text-muted text-sm">Inspired by <a href="https://github.com/karpathy/autoresearch" target="_blank" class="text-amber hover:underline">Karpathy's autoresearch</a> &mdash; adapted from ML training to SaaS configuration optimization. Same three-file pattern: human writes the brief, agent runs the experiments, eval harness can't be gamed.</p>
+                <p class="text-text-muted text-sm">Inspired by <a href="https://github.com/karpathy/autoresearch"
+                        target="_blank" class="text-amber hover:underline">Karpathy's autoresearch</a> &mdash; adapted
+                    from ML training to SaaS configuration optimization. Same three-file pattern: human writes the
+                    brief, agent runs the experiments, eval harness can't be gamed.</p>
             </div>
         </div>
     </section>
 
     <!-- PRICING -->
-    <section id="pricing" class="py-32 relative overflow-hidden">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan/[0.03] rounded-full blur-3xl pointer-events-none"></div>
+    <section id="pricing" class="py-32 relative">
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan/[0.03] rounded-full blur-3xl pointer-events-none">
+        </div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-12 md:mb-16 fade-target">
-                <p class="text-cyan font-mono text-xs md:text-sm font-semibold tracking-widest uppercase mb-4">Pricing</p>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">Two products. Buy separately or bundle.</h2>
-                <p class="text-text-muted text-base md:text-lg max-w-2xl mx-auto">Each product works standalone. Bundle both for 25% savings.</p>
+            <div class="text-center mb-16 fade-target">
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">Pricing</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Two products. Buy separately or bundle.
+                </h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Each product works standalone. Bundle both for 25%
+                    savings.</p>
             </div>
 
             <!-- Product Toggle Tabs -->
-            <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-12 fade-target">
-                <button onclick="showPricing('perimeter')" id="tab-perimeter" class="product-tab active-perimeter px-6 py-3 rounded-xl border-2 border-cyan bg-cyan/[0.08] font-semibold text-sm transition-all">
+            <div class="flex justify-center gap-4 mb-12 fade-target">
+                <button onclick="showPricing('perimeter')" id="tab-perimeter"
+                    class="product-tab active-perimeter px-6 py-3 rounded-xl border-2 border-cyan bg-cyan/[0.08] font-semibold text-sm transition-all">
                     <span class="inline-block w-2 h-2 rounded-full bg-cyan mr-1"></span> Perimeter
                 </button>
-                <button onclick="showPricing('infrapilot')" id="tab-infrapilot" class="product-tab px-6 py-3 rounded-xl border-2 border-border font-semibold text-sm text-text-muted transition-all hover:border-purple/40">
+                <button onclick="showPricing('infrapilot')" id="tab-infrapilot"
+                    class="product-tab px-6 py-3 rounded-xl border-2 border-border font-semibold text-sm text-text-muted transition-all hover:border-purple/40">
                     <span class="inline-block w-2 h-2 rounded-full bg-purple mr-1"></span> InfraPilot
                 </button>
-                <button onclick="showPricing('bundle')" id="tab-bundle" class="product-tab px-6 py-3 rounded-xl border-2 border-border font-semibold text-sm text-text-muted transition-all hover:border-amber/40">
+                <button onclick="showPricing('bundle')" id="tab-bundle"
+                    class="product-tab px-6 py-3 rounded-xl border-2 border-border font-semibold text-sm text-text-muted transition-all hover:border-amber/40">
                     <span class="inline-block w-2 h-2 rounded-full bg-amber mr-1"></span> Bundle (25% off)
                 </button>
             </div>
@@ -1022,39 +1534,85 @@
                 <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target">
                     <h3 class="text-xl font-bold mb-1">Essentials</h3>
                     <p class="text-xs text-text-muted mb-4">Core cloud security</p>
-                    <div class="mb-4"><span class="text-3xl font-bold">$499</span><span class="text-text-muted">/mo</span></div>
+                    <div class="mb-4"><span class="text-3xl font-bold">$499</span><span
+                            class="text-text-muted">/mo</span></div>
                     <div class="text-xs text-text-muted mb-4">2 AWS accounts · 3 seats</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>476 security rules</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Real-time drift</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>IaC scanning</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>476 security rules</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Real-time drift</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>IaC scanning</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start Trial</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start
+                        Trial</a>
                 </div>
                 <div class="flex flex-col rounded-xl border-2 border-cyan/30 bg-cyan/[0.02] p-6 relative fade-target">
-                    <div class="absolute top-0 right-0 px-3 py-1 bg-cyan/20 text-cyan text-xs font-bold rounded-bl-lg">POPULAR</div>
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-cyan/20 text-cyan text-xs font-bold rounded-bl-lg">
+                        POPULAR</div>
                     <h3 class="text-xl font-bold mb-1">Growth</h3>
                     <p class="text-xs text-text-muted mb-4">Full detection suite</p>
-                    <div class="mb-4"><span class="text-3xl font-bold">$1,499</span><span class="text-text-muted">/mo</span></div>
+                    <div class="mb-4"><span class="text-3xl font-bold">$1,499</span><span
+                            class="text-text-muted">/mo</span></div>
                     <div class="text-xs text-text-muted mb-4">10 accounts · 10 seats</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Essentials</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>CIEM + Insider Threat</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>CVE Scanner + AI Chat</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Everything in Essentials</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>CIEM + Insider Threat</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>CVE Scanner + AI Chat</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg bg-cyan text-bg text-center font-bold text-sm hover:opacity-90 transition-opacity">Get Started</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg bg-cyan text-bg text-center font-bold text-sm hover:opacity-90 transition-opacity">Get
+                        Started</a>
                 </div>
                 <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target">
                     <h3 class="text-xl font-bold mb-1">Assure</h3>
                     <p class="text-xs text-text-muted mb-4">Compliance & audit</p>
-                    <div class="mb-4"><span class="text-3xl font-bold">$2,999</span><span class="text-text-muted">/mo</span></div>
+                    <div class="mb-4"><span class="text-3xl font-bold">$2,999</span><span
+                            class="text-text-muted">/mo</span></div>
                     <div class="text-xs text-text-muted mb-4">25 accounts · 20 seats</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Growth</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>19 compliance frameworks</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>PDF evidence packs</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Everything in Growth</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>19 compliance frameworks</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>PDF evidence packs</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact Sales</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact
+                        Sales</a>
                 </div>
                 <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target">
                     <h3 class="text-xl font-bold mb-1">Enterprise</h3>
@@ -1062,11 +1620,25 @@
                     <div class="mb-4"><span class="text-3xl font-bold">Custom</span></div>
                     <div class="text-xs text-text-muted mb-4">Unlimited accounts + seats</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>SSO / SAML</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Custom rules + RBAC</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Premium support</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>SSO / SAML</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Custom rules + RBAC</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-cyan shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Premium support</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact Sales</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact
+                        Sales</a>
                 </div>
             </div>
 
@@ -1078,36 +1650,83 @@
                     <div class="mb-4"><span class="text-3xl font-bold">$0</span></div>
                     <div class="text-xs text-text-muted mb-4">No AWS account needed</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>10 NL evaluations/mo</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>3 IaC scans/mo</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Public arch scan</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>10 NL evaluations/mo</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>3 IaC scans/mo</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Public arch scan</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start Free</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start
+                        Free</a>
                 </div>
-                <div class="flex flex-col rounded-xl border-2 border-purple/30 bg-purple/[0.02] p-6 relative fade-target visible">
-                    <div class="absolute top-0 right-0 px-3 py-1 bg-purple/20 text-purple text-xs font-bold rounded-bl-lg">BEST VALUE</div>
+                <div
+                    class="flex flex-col rounded-xl border-2 border-purple/30 bg-purple/[0.02] p-6 relative fade-target visible">
+                    <div
+                        class="absolute top-0 right-0 px-3 py-1 bg-purple/20 text-purple text-xs font-bold rounded-bl-lg">
+                        BEST VALUE</div>
                     <h3 class="text-xl font-bold mb-1">Pro</h3>
                     <p class="text-xs text-text-muted mb-4">Full preflight engine</p>
-                    <div class="mb-4"><span class="text-3xl font-bold">$49</span><span class="text-text-muted">/mo</span></div>
+                    <div class="mb-4"><span class="text-3xl font-bold">$49</span><span
+                            class="text-text-muted">/mo</span></div>
                     <div class="text-xs text-text-muted mb-4">Unlimited evaluations</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited NL evals</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Cost + readiness + simulation</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>50 IaC scans + CLI</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Unlimited NL evals</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Cost + readiness + simulation</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>50 IaC scans + CLI</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg bg-purple text-white text-center font-bold text-sm hover:opacity-90 transition-opacity">Get Started</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg bg-purple text-white text-center font-bold text-sm hover:opacity-90 transition-opacity">Get
+                        Started</a>
                 </div>
                 <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target visible">
                     <h3 class="text-xl font-bold mb-1">Growth</h3>
                     <p class="text-xs text-text-muted mb-4">Teams + CI/CD</p>
-                    <div class="mb-4"><span class="text-3xl font-bold">$149</span><span class="text-text-muted">/mo</span></div>
+                    <div class="mb-4"><span class="text-3xl font-bold">$149</span><span
+                            class="text-text-muted">/mo</span></div>
                     <div class="text-xs text-text-muted mb-4">5 team seats · 10 repos</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Pro</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>CI/CD + policy gates</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited IaC + arch scans</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Everything in Pro</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>CI/CD + policy gates</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Unlimited IaC + arch scans</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Get Started</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Get
+                        Started</a>
                 </div>
                 <div class="flex flex-col rounded-xl border border-border bg-surface-alt/20 p-6 fade-target visible">
                     <h3 class="text-xl font-bold mb-1">Enterprise</h3>
@@ -1115,11 +1734,25 @@
                     <div class="mb-4"><span class="text-3xl font-bold">Custom</span></div>
                     <div class="text-xs text-text-muted mb-4">Unlimited repos + seats</div>
                     <ul class="space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>SSO / SAML</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Custom rules + API</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Dedicated support</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>SSO / SAML</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Custom rules + API</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>Dedicated support</li>
                     </ul>
-                    <a href="#" class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact Sales</a>
+                    <a href="#"
+                        class="block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Contact
+                        Sales</a>
                 </div>
             </div>
 
@@ -1127,21 +1760,25 @@
             <div id="pricing-bundle" class="hidden fade-target visible">
                 <div class="max-w-3xl mx-auto">
                     <div class="rounded-2xl border-2 border-amber/30 bg-amber/[0.02] p-8 text-center">
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber/10 border border-amber/30 mb-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber/10 border border-amber/30 mb-6">
                             <span class="text-amber font-bold text-sm">25% SAVINGS</span>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Perimeter Cloud Suite</h3>
-                        <p class="text-text-muted mb-8 max-w-lg mx-auto">Both products together with cross-product data flows. Design → Scan → Gate → Monitor. Complete lifecycle.</p>
+                        <p class="text-text-muted mb-8 max-w-lg mx-auto">Both products together with cross-product data
+                            flows. Design → Scan → Gate → Monitor. Complete lifecycle.</p>
                         <div class="grid md:grid-cols-3 gap-6 mb-8">
                             <div class="rounded-xl border border-border card-gradient p-6">
                                 <div class="text-xs text-text-muted mb-1">Starter Bundle</div>
-                                <div class="text-2xl font-bold">$399<span class="text-sm text-text-muted font-normal">/mo</span></div>
+                                <div class="text-2xl font-bold">$399<span
+                                        class="text-sm text-text-muted font-normal">/mo</span></div>
                                 <div class="text-xs text-text-muted mt-1">InfraPilot Pro + Perimeter Essentials</div>
                                 <div class="text-xs text-amber mt-2">Save $149/mo</div>
                             </div>
                             <div class="rounded-xl border border-amber/30 bg-amber/[0.03] p-6">
                                 <div class="text-xs text-amber mb-1">Most Popular</div>
-                                <div class="text-2xl font-bold">$1,198<span class="text-sm text-text-muted font-normal">/mo</span></div>
+                                <div class="text-2xl font-bold">$1,198<span
+                                        class="text-sm text-text-muted font-normal">/mo</span></div>
                                 <div class="text-xs text-text-muted mt-1">InfraPilot Growth + Perimeter Growth</div>
                                 <div class="text-xs text-amber mt-2">Save $450/mo</div>
                             </div>
@@ -1152,9 +1789,12 @@
                                 <div class="text-xs text-amber mt-2">Negotiated discount</div>
                             </div>
                         </div>
-                        <a href="#" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-amber text-bg font-semibold hover:opacity-90 transition-opacity">
+                        <a href="#"
+                            class="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-amber text-bg font-semibold hover:opacity-90 transition-opacity">
                             Get the Bundle
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -1165,19 +1805,23 @@
     <!-- CTA -->
     <section id="get-started" class="py-32">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <div class="relative rounded-2xl border border-cyan/20 card-gradient p-12 md:p-16 overflow-hidden fade-target">
+            <div
+                class="relative rounded-2xl border border-cyan/20 card-gradient p-12 md:p-16 overflow-hidden fade-target">
                 <div class="absolute top-0 left-1/3 w-80 h-40 bg-cyan/10 blur-3xl rounded-full"></div>
                 <div class="absolute bottom-0 right-1/3 w-60 h-40 bg-purple/10 blur-3xl rounded-full"></div>
                 <div class="relative z-10">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Secure your cloud lifecycle</h2>
                     <p class="text-text-muted text-lg mb-8 max-w-xl mx-auto">
-                        Start with InfraPilot for free — no AWS account needed. Add Perimeter when you’re ready to monitor production. <strong class="text-text-primary">Zero credentials stored.</strong>
+                        Start with InfraPilot for free — no AWS account needed. Add Perimeter when you’re ready to
+                        monitor production. <strong class="text-text-primary">Zero credentials stored.</strong>
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-lg glow-purple hover:opacity-90 transition-opacity">
+                        <a href="#"
+                            class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-purple text-white font-semibold text-lg glow-purple hover:opacity-90 transition-opacity">
                             Try InfraPilot Free
                         </a>
-                        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
+                        <a href="#"
+                            class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-cyan text-bg font-semibold text-lg glow hover:opacity-90 transition-opacity">
                             Start Perimeter Trial
                         </a>
                     </div>
@@ -1193,7 +1837,11 @@
                 <div>
                     <div class="flex items-center gap-2 mb-4">
                         <div class="w-6 h-6 rounded bg-cyan/20 flex items-center justify-center">
-                            <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                            <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
                         </div>
                         <span class="font-bold">Perimeter Cloud</span>
                     </div>
@@ -1203,7 +1851,8 @@
                     <h4 class="font-semibold text-sm mb-3">Products</h4>
                     <ul class="space-y-2 text-sm text-text-muted">
                         <li><a href="#perimeter" class="hover:text-text-primary transition-colors">Perimeter</a></li>
-                        <li><a href="#infrapilot" class="hover:text-text-primary transition-colors">InfraPilot AI</a></li>
+                        <li><a href="#infrapilot" class="hover:text-text-primary transition-colors">InfraPilot AI</a>
+                        </li>
                         <li><a href="#pricing" class="hover:text-text-primary transition-colors">Pricing</a></li>
                     </ul>
                 </div>
@@ -1239,24 +1888,6 @@
         }, { threshold: 0.15 });
         document.querySelectorAll('.fade-target').forEach(el => observer.observe(el));
 
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                mobileMenu.classList.toggle('flex');
-            });
-            
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('flex');
-                });
-            });
-        }
-
         // Pricing tabs
         function showPricing(product) {
             document.getElementById('pricing-perimeter').classList.add('hidden');
@@ -1284,4 +1915,5 @@
         }
     </script>
 </body>
+
 </html>
