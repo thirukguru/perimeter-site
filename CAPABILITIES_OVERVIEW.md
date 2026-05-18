@@ -1,14 +1,26 @@
 # Perimeter — Capabilities Overview
 
-Perimeter is a multi-tenant SaaS platform for continuous AWS security posture management. It runs **476 AWS scanner rules across 60+ services**, plus **130+ IaC / Dockerfile analysis rules**, delivering findings, compliance status, cost waste, real-time drift alerts, and on-demand PDF reports through a **Go REST API** and a **React web application**.
+Perimeter is a multi-tenant SaaS platform for continuous AWS security posture management. It runs **476 AWS scanner rules across 60+ services**, plus **130+ IaC / Dockerfile analysis rules** and **30 architecture diagram security rules**, delivering findings, compliance status, cost waste, real-time drift alerts, and on-demand PDF reports through a **Go REST API** and a **React web application**.
 
-> **Rule count breakdown:** 476 AWS runtime scanner rules (R-001–R-476) + 10 Dockerfile security rules (DK001–DK010) + 70+ Terraform rules + 50+ CloudFormation rules
+> **Rule count breakdown:** 476 AWS runtime scanner rules (R-001–R-476) + 10 Dockerfile security rules (DK001–DK010) + 70+ Terraform rules + 50+ CloudFormation rules + 30 architecture diagram rules
+
+---
+
+## The Problem
+
+AWS-native startups and mid-market teams face a painful gap: **AWS Security Hub covers ~180 checks** and surfaces alerts without context. Open-source tools like Prowler require self-hosting, produce CSV dumps with no workflow, and have zero real-time capability. Enterprise CNAPPs (Wiz, Prisma, Orca) solve the problem — at **$500K–$2M/year**, far beyond the budget of a 10–200 person engineering team.
+
+Today, these teams cobble together Security Hub + Config + manual audits + spreadsheets. The result: blind spots across 60+ AWS services, compliance prep that takes weeks, and misconfigurations that sit open for months because no one sees them until the next quarterly review.
+
+> *"We were using Prowler CLI once a month and pasting results into a spreadsheet. Half our S3 buckets had public access and we didn't know. We needed something that watches continuously — but Wiz wanted $400K."*
+> — Composite customer voice
 
 ---
 
 ## Why Teams Use Perimeter
 
-- **Deepest AWS coverage available** — 476 rules grounded in real attack campaigns (LLMjacking, EmeraldWhale, Sandworm) and every major compliance framework, not just CIS generics
+- **2.6× the coverage of AWS Security Hub** — 476 rules vs. ~180, grounded in real attack campaigns (LLMjacking, EmeraldWhale, Sandworm), not just CIS generics
+- **AI/ML attack detection before anyone else in SMB** — LLMjacking, GPU abuse, SageMaker exposure, Bedrock guardrail checks — grounded in February 2025 threat intelligence
 - **Zero credential storage** — AWS access via STS AssumeRole with per-tenant external ID; no keys ever stored
 - **Shift-left scanning** — IaC Review (Terraform, CloudFormation) and Dockerfile security analysis before anything is deployed
 - **Real-time drift detection** — EventBridge API Destinations push CloudTrail events within 30–90 seconds; no polling, no Lambda needed
@@ -256,6 +268,43 @@ IAM, S3, RDS, Lambda, EC2, KMS, VPC, SQS, SNS, ECS, CloudFront resource security
 
 ---
 
+## Architecture Diagram Scanner — 30 Security Rules
+
+Upload AWS architecture diagrams (draw.io, Excalidraw, images) for automated security review. The scanner extracts services, connections, and boundaries, then applies 30 rules across network security, encryption, IAM, resilience, and compliance.
+
+### Supported Formats
+
+| Format | Parser | Analysis Method |
+|---|---|---|
+| **.drawio / .xml** | Local XML parser | Extracts mxGraph cells — services, connections, boundaries |
+| **.excalidraw** | Local JSON parser | Parses Excalidraw elements and groups |
+| **.png / .jpg / .svg / .webp** | AI Vision (Claude) | Anthropic Vision API extracts architecture from images |
+
+### Rule Categories (30 rules)
+
+| Category | Rules | Key Checks |
+|---|---|---|
+| **Network Security** | 8 | Public services without WAF/Shield, missing VPC boundaries, direct internet exposure, unrestricted ingress, missing NACLs |
+| **Encryption** | 6 | Unencrypted data stores (S3, RDS, DynamoDB, EBS), missing TLS on connections, unencrypted data in transit |
+| **IAM & Access** | 5 | Overly permissive roles, missing least-privilege, no MFA on console access, cross-account trust without ExternalId |
+| **Resilience** | 6 | Single-AZ deployments, no auto-scaling, missing health checks, no backup/DR strategy, single points of failure |
+| **Compliance** | 5 | Missing logging/monitoring, no CloudTrail, no VPC Flow Logs, missing compliance boundaries, data residency gaps |
+
+### Endpoints
+
+| Endpoint | Auth | Purpose |
+|---|---|---|
+| `POST /v1/arch/scan` | JWT (tenant-scoped) | Full scan with all findings, persisted per tenant |
+| `POST /v1/public/arch/scan` | None (rate-limited: 5/10min/IP) | Marketing demo — first 3 findings shown, gated |
+
+### Dashboard UI
+
+- **Upload tab:** Drag-and-drop zone for diagram files
+- **Findings tab:** Score rings (Overall, Security, Resilience), severity summary cards, search + severity/category filters, findings grid with compliance tags and affected services
+- **CSV export:** Download filtered findings as CSV
+
+---
+
 ## AI Security Chat
 
 Claude-powered security assistant embedded in the dashboard:
@@ -474,6 +523,8 @@ Every privileged action writes an `AuditEvent` to MongoDB — scan created, acco
 
 Perimeter is purpose-built for **AWS-only teams at startups and mid-market companies** (10–500 engineers) who need enterprise-grade security posture without enterprise pricing.
 
+### vs. Enterprise CNAPPs
+
 | Capability | Perimeter | Wiz / Prisma | Orca |
 |---|---|---|---|
 | AWS rule depth | ✅ 476+ rules, rare services | ⚠️ Broader but shallower per-service | ⚠️ Broader but shallower |
@@ -482,7 +533,44 @@ Perimeter is purpose-built for **AWS-only teams at startups and mid-market compa
 | Real-time drift detection | ✅ 30–90 sec via EventBridge | ⚠️ Polling-based | ⚠️ Polling-based |
 | AI Security Chat (contextual) | ✅ Aware of your findings | ❌ Generic LLM bolt-on | ❌ Generic |
 | CWPP / runtime workload | ⚠️ Via GuardDuty integration | ✅ Agent + agentless | ✅ Agentless snapshot |
-| Price tier | 💰 SMB-friendly | 💰💰💰 Enterprise ($500K+/yr) | 💰💰💰 Enterprise |
+| LLMjacking / AI attack detection | ✅ 15 rules | ⚠️ Limited | ⚠️ Limited |
+| Price tier | 💰 From $499/mo | 💰💰💰 $500K+/yr | 💰💰💰 $300K+/yr |
+
+> **Post-Wiz/Google acquisition dynamics (2024–25):** Wiz's Google acquisition creates uncertainty for multi-cloud customers. Orca has shifted focus upmarket. Neither is investing in SMB-accessible pricing. This leaves an expanding gap in the $5K–$50K/yr range.
+
+### vs. Prowler (Open Source)
+
+| Dimension | Perimeter | Prowler CLI |
+|---|---|---|
+| Rule count | 476 AWS + 130 IaC + 30 arch | ~300 AWS |
+| Deployment | SaaS — zero self-hosting | Self-hosted CLI (Docker/pip) |
+| Real-time drift | ✅ 30–90 sec EventBridge | ❌ Scheduled runs only |
+| AI Security Chat | ✅ Context-aware | ❌ None |
+| Compliance reporting | ✅ 19 frameworks, PDF packs | ⚠️ CIS/PCI basic CSV |
+| Multi-tenant / team | ✅ RBAC, audit trail | ❌ Single-user CLI |
+| Attack path visualization | ✅ Graph-based | ❌ None |
+| IaC scanning | ✅ Terraform + CFN + Docker | ❌ Runtime only |
+| Remediation templates | ✅ 476 Terraform/CLI fixes | ⚠️ CIS remediation links |
+| Cost | $499–$2,999/mo | Free (but ~20 hrs/mo self-hosting cost) |
+
+**Why teams switch from Prowler:** "Free" costs ~$15K–$25K/yr in engineering time (setup, hosting, scheduling, result parsing, alerting, dashboard building). Perimeter replaces that entire DIY stack with a managed service at comparable or lower total cost.
+
+### vs. AWS Security Hub + Config
+
+| Dimension | Perimeter | Security Hub + Config |
+|---|---|---|
+| Rule depth | 476 rules across 60+ services | ~180 checks (CIS + FSBP) |
+| AI/ML threat detection | ✅ LLMjacking, GPU abuse | ❌ None |
+| Insider threat | ✅ 6 behavioral rules | ❌ None |
+| CIEM | ✅ 8 entitlement rules | ❌ None |
+| IaC + Dockerfile | ✅ 130+ rules | ❌ Runtime only |
+| Compliance breadth | 19 frameworks | CIS + FSBP only |
+| Drift speed | 30–90 sec | 6–24 hour evaluation cycle |
+| AI chat | ✅ | ❌ |
+| Cross-account dashboard | ✅ Single pane | ⚠️ Requires aggregation setup |
+| Cost | $499/mo flat | $0.001/evaluation (~$300–$2,000/mo at scale) |
+
+**Why teams add Perimeter on top of Security Hub:** Security Hub is a good baseline — Perimeter extends it with 296 additional rules, real-time drift, IaC scanning, AI chat, and compliance evidence packs that Security Hub doesn't produce.
 
 **Sweet spot:** AWS-native teams that need serious depth, shift-left IaC scanning, real-time drift detection, and AI-assisted analysis — without the complexity and cost of a full CNAPP platform.
 
@@ -518,4 +606,176 @@ Perimeter is purpose-built for **AWS-only teams at startups and mid-market compa
 | Real-time | Server-Sent Events (SSE) |
 | Infrastructure | Terraform + ECS Fargate |
 | IaC Scanner | Custom HCL/CFN/Dockerfile parser (api/iac) |
+| Arch Scanner | Custom draw.io/Excalidraw parser + Anthropic Vision API (api/archscan) |
 | Drift Detection | EventBridge API Destinations + Go webhook handler |
+
+---
+
+## Market Opportunity
+
+### TAM / SAM / SOM
+
+| Metric | Size | Basis |
+|---|---|---|
+| **TAM** | $12.4B | Global CSPM market 2025 (Gartner) |
+| **SAM** | $1.8B | AWS-only CSPM for companies with $50K–$50M AWS spend |
+| **SOM** (Year 3) | $18M | 500 customers × $36K avg. ARR |
+
+**ICP qualifier:** Companies with $50K–$5M annual AWS spend, 10–500 engineers, in AWS-first verticals.
+
+### Target Verticals
+
+| Vertical | Entry Compliance | Plan Fit | Willingness to Pay |
+|---|---|---|---|
+| **Fintech / Banking** | PCI-DSS, SOC 2, RBI | Assure | High — regulatory mandate |
+| **Healthtech / Pharma** | HIPAA, SOC 2 | Assure | High — breach liability |
+| **SaaS / B2B Software** | SOC 2, ISO 27001 | Growth → Assure | Medium — customer trust |
+| **Government contractors** | FedRAMP, NIST 800-53 | Assure → Enterprise | High — compliance required |
+| **E-commerce / Marketplace** | PCI-DSS | Growth | Medium — card data exposure |
+| **AI / ML startups** | SOC 2 + AI governance | Growth | Medium — LLMjacking risk |
+| **MSSP / Security consultancies** | Multi-tenant, white-label | Enterprise | High — margin business |
+
+---
+
+## Go-To-Market Strategy
+
+### Distribution Channels
+
+| Channel | Priority | Status |
+|---|---|---|
+| **AWS Marketplace** | 🔴 P0 | In progress — listing for Q2 2026 |
+| **Product-Led Growth (PLG)** | 🔴 P0 | Public arch scanner demo → signup → free trial |
+| **Content marketing** | 🟡 P1 | Blog, threat intel reports, compliance guides |
+| **Partner channel (MSSPs)** | 🟡 P1 | Enterprise tier with multi-tenant management |
+| **Outbound** | 🟢 P2 | Targeted outbound to fintech/healthtech CISOs |
+
+### PLG Funnel
+
+```
+Public Arch Scan (free, rate-limited)     ← Top of funnel
+    ↓ User sees 3 findings, gated CTA
+Free Trial (14 days, 1 AWS account)       ← Conversion
+    ↓ Full scan, immediate value
+Essentials ($499/mo, 2 accounts)          ← Paid
+    ↓ Team grows, adds accounts
+Growth ($1,499/mo, 10 accounts)           ← Expansion
+    ↓ Compliance audit requirement
+Assure ($2,999/mo, 25 accounts)           ← Upsell
+    ↓ Multi-org, MSSP, SSO needs
+Enterprise (Custom)                       ← Strategic
+```
+
+### Trial Tier (Free Entry)
+
+| Feature | Trial |
+|---|---|
+| Duration | 14 days |
+| AWS accounts | 1 |
+| Users | 2 |
+| All Essentials features | ✅ |
+| Compliance module | ✅ (preview, CIS only) |
+| AI Chat | 5 queries/day |
+| No credit card required | ✅ |
+
+### AWS Marketplace Listing
+
+- **Listing type:** SaaS with contract pricing
+- **Billing:** Monthly subscription via AWS Marketplace billing (uses customer's existing AWS EDP commitment)
+- **Dimensions:** Per-account and per-seat metering via AWS Marketplace Metering API
+- **Legal:** Privacy policy and Terms of Service live at perimetercloud.io/privacy and perimetercloud.io/terms
+- **Target launch:** Q2 2026
+
+### MSSP Partner Program
+
+| Term | Detail |
+|---|---|
+| Revenue share | 20% partner margin on managed accounts |
+| Multi-tenancy | Enterprise plan includes multi-tenant management console |
+| White-label | Custom branding available on Enterprise |
+| Onboarding | Dedicated partner onboarding track |
+
+### ROI Quantification
+
+| Metric | Without Perimeter | With Perimeter | Savings |
+|---|---|---|---|
+| Compliance audit prep | 3–6 weeks manual | 1-click report generation | **80% time reduction** |
+| Misconfiguration detection | Quarterly manual review | Real-time (30–90 sec drift) | **MTTR: months → hours** |
+| Security tool cost (10 accounts) | Wiz $500K / Prowler ~$25K DIY | $6K–$18K/yr | **90–96% vs. enterprise** |
+| Breach cost avoided | $4.88M avg. (IBM 2024) | Continuous posture monitoring | **Risk reduction** |
+| Engineering time on security | ~20 hrs/mo (Prowler DIY) | ~2 hrs/mo (managed SaaS) | **$15K–$25K/yr saved** |
+
+---
+
+## Business KPIs — 12-Month Targets
+
+| KPI | Month 3 | Month 6 | Month 12 |
+|---|---|---|---|
+| **Monthly Recurring Revenue** | $5K | $25K | $100K |
+| **Annual Run Rate** | $60K | $300K | $1.2M |
+| **Paying Customers** | 5 | 20 | 60 |
+| **Trial → Paid Conversion** | 15% | 20% | 25% |
+| **Time-to-First-Scan** | < 15 min | < 10 min | < 10 min |
+| **Monthly Churn** | < 8% | < 5% | < 3% |
+| **NPS** | 30+ | 40+ | 50+ |
+| **False Positive Rate** | < 5% | < 3% | < 2% |
+| **AWS Accounts Connected** | 20 | 150 | 600 |
+
+---
+
+## Data Residency & Privacy Architecture
+
+| Component | Location | Encryption |
+|---|---|---|
+| **Application database** | MongoDB Atlas (AWS Mumbai, ap-south-1) | AES-256 at rest, TLS 1.2+ in transit |
+| **Redis cache** | AWS ElastiCache (same region) | Encrypted at rest + in transit |
+| **API servers** | ECS Fargate (same region) | TLS termination at ALB |
+| **Scan result data** | Stored in MongoDB, tenant-isolated | Per-tenant query scoping |
+| **AWS credentials** | Never stored | STS temporary tokens only |
+
+**Multi-region roadmap:** For EU (GDPR) and US customers requiring data sovereignty, MongoDB Atlas supports region-specific clusters. Planned deployment model: customer selects data region at signup → tenant routed to region-specific cluster.
+
+**GDPR Article 28 compliance:** Perimeter acts as a data processor. DPA (Data Processing Agreement) available for EU customers. Sub-processors: AWS (infrastructure), MongoDB Atlas (database), Anthropic (AI chat, opt-in only — no raw customer data sent).
+
+**Data retention:** Active subscription — retained indefinitely. Post-cancellation — 30 days, then permanently deleted. Customers may request immediate deletion via support.
+
+---
+
+## Platform Security Model
+
+How Perimeter secures itself:
+
+| Layer | Control |
+|---|---|
+| **Network** | ALB + WAF with OWASP Core Rule Set; private subnets for all compute; no direct internet access from containers |
+| **Authentication** | JWT access + refresh tokens with rotation; bcrypt password hashing; optional SSO/SAML (Enterprise) |
+| **Authorization** | 5-role RBAC enforced server-side; tenant_id scoped on every DB query; SaaS admin override with audit |
+| **API hardening** | Rate limiting (Redis token bucket per IP + per tenant); max body size limits; request timeout middleware; constant-time token comparison |
+| **Data isolation** | Every MongoDB query scoped by tenant_id; no cross-tenant data access possible at query layer |
+| **Secrets management** | JWT secret, DB credentials, API keys in environment variables / AWS Secrets Manager; never in codebase |
+| **Audit trail** | Every privileged action logged to AuditEvent collection — immutable, queryable |
+| **Dependency security** | Go module vendoring; Dependabot alerts; regular dependency updates |
+| **Infrastructure** | ECS Fargate (no SSH, no persistent hosts); ECR private images; VPC endpoints for AWS services |
+| **Incident response** | Structured logging; health + readiness probes; automated alerting on error rate spikes |
+
+**Platform RTO / RPO:**
+
+| Metric | Target |
+|---|---|
+| RTO (Recovery Time Objective) | < 1 hour |
+| RPO (Recovery Point Objective) | < 15 minutes (MongoDB continuous backup) |
+| Uptime SLA | 99.9% (excludes planned maintenance windows) |
+
+---
+
+## Risk Register
+
+| # | Risk | Likelihood | Impact | Mitigation |
+|---|---|---|---|---|
+| 1 | **Enterprise CNAPP moves downmarket** — Wiz/Orca launches $500/mo SMB tier | Medium | High | Deepen AWS-specific differentiators (LLMjacking, EventBridge drift, 19 frameworks); maintain 5–10× price advantage; emphasize speed-to-value |
+| 2 | **Open-source commoditization** — Prowler/ScoutSuite adds SaaS layer | Medium | Medium | Perimeter's moat is integrated platform (IaC + drift + AI + compliance + CIEM) — not any single feature |
+| 3 | **AWS expands Security Hub** — native tooling reaches 400+ checks | Low | High | Stay 6–12 months ahead on coverage; focus on AI chat, attack paths, compliance packs — areas AWS won't build |
+| 4 | **Single-cloud concentration** — 100% AWS dependency | Low | Medium | AWS market share is ~32% and growing; the AWS-only focus is the positioning, not a limitation |
+| 5 | **NVD data quality** — backlog and delays in CVE data (documented 2024 issues) | Medium | Low | Add OSV (Google Open Source Vulnerabilities) and GitHub Security Advisories as fallback data sources |
+| 6 | **Data breach of Perimeter platform** | Low | Critical | Defense-in-depth (WAF, VPC isolation, encrypted DB, no credential storage, audit logging); SOC 2 Type II certification planned Year 1 |
+| 7 | **GDPR enforcement action** | Low | High | DPA for EU customers; data residency controls; Article 28 processor obligations documented; EU region planned |
+| 8 | **Customer churn** — SMB customers budget-constrained | Medium | Medium | Time-to-value < 15 min; trial tier removes risk; annual commitment discount (15%); compliance lock-in |
