@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TesserOn — AI-native CNAPP for AWS</title>
+    <title>TesseriQ — Perimeter and Foresight for AWS Security</title>
     <meta name="description"
-        content="TesserOn — AI-native CNAPP for AWS. Perimeter for runtime security; FORESIGHT for predictive intelligence." />
+        content="TesseriQ builds Perimeter for continuous AWS security posture management and Foresight for predictive cloud risk intelligence." />
     <link rel="icon" type="image/png" href="/newlogo.png" />
     <link rel="apple-touch-icon" href="/newlogo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
 
     <style id="tw">
@@ -146,7 +146,7 @@
             -moz-tab-size: 4;
             -o-tab-size: 4;
             tab-size: 4;
-            font-family: Inter, sans-serif;
+            font-family: Sora, Inter, sans-serif;
             font-feature-settings: normal;
             font-variation-settings: normal;
             -webkit-tap-highlight-color: transparent
@@ -1539,9 +1539,9 @@
         }
 
         body {
-            background: #0a0f1a;
-            color: #e2e8f0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1E1B4B;
+            color: #F8FAFC;
+            font-family: 'Sora', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             -webkit-font-smoothing: antialiased;
             -webkit-text-size-adjust: 100%;
             line-height: 1.6;
@@ -1553,34 +1553,34 @@
         }
 
         .bg-grid {
-            background-image: linear-gradient(rgba(30, 42, 66, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 42, 66, 0.35) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(6, 182, 212, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.12) 1px, transparent 1px);
             background-size: 60px 60px;
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, #06d6d6, #38bdf8);
+            background: linear-gradient(135deg, #06B6D4, #F8FAFC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .text-gradient-purple {
-            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            background: linear-gradient(135deg, #06B6D4, #8BE9F5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .glow {
-            box-shadow: 0 0 40px -10px rgba(6, 214, 214, 0.35);
+            box-shadow: 0 0 40px -10px rgba(6, 182, 212, 0.45);
         }
 
         .glow-purple {
-            box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.35);
+            box-shadow: 0 0 40px -10px rgba(6, 182, 212, 0.28);
         }
 
         .card-gradient {
-            background: linear-gradient(145deg, #0f1525, #0b1020);
+            background: linear-gradient(145deg, rgba(248, 250, 252, 0.08), rgba(15, 23, 42, 0.18));
         }
 
         .max-w-7xl {
@@ -1591,9 +1591,9 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid rgba(51, 65, 85, 0.8);
+            border: 1px solid rgba(6, 182, 212, 0.18);
             border-radius: 0.75rem;
-            background: rgba(20, 27, 45, 0.14);
+            background: rgba(248, 250, 252, 0.045);
         }
 
         .pricing-row {
@@ -1606,8 +1606,8 @@
             gap: 0.75rem 1.5rem;
             align-items: center;
             padding: 1.5rem;
-            border-bottom: 1px solid rgba(51, 65, 85, 0.65);
-            background: rgba(20, 27, 45, 0.18);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.14);
+            background: rgba(248, 250, 252, 0.045);
         }
 
         .pricing-row:last-child {
@@ -1615,8 +1615,8 @@
         }
 
         .pricing-row-featured {
-            border-left: 3px solid rgba(6, 214, 214, 0.75);
-            background: rgba(6, 214, 214, 0.035);
+            border-left: 3px solid rgba(6, 182, 212, 0.9);
+            background: rgba(6, 182, 212, 0.07);
         }
 
         .pricing-row h3 {
@@ -1733,17 +1733,102 @@
         nav {
             -webkit-backdrop-filter: blur(16px);
             backdrop-filter: blur(16px);
-            background: rgba(10, 15, 26, 0.85) !important;
+            background: rgba(30, 27, 75, 0.9) !important;
         }
 
         /* Ensure readable text on mobile without Tailwind */
         section {
-            padding: 2rem 0;
+            padding: 1.5rem 0;
+        }
+
+        .py-32 {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .min-h-screen {
+            min-height: 86vh;
+        }
+
+        .mb-20 {
+            margin-bottom: 3rem;
+        }
+
+        .mb-16 {
+            margin-bottom: 2.5rem;
+        }
+
+        .mb-12 {
+            margin-bottom: 2.25rem;
+        }
+
+        .mt-24 {
+            margin-top: 4rem;
+        }
+
+        .mt-16 {
+            margin-top: 3rem;
+        }
+
+        .rounded-2xl,
+        .rounded-xl {
+            border-radius: 0.5rem;
+        }
+
+        .text-cyan {
+            color: #06B6D4;
+        }
+
+        .text-purple,
+        .text-amber {
+            color: #06B6D4;
+        }
+
+        .bg-cyan {
+            background-color: #06B6D4;
+        }
+
+        .bg-purple {
+            background-color: #1E1B4B;
+            border: 1px solid rgba(6, 182, 212, 0.45);
+        }
+
+        .bg-bg {
+            background-color: #1E1B4B;
+        }
+
+        .text-bg {
+            color: #1E1B4B;
+        }
+
+        .text-text-primary {
+            color: #F8FAFC;
+        }
+
+        .text-text-muted {
+            color: rgba(248, 250, 252, 0.68);
+        }
+
+        .border-border {
+            border-color: rgba(6, 182, 212, 0.18);
+        }
+
+        .bg-surface-alt {
+            background-color: rgba(248, 250, 252, 0.07);
+        }
+
+        .bg-surface {
+            background-color: rgba(30, 27, 75, 0.82);
         }
 
         @media (max-width: 768px) {
             section {
                 padding: 3rem 0;
+            }
+
+            .py-32 {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
             }
 
             .text-4xl,
@@ -1765,8 +1850,8 @@
     <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-bg/80 backdrop-blur-xl">
         <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
             <a href="#" class="flex items-center gap-2">
-                <img src="/newlogo.png" alt="TesserOn" class="w-19 h-10 object-contain" />
-                <span class="text-lg font-bold">TesserOn</span>
+                <img src="/newlogo.png" alt="TesseriQ" class="w-19 h-10 object-contain" />
+                <span class="text-lg font-bold">TesseriQ</span>
             </a>
             <div class=" md:flex items-center gap-8">
                 <a href="#products"
@@ -1777,8 +1862,8 @@
                     class="text-sm text-text-muted hover:text-text-primary transition-colors">Foresight</a>
                 <a href="#integrations"
                     class="text-sm text-text-muted hover:text-text-primary transition-colors">Integrations</a>
-                <a href="#ai-engine" class="text-sm text-text-muted hover:text-text-primary transition-colors">AI
-                    Engine</a>
+                <a href="#capabilities"
+                    class="text-sm text-text-muted hover:text-text-primary transition-colors">Capabilities</a>
                 <a href="#pricing" class="text-sm text-text-muted hover:text-text-primary transition-colors">Pricing</a>
                 <a href="mailto:thiruk@kveesys.com"
                     class="text-sm text-text-muted hover:text-text-primary transition-colors">Contact</a>
@@ -1802,17 +1887,17 @@
                 <span class="text-sm font-medium text-text-muted">Perimeter</span>
                 <span class="text-text-muted/30">+</span>
                 <span class="w-2 h-2 rounded-full bg-purple"></span>
-                <span class="text-sm font-medium text-text-muted">FORESIGHT</span>
+                <span class="text-sm font-medium text-text-muted">Foresight</span>
             </div>
 
             <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fade-up" style="animation-delay:.1s">
-                AI-native cloud security<br>that <span class="text-gradient">sees what's next</span>
+                TesseriQ secures AWS<br>from <span class="text-gradient">posture to prediction</span>
             </h1>
 
             <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 animate-fade-up"
                 style="animation-delay:.2s">
-                Perimeter detects what's wrong in your AWS environment today. FORESIGHT predicts what's
-                likely to break tomorrow. One platform, complete lifecycle coverage.
+                Perimeter continuously scans what is wrong now. Foresight predicts what is likely to drift,
+                fail, or spike next. Two products for AWS-native teams that need enterprise depth without enterprise drag.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up"
@@ -1831,7 +1916,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
-                    Explore FORESIGHT
+                    Explore Foresight
                 </a>
             </div>
         </div>
@@ -1841,12 +1926,12 @@
     <section id="products" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-20 fade-target">
-                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">One platform,
-                    two modes</p>
+                <p class="text-cyan font-mono text-sm font-semibold tracking-widest uppercase mb-4">TesseriQ product
+                    suite</p>
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Detect what's wrong. Predict what's next.</h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Perimeter scans your AWS posture and surfaces what
-                    needs fixing today. FORESIGHT — our bundled predictive engine — tells you what's about to drift
-                    tomorrow.</p>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Perimeter is the continuous AWS security platform.
+                    Foresight is the predictive intelligence product that turns security, reliability, and cost signals
+                    into early warnings.</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
@@ -1867,9 +1952,9 @@
                             <p class="text-cyan text-sm font-medium">Runtime Security Platform</p>
                         </div>
                     </div>
-                    <p class="text-text-muted mb-6 leading-relaxed">Continuous AWS security posture management. 476
-                        scanner rules across 60+ services, real-time drift detection, CIEM, insider threat, compliance
-                        mapping, and AI Security Chat.</p>
+                    <p class="text-text-muted mb-6 leading-relaxed">Continuous AWS security posture management. Runtime
+                        scans, IaC and Dockerfile review, architecture diagram analysis, real-time drift, CVE correlation,
+                        compliance evidence, and AI Security Chat.</p>
                     <div class="grid grid-cols-2 gap-3 mb-6">
                         <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
                             <div class="text-xl font-bold text-gradient">476</div>
@@ -1880,12 +1965,12 @@
                             <div class="text-xs text-text-muted">AWS services</div>
                         </div>
                         <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
-                            <div class="text-xl font-bold text-gradient">19</div>
-                            <div class="text-xs text-text-muted">Compliance frameworks</div>
+                            <div class="text-xl font-bold text-gradient">130+</div>
+                            <div class="text-xs text-text-muted">IaC rules</div>
                         </div>
                         <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
-                            <div class="text-xl font-bold text-gradient">30s</div>
-                            <div class="text-xs text-text-muted">Drift detection</div>
+                            <div class="text-xl font-bold text-gradient">30</div>
+                            <div class="text-xs text-text-muted">Diagram rules</div>
                         </div>
                     </div>
                     <a href="#perimeter"
@@ -1897,7 +1982,7 @@
                     </a>
                 </div>
 
-                <!-- FORESIGHT Card -->
+                <!-- Foresight Card -->
                 <div
                     class="group rounded-2xl border border-border hover:border-purple/40 card-gradient p-8 transition-all duration-300 fade-target">
                     <div class="flex items-center gap-3 mb-6">
@@ -1910,13 +1995,13 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold">FORESIGHT</h3>
-                            <p class="text-purple text-sm font-medium">Predictive Intelligence · Bundled</p>
+                            <h3 class="text-2xl font-bold">Foresight</h3>
+                            <p class="text-purple text-sm font-medium">Predictive Risk Intelligence</p>
                         </div>
                     </div>
-                    <p class="text-text-muted mb-6 leading-relaxed">Forecasts which findings are about to escalate.
-                        Learns from CloudTrail event sequences, drift patterns, and historical resolution data — then
-                        narrates causally-grounded predictions before they become incidents.</p>
+                    <p class="text-text-muted mb-6 leading-relaxed">Forecasts which findings, workloads, IAM policies,
+                        and cost patterns are about to escalate. It learns from CloudTrail sequences, CloudWatch metrics,
+                        drift history, and remediation outcomes.</p>
                     <div class="grid grid-cols-2 gap-3 mb-6">
                         <div class="px-3 py-2 rounded-lg bg-surface-alt/40 border border-border/50 text-center">
                             <div class="text-xl font-bold text-gradient-purple">30s</div>
@@ -1995,7 +2080,7 @@
                         </div>
                         <div>
                             <div class="font-semibold text-sm">Predict</div>
-                            <div class="text-xs text-text-muted">FORESIGHT (Growth+)</div>
+                            <div class="text-xs text-text-muted">Foresight (Growth+)</div>
                         </div>
                     </div>
                 </div>
@@ -2010,6 +2095,33 @@
                         <span class="text-xs text-green-400 font-medium">Powered by tiered AI &bull;
                             continuous optimization improves key workflows nightly</span>
                     </div>
+                </div>
+            </div>
+
+            <div id="capabilities" class="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4 fade-target">
+                <div class="p-5 rounded-xl border border-border card-gradient">
+                    <div class="text-cyan font-mono text-xs font-semibold tracking-widest uppercase mb-3">Shift left</div>
+                    <h3 class="font-bold text-lg mb-2">IaC, Dockerfile, and diagram review</h3>
+                    <p class="text-sm text-text-muted">Terraform, CloudFormation, Pulumi YAML, Dockerfiles, draw.io,
+                        Excalidraw, and image-based architecture diagrams are checked before deployment.</p>
+                </div>
+                <div class="p-5 rounded-xl border border-border card-gradient">
+                    <div class="text-cyan font-mono text-xs font-semibold tracking-widest uppercase mb-3">Threat depth</div>
+                    <h3 class="font-bold text-lg mb-2">AI, secrets, and identity abuse</h3>
+                    <p class="text-sm text-text-muted">Detect LLMjacking, GPU abuse, exposed Bedrock/SageMaker paths,
+                        five secret sources, privilege escalation, and lateral role-chaining.</p>
+                </div>
+                <div class="p-5 rounded-xl border border-border card-gradient">
+                    <div class="text-cyan font-mono text-xs font-semibold tracking-widest uppercase mb-3">Operations</div>
+                    <h3 class="font-bold text-lg mb-2">CVE, cost, SLA, and reports</h3>
+                    <p class="text-sm text-text-muted">Nightly ECR and SSM CVE correlation, waste detection, SLA
+                        tracking, score history, and PDF audit packs keep work moving.</p>
+                </div>
+                <div class="p-5 rounded-xl border border-border card-gradient">
+                    <div class="text-cyan font-mono text-xs font-semibold tracking-widest uppercase mb-3">Trust model</div>
+                    <h3 class="font-bold text-lg mb-2">No AWS credentials stored</h3>
+                    <p class="text-sm text-text-muted">TesseriQ uses STS AssumeRole with a tenant-specific ExternalId.
+                        Scans are read-only and every privileged action is audit logged.</p>
                 </div>
             </div>
         </div>
@@ -2030,8 +2142,9 @@
                 </div>
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Runtime Security at <span
                         class="text-gradient">AWS Depth</span></h2>
-                <p class="text-text-muted text-lg max-w-2xl mx-auto">Continuous posture management with 476 rules,
-                    real-time drift, CIEM, insider threat detection, and 19 compliance frameworks.</p>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Continuous posture management with 476 runtime
+                    rules, 130+ build-time rules, diagram review, real-time drift, CVE correlation, and compliance
+                    evidence.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -2045,7 +2158,7 @@
                                 d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">476 Security Rules</h3>
+                    <h3 class="text-xl font-bold mb-3">476 Runtime Rules</h3>
                     <p class="text-text-muted leading-relaxed">Deep checks across 60+ AWS services — VPC, IAM, S3, ECS,
                         EKS, Lambda, RDS, and rare services competitors miss.</p>
                 </div>
@@ -2100,9 +2213,9 @@
                                 d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">19 Compliance Frameworks</h3>
+                    <h3 class="text-xl font-bold mb-3">Compliance Evidence</h3>
                     <p class="text-text-muted leading-relaxed">CIS, PCI-DSS, SOC 2, HIPAA, ISO 27001, NIST, MITRE
-                        ATT&CK, FedRAMP, GDPR, and more. PDF evidence packs.</p>
+                        ATT&CK, FedRAMP, GDPR, RBI, and more. PDF evidence packs.</p>
                 </div>
                 <div
                     class="group p-8 rounded-xl border border-border card-gradient hover:border-cyan/30 transition-all duration-300 fade-target">
@@ -2114,9 +2227,9 @@
                                 d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">AI Security Chat</h3>
-                    <p class="text-text-muted leading-relaxed">Claude-powered assistant aware of your actual findings,
-                        accounts, and compliance state. Not generic advice.</p>
+                    <h3 class="text-xl font-bold mb-3">Risk Intelligence</h3>
+                    <p class="text-text-muted leading-relaxed">Attack paths, SLA tracking, score history, CVE runs,
+                        cost waste, and Claude-powered chat grounded in your findings.</p>
                 </div>
             </div>
 
@@ -2130,7 +2243,7 @@
                 </a>
             </div>
 
-            <!-- FORESIGHT MODULE (bundled in Growth+) -->
+            <!-- Foresight MODULE (bundled in Growth+) -->
             <div id="foresight" class="mt-24 fade-target">
                 <div
                     class="rounded-2xl border border-amber/20 bg-gradient-to-br from-surface via-surface-alt/50 to-surface overflow-hidden">
@@ -2148,13 +2261,13 @@
                                 </div>
                                 <div>
                                     <div class="flex items-center gap-3">
-                                        <h3 class="text-2xl font-bold">FORESIGHT</h3>
+                                        <h3 class="text-2xl font-bold">Foresight</h3>
                                         <span
-                                            class="px-2.5 py-1 rounded-full bg-amber/10 border border-amber/30 text-amber text-xs font-bold">BUNDLED
+                                            class="px-2.5 py-1 rounded-full bg-amber/10 border border-amber/30 text-amber text-xs font-bold">PREDICTIVE
                                             · GROWTH+</span>
                                     </div>
-                                    <p class="text-text-muted text-sm mt-1">Predictive Security & Operations Agent for
-                                        Perimeter</p>
+                                    <p class="text-text-muted text-sm mt-1">Predictive security and operations product
+                                        for TesseriQ customers</p>
                                 </div>
                             </div>
                             <div class="text-right">
@@ -2168,8 +2281,8 @@
                     <!-- Value Prop -->
                     <div class="p-8 border-b border-border/50">
                         <p class="text-text-muted leading-relaxed mb-6">
-                            FORESIGHT is a SENTINEL sub-agent that shifts Perimeter from reactive detection to proactive
-                            forecasting. While existing tools answer "what is wrong now?", FORESIGHT answers "<span
+                            Foresight shifts cloud security from reactive detection to proactive forecasting. While
+                            existing tools answer "what is wrong now?", Foresight answers "<span
                                 class="text-text-primary font-semibold">what will go wrong next, and when?</span>" — by
                             analyzing CloudTrail patterns, CloudWatch metrics, IAM policy evolution, and configuration
                             drift history to forecast security issues 24–72 hours before they materialize.
@@ -2178,7 +2291,7 @@
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="rounded-xl bg-surface-alt/40 border border-border p-5">
                                 <div class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">Without
-                                    FORESIGHT (Reactive)</div>
+                                    Foresight (Reactive)</div>
                                 <div class="space-y-3">
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
                                         <svg class="w-4 h-4 text-red shrink-0 mt-0.5" fill="none" stroke="currentColor"
@@ -2211,7 +2324,7 @@
                             </div>
                             <div class="rounded-xl bg-amber/[0.04] border border-amber/20 p-5">
                                 <div class="text-xs font-semibold text-amber uppercase tracking-wider mb-4">With
-                                    FORESIGHT (Predictive)</div>
+                                    Foresight (Predictive)</div>
                                 <div class="space-y-3">
                                     <div class="flex items-start gap-2 text-sm text-text-muted">
                                         <svg class="w-4 h-4 text-amber shrink-0 mt-0.5" fill="none"
@@ -2425,7 +2538,7 @@
                             </div>
                         </div>
                         <p class="text-center text-text-muted text-sm mt-6">
-                            FORESIGHT is bundled with Perimeter Growth and above (toggleable in Settings). Predicted findings appear
+                            Foresight is bundled with Perimeter Growth and above (toggleable in Settings). Predicted findings appear
                             in your existing dashboard with a <span class="text-amber">⬡</span> badge.
                         </p>
                     </div>
@@ -2539,8 +2652,8 @@
                 <p class="text-text-muted text-lg max-w-3xl mx-auto">
                     Free to start. ₹4,999 to ship. Scale to enterprise without the enterprise procurement
                     cycle. <span class="text-text-primary font-medium">All prices in INR (GST 18% extra).
-                    Annual prepay saves 20%.</span> FORESIGHT is bundled in Growth and above — toggle on/off
-                    in Settings, no price change.
+                    Annual prepay saves 20%.</span> Foresight is not sold as a separate SKU; it is bundled in
+                    Growth and above and can be toggled off in Settings.
                 </p>
             </div>
 
@@ -2554,11 +2667,12 @@
                         <span class="text-3xl font-bold">₹0</span>
                         <span class="text-text-muted text-sm">/mo</span>
                     </div>
-                    <div class="pricing-row-scope text-xs text-text-muted mb-4">1 AWS account · 1 user</div>
+                    <div class="pricing-row-scope text-xs text-text-muted mb-4">1 AWS account · 1 user · no card</div>
                     <ul class="pricing-row-features space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Core scans (IAM, S3, EC2, VPC, SG)</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>~150 core rules: IAM, S3, EC2, VPC, SG</span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>On-demand scans, 14-day history</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Architecture Diagram Scanner (rate-limited)</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Public Architecture Diagram Scanner, 5 uploads/hr</span></li>
+                        <li class="flex items-start gap-2"><span class="text-text-muted mt-0.5">·</span><span class="opacity-60">No IaC, drift, chat, exports, or Foresight</span></li>
                         <li class="flex items-start gap-2"><span class="text-text-muted mt-0.5">·</span><span class="opacity-60">Community Discord support</span></li>
                     </ul>
                     <a href="#" class="pricing-row-action block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start free</a>
@@ -2572,12 +2686,13 @@
                         <span class="text-3xl font-bold">₹4,999</span>
                         <span class="text-text-muted text-sm">/mo</span>
                     </div>
-                    <div class="pricing-row-scope text-xs text-text-muted mb-4">2 accounts · 3 seats · GST extra</div>
+                    <div class="pricing-row-scope text-xs text-text-muted mb-4">2 accounts · 3 seats · overages available</div>
                     <ul class="pricing-row-features space-y-2 mb-6 flex-1 text-sm text-text-muted">
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span><strong class="text-text-primary">All 476 security rules</strong></span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Daily scheduled scans + real-time drift</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>IaC + Dockerfile + Arch Diagram scanners</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Findings workflow + CSV export</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>IaC, Dockerfile, and persisted diagram scans</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Full findings workflow, SLA tracking, CSV export</span></li>
+                        <li class="flex items-start gap-2"><span class="text-text-muted mt-0.5">·</span><span class="opacity-60">No AI Chat or Foresight</span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Email support (24h)</span></li>
                     </ul>
                     <a href="#" class="pricing-row-action block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Start trial</a>
@@ -2591,13 +2706,13 @@
                         <span class="text-3xl font-bold">₹39,999</span>
                         <span class="text-text-muted text-sm">/mo</span>
                     </div>
-                    <div class="pricing-row-scope text-xs text-text-muted mb-4">5 accounts · 8 seats · GST extra</div>
+                    <div class="pricing-row-scope text-xs text-text-muted mb-4">5 accounts · 8 seats · ₹5k/account overage</div>
                     <ul class="pricing-row-features space-y-2 mb-6 flex-1 text-sm text-text-muted">
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Everything in Starter</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>GuardDuty + CVE Scanner + Insider Threat</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>AI Chat (10/user/hr) + Asset Intelligence</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Webhook + Slack + Email connectors</span></li>
-                        <li class="flex items-start gap-2"><span class="text-purple mt-0.5">★</span><span><strong class="text-text-primary">FORESIGHT bundled</strong> (toggle in Settings)</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>GuardDuty, CVE, AI/ML security, insider threat</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Asset intelligence, cost-risk views, attack paths</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>AI Chat: 10/user/hr, 30/tenant/hr</span></li>
+                        <li class="flex items-start gap-2"><span class="text-purple mt-0.5">★</span><span><strong class="text-text-primary">Foresight bundled</strong>, default ON, toggleable</span></li>
                     </ul>
                     <a href="#" class="pricing-row-action block w-full py-3 rounded-lg bg-cyan text-bg text-center font-bold text-sm hover:opacity-90 transition-opacity">Get started</a>
                 </div>
@@ -2610,13 +2725,13 @@
                         <span class="text-3xl font-bold">₹1,19,999</span>
                         <span class="text-text-muted text-sm">/mo</span>
                     </div>
-                    <div class="pricing-row-scope text-xs text-text-muted mb-4">15 accounts · 15 seats · GST extra</div>
+                    <div class="pricing-row-scope text-xs text-text-muted mb-4">15 accounts · 15 seats · audit retention</div>
                     <ul class="pricing-row-features space-y-2 mb-6 flex-1 text-sm text-text-muted">
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Everything in Growth</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>8 frameworks: CIS · PCI · SOC2 · HIPAA · ISO 27001:2022 · MITRE · NIST · GDPR</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>PDF evidence packs + audit exports</span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>AI Chat (25/user/hr)</span></li>
-                        <li class="flex items-start gap-2"><span class="text-purple mt-0.5">★</span><span><strong class="text-text-primary">FORESIGHT bundled</strong></span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>8 frameworks: CIS, PCI, SOC 2, HIPAA, ISO, MITRE, NIST, GDPR</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>PDF evidence packs, audit CSV, 1-year compliance retention</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>AI Chat: 25/user/hr, 75/tenant/hr</span></li>
+                        <li class="flex items-start gap-2"><span class="text-purple mt-0.5">★</span><span><strong class="text-text-primary">Foresight bundled</strong></span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Priority + Slack-shared-channel (4h)</span></li>
                     </ul>
                     <a href="mailto:thiruk@kveesys.com" class="pricing-row-action block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Talk to sales</a>
@@ -2629,13 +2744,13 @@
                     <div class="pricing-row-price mb-4">
                         <span class="text-3xl font-bold">Custom</span>
                     </div>
-                    <div class="pricing-row-scope text-xs text-text-muted mb-4">From ₹3,00,000/mo</div>
+                    <div class="pricing-row-scope text-xs text-text-muted mb-4">Custom floor · multi-year options</div>
                     <ul class="pricing-row-features space-y-2 mb-6 flex-1 text-sm text-text-muted">
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Everything in Assure, unlimited</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Everything in Assure, unlimited accounts and seats</span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>SSO/SAML + MSSP multi-tenant</span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Custom frameworks (RBI, IRDAI, MeitY)</span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span><strong class="text-text-primary">Unlimited AI Chat (BYOK)</strong></span></li>
-                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Dedicated infra + customer KMS keys</span></li>
+                        <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>Dedicated infra, customer KMS, optional VPC-deployed Foresight</span></li>
                         <li class="flex items-start gap-2"><span class="text-cyan mt-0.5">✓</span><span>24×7 phone/WhatsApp/Slack (1h SLA)</span></li>
                     </ul>
                     <a href="mailto:thiruk@kveesys.com" class="pricing-row-action block w-full py-3 rounded-lg border border-border bg-surface-alt hover:bg-surface-alt/80 text-center font-semibold text-sm transition-colors">Talk to sales</a>
@@ -2663,6 +2778,23 @@
                 </div>
             </div>
 
+            <div class="mt-6 max-w-5xl mx-auto fade-target">
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="rounded-xl border border-border bg-surface-alt/20 p-5">
+                        <div class="text-text-primary font-semibold text-xs uppercase tracking-wider mb-2">Starter overage</div>
+                        <p class="text-text-muted">₹2,500 per extra AWS account and ₹500 per extra seat.</p>
+                    </div>
+                    <div class="rounded-xl border border-border bg-surface-alt/20 p-5">
+                        <div class="text-text-primary font-semibold text-xs uppercase tracking-wider mb-2">Growth overage</div>
+                        <p class="text-text-muted">₹5,000 per extra AWS account and ₹1,000 per extra seat.</p>
+                    </div>
+                    <div class="rounded-xl border border-border bg-surface-alt/20 p-5">
+                        <div class="text-text-primary font-semibold text-xs uppercase tracking-wider mb-2">Assure overage</div>
+                        <p class="text-text-muted">₹8,000 per extra AWS account and ₹1,500 per extra seat.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -2676,7 +2808,7 @@
                 <div class="relative z-10">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Secure your AWS cloud, end-to-end</h2>
                     <p class="text-text-muted text-lg mb-8 max-w-xl mx-auto">
-                        Start a 14-day Perimeter trial on your own AWS account. Add FORESIGHT when you're ready
+                        Start a 14-day Perimeter trial on your own AWS account. Add Foresight when you're ready
                         to predict drift before it happens. <strong class="text-text-primary">Zero credentials stored — cross-account read-only role with mandatory ExternalId.</strong>
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -2700,8 +2832,8 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div>
                     <div class="flex items-center gap-2 mb-4">
-                        <img src="/newlogo.png" alt="TesserOn" class="w-7 h-7 object-contain" />
-                        <span class="font-bold">TesserOn</span>
+                        <img src="/newlogo.png" alt="TesseriQ" class="w-7 h-7 object-contain" />
+                        <span class="font-bold">TesseriQ</span>
                     </div>
                     <p class="text-sm text-text-muted">Complete cloud lifecycle security for AWS-native teams.</p>
                 </div>
@@ -2709,7 +2841,7 @@
                     <h4 class="font-semibold text-sm mb-3">Products</h4>
                     <ul class="space-y-2 text-sm text-text-muted">
                         <li><a href="#perimeter" class="hover:text-text-primary transition-colors">Perimeter</a></li>
-                        <li><a href="#foresight" class="hover:text-text-primary transition-colors">FORESIGHT</a></li>
+                        <li><a href="#foresight" class="hover:text-text-primary transition-colors">Foresight</a></li>
                         <li><a href="#pricing" class="hover:text-text-primary transition-colors">Pricing</a></li>
                     </ul>
                 </div>
@@ -2731,7 +2863,7 @@
                 </div>
             </div>
             <div class="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="text-sm text-text-muted">Copyright © 2026 TesserOn. All rights reserved.</p>
+                <p class="text-sm text-text-muted">Copyright © 2026 TesseriQ. All rights reserved.</p>
                 <p class="text-sm text-text-muted">Agentless. Continuous. Secure.</p>
             </div>
         </div>
