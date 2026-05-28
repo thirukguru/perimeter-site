@@ -64,10 +64,17 @@ international reference and AWS Marketplace listings.
 | Plan | INR / month | USD ref | Annual prepay (20% off) | Included AWS accounts | Included seats | Overage |
 |---|---:|---:|---:|---:|---:|---|
 | `community` | **Free** | $0 | — | 1 | 1 | Cannot exceed; must upgrade |
-| `starter` | **₹4,999** | $60 | ₹47,990/yr | 2 | 3 | `₹2,500 / extra account`, `₹500 / extra seat` |
-| `growth` | **₹39,999** | $480 | ₹3,83,990/yr | 5 | 8 | `₹5,000 / extra account`, `₹1,000 / extra seat` |
-| `assure` | **₹1,19,999** | $1,440 | ₹11,51,990/yr | 15 | 15 | `₹8,000 / extra account`, `₹1,500 / extra seat` |
+| `starter` | **₹4,999** | $60 | ₹47,990/yr | 2 | 3 | `₹2,500 / extra account`, `₹500 / extra seat` (max 4 accounts; beyond that, upgrade) |
+| `growth` | **₹39,999** | $480 | ₹3,83,990/yr | 5 | 8 | `₹2,500 / extra account`, `₹500 / extra seat` |
+| `assure` | **₹1,19,999** | $1,440 | ₹11,51,990/yr | 15 | 15 | `₹2,000 / extra account`, `₹400 / extra seat` |
 | `enterprise` | **Custom** (floor ₹3,00,000/mo) | Custom | Custom | Custom | Custom | Negotiated commercial terms |
+
+> **Overage rate rationale.** Per-unit add-on rates decrease (or hold flat) at
+> higher tiers, so volume customers are rewarded for scaling. Previously rates
+> doubled at each tier, which penalised exactly the customers we want growing
+> on the platform. Customers who outgrow Starter's 4-account cap upgrade for
+> the *features* (AI Chat, FORESIGHT, GuardDuty, CVE Scanner, AI/ML security,
+> Asset Intelligence), not for cheaper quota.
 
 ### FORESIGHT (predictive intelligence)
 
@@ -183,6 +190,12 @@ they can re-enable any time). This is implemented via
 - Basic exports (CSV)
 - Email notifications (transactional only — no integrations)
 - **Email support** (best-effort, 24-business-hour response)
+
+> **Starter add-ons cover quota only** — extra AWS accounts (up to 4 total)
+> and extra seats. They do **not** unlock AI Chat, FORESIGHT, GuardDuty,
+> CVE Scanner, AI/ML security, Insider Threat, or Asset Intelligence. To get
+> those, upgrade to Growth. The Starter→Growth jump is a *feature* upgrade,
+> not a quota upgrade.
 
 ---
 
@@ -447,3 +460,4 @@ they can re-enable any time). This is implemented via
 | 2026-05-17 | Restructured to 5 tiers (added Community + Starter, dropped Essentials as primary key); switched to INR primary pricing; added GST/TDS notes; Enterprise floor ₹3L/mo; Community finding history 14 days | India-focused pricing strategy targeting startup + mid-market segments; opens SMB market that prior $499 Essentials priced out |
 | 2026-05-17 (rev 2) | FORESIGHT changed from optional add-on (₹20k) to **bundled in Growth+ with feature toggle**; no separate SKU. Customers can disable in Settings; no price discount for opting out. Add `PlanLimits`, `Tenant.FeatureOverrides`, `HasFeatureForTenant`. Add `IsBillable` / `TrialDays` / `RazorpayPlanID` to `PlanDefinition` schema | Simpler SKU surface; matches buyer feedback ("don't make me pick add-ons during signup, just give it to me") |
 | 2026-05-17 (rev 3 — Phase 1 ship) | Added `FeatureForesight`, `FeatureFullRuleCatalog`, `FeatureScheduledScans`, `FeatureDriftDetection`, `FeatureIaCScanner` constants; new feature_gate response distinguishes `feature_required` (upgrade plan) from `feature_disabled_by_tenant` (re-enable in settings); `/v1/auth/me` now emits per-tenant features + limits + trial state | Phase 1 backend implementation per `docs/PLAN_FEATURE_MATRIX.md` |
+| 2026-05-26 (rev 4 — pricing curve fix) | Per-unit overage rates **flattened then stepped down**: Growth account add-on ₹5,000→₹2,500, seat ₹1,000→₹500; Assure account ₹8,000→₹2,000, seat ₹1,500→₹400. Starter add-ons capped at 4 accounts before forced upgrade. New explicit "Starter add-ons cover quota only" callout under Starter so the upgrade trigger is feature-led, not quota-led. | Previously rates **doubled then 3.2×'d** per unit at each tier, penalising scaling customers — the opposite of every healthy SaaS pricing curve. Also a buyer reading the table could rationally stay on Starter+add-ons forever because nothing said add-ons don't unlock Growth features. Considered (and rejected for now) inserting a "Standard" tier between Starter and Growth — feature-led messaging + correct add-on curve resolves the structural problem without adding a fifth paid tier. |
