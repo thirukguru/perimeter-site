@@ -1762,6 +1762,114 @@
             background: rgba(30, 27, 75, 0.9) !important;
         }
 
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu-button {
+            display: none;
+            width: 2.75rem;
+            height: 2.75rem;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(6, 182, 212, 0.28);
+            border-radius: 0.5rem;
+            background: rgba(248, 250, 252, 0.07);
+            color: #F8FAFC;
+        }
+
+        .mobile-menu-icon,
+        .mobile-menu-icon::before,
+        .mobile-menu-icon::after {
+            display: block;
+            width: 1.25rem;
+            height: 2px;
+            border-radius: 9999px;
+            background: currentColor;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .mobile-menu-icon {
+            position: relative;
+        }
+
+        .mobile-menu-icon::before,
+        .mobile-menu-icon::after {
+            content: "";
+            position: absolute;
+            left: 0;
+        }
+
+        .mobile-menu-icon::before {
+            top: -0.4rem;
+        }
+
+        .mobile-menu-icon::after {
+            top: 0.4rem;
+        }
+
+        .mobile-menu-button[aria-expanded="true"] .mobile-menu-icon {
+            background: transparent;
+        }
+
+        .mobile-menu-button[aria-expanded="true"] .mobile-menu-icon::before {
+            transform: translateY(0.4rem) rotate(45deg);
+        }
+
+        .mobile-menu-button[aria-expanded="true"] .mobile-menu-icon::after {
+            transform: translateY(-0.4rem) rotate(-45deg);
+        }
+
+        .mobile-nav {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: inline-flex;
+            }
+
+            .mobile-nav {
+                display: none;
+                border-top: 1px solid rgba(6, 182, 212, 0.18);
+                background: rgba(30, 27, 75, 0.96);
+            }
+
+            .mobile-nav.is-open {
+                display: block;
+            }
+
+            .mobile-nav-inner {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+                padding: 0.75rem 1.5rem 1rem;
+            }
+
+            .mobile-nav a {
+                display: block;
+                padding: 0.75rem 0;
+                font-size: 0.95rem;
+                color: rgba(248, 250, 252, 0.78);
+            }
+
+            .mobile-nav a:last-child {
+                margin-top: 0.35rem;
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
+                background: #06B6D4;
+                color: #1E1B4B;
+                font-weight: 700;
+                text-align: center;
+            }
+        }
+
         /* Ensure readable text on mobile without Tailwind */
         section {
             padding: 1.5rem 0;
@@ -1879,7 +1987,7 @@
                 <img src="/newlogo.png" alt="TesseriQ AWS Cloud Security Platform" class="w-19 h-10 object-contain" />
                 <span class="text-lg font-bold">TesseriQ</span>
             </a>
-            <div class=" md:flex items-center gap-8">
+            <div class="desktop-nav">
                 <a href="#products"
                     class="text-sm text-text-muted hover:text-text-primary transition-colors">Products</a>
                 <a href="#perimeter"
@@ -1896,6 +2004,22 @@
                 <a href="#get-started"
                     class="px-5 py-2 rounded-lg bg-cyan text-bg text-sm font-semibold hover:opacity-90 transition-opacity">Get
                     Started</a>
+            </div>
+            <button class="mobile-menu-button" type="button" aria-label="Open navigation menu" aria-controls="mobile-nav"
+                aria-expanded="false">
+                <span class="mobile-menu-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div id="mobile-nav" class="mobile-nav">
+            <div class="mobile-nav-inner">
+                <a href="#products">Products</a>
+                <a href="#perimeter">Perimeter</a>
+                <a href="#foresight">Foresight</a>
+                <a href="#integrations">Integrations</a>
+                <a href="#capabilities">Capabilities</a>
+                <a href="#pricing">Pricing</a>
+                <a href="mailto:thiruk@kveesys.com">Contact</a>
+                <a href="#get-started">Get Started</a>
             </div>
         </div>
     </nav>
@@ -2971,6 +3095,26 @@
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
         }, { threshold: 0.15 });
         document.querySelectorAll('.fade-target').forEach(el => observer.observe(el));
+
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileNav = document.querySelector('#mobile-nav');
+
+        if (mobileMenuButton && mobileNav) {
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpen = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
+                mobileMenuButton.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+                mobileNav.classList.toggle('is-open', !isOpen);
+            });
+
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenuButton.setAttribute('aria-label', 'Open navigation menu');
+                    mobileNav.classList.remove('is-open');
+                });
+            });
+        }
 
     </script>
 </body>
