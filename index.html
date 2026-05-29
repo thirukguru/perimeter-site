@@ -1938,8 +1938,12 @@
                 text-align: left;
             }
 
+            /* Keep the note aligned with the title-wrap's text column
+               (icon column 3.5rem + 1rem grid gap = 4.5rem). Previously
+               reset to 0, which left it flush under the icon while the
+               badge/subtitle stayed indented — a visible jag on phones. */
             .foresight-note {
-                padding-left: 0;
+                padding-left: 4.5rem;
             }
         }
 
