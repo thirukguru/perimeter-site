@@ -4,4 +4,16 @@
     <loc>https://tesseriqcloud.com/</loc>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://tesseriqcloud.com/about.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tesseriqcloud.com/privacy.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://tesseriqcloud.com/terms.html</loc>
+    <priority>0.5</priority>
+  </url>
 </urlset>
