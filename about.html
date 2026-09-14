@@ -7,10 +7,10 @@
     <title>About TesseriQ | Cloud Security from Posture to Prediction to Investigation</title>
     <link rel="canonical" href="https://tesseriqcloud.com/about.html" />
     <meta name="description"
-        content="Learn about TesseriQ, the team building Perimeter for continuous AWS security posture management, Foresight for predictive cloud risk intelligence, and SENTRY for AI investigation." />
+        content="Learn about TesseriQ, the team building Perimeter for continuous multicloud security posture management, Foresight for predictive cloud risk intelligence, and SENTRY for AI investigation." />
     <meta property="og:title" content="About TesseriQ" />
     <meta property="og:description"
-        content="TesseriQ builds cloud security products that help AWS-native teams move from posture to prediction to investigation." />
+        content="TesseriQ builds cloud security products that help modern cloud teams move from posture to prediction to investigation." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tesseriqcloud.com/about.html" />
     <meta property="og:image" content="https://tesseriqcloud.com/tesseriq-og.png" />
@@ -22,6 +22,15 @@
         href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="/page.css" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0Z4221B8S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E0Z4221B8S');
+    </script>
 </head>
 
 <body>
@@ -45,13 +54,13 @@
         <section class="hero">
             <p class="eyebrow">About TesseriQ</p>
             <h1>Cloud security from posture to prediction to investigation.</h1>
-            <p class="lead">TesseriQ builds Perimeter, Foresight, and SENTRY for AWS-native teams that need continuous
+            <p class="lead">TesseriQ builds Perimeter, Foresight, and SENTRY for modern cloud teams that need continuous
                 security visibility without slowing down product delivery.</p>
         </section>
 
         <section class="content-card">
             <h2>What we build</h2>
-            <p><strong>Perimeter</strong> is a continuous AWS security platform for posture management, drift detection,
+            <p><strong>Perimeter</strong> is a continuous multicloud security platform for posture management, drift detection,
                 IaC and Dockerfile scanning, compliance evidence, findings workflow, and risk intelligence.</p>
             <p><strong>Foresight</strong> adds predictive cloud risk intelligence for teams that want to spot likely
                 drift and risky change patterns before they become incidents.</p>
@@ -65,7 +74,7 @@
 
             <h2>How we work</h2>
             <ul>
-                <li>Agentless AWS scanning through a cross-account, read-only role.</li>
+                <li>Agentless cloud scanning through customer-authorized, read-only access.</li>
                 <li>Tenant-specific ExternalId support to reduce confused-deputy risk.</li>
                 <li>Findings designed for remediation workflows, not just dashboards.</li>
                 <li>Compliance evidence, predictive risk intelligence, and AI investigation where teams need more than
