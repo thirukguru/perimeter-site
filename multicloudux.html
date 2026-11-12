@@ -409,10 +409,10 @@
   <p class="eyebrow">TesseriQ · Perimeter · Multicloud UX</p>
   <h1>Everyone shows you a score.<br>We show you whether we actually looked.</h1>
   <p>Multicloud posture for AWS, Azure, and GCP in one console. The design difference is one column:
-  alongside every compliance score we report <span class="hl">coverage</span> — so a green number can never
-  hide a control we couldn't assess. <span class="hl">Navigate with the sidebar</span> — Connect, Run a scan and Framework detail open from
+  alongside every posture score we report <span class="hl">coverage</span> — so a green number can never
+  hide a resource or check we couldn't assess. <span class="hl">Navigate with the sidebar</span> — Connect and Run a scan open from
   in-page actions, exactly as they would in the product. The journey strip appears only inside the
-  connect → scan → findings → prove loop.</p>
+  connect → scan → findings loop.</p>
 </div>
 
 <div class="frame">
@@ -427,7 +427,6 @@
       <div class="grp">Prioritize</div>
       <a data-goto="s5"><i class="ic">⚑</i>Findings <span class="nu">192</span></a>
       <a data-goto="s11"><i class="ic">⚡</i>Attack Paths <span class="chip fail" style="margin-left:auto;font-size:.55rem;padding:1px 5px">1 cross-cloud</span></a>
-      <a data-goto="s3"><i class="ic">☑</i>Compliance</a>
       <a data-goto="s8"><i class="ic">◍</i>Intelligence</a>
 
       <div class="grp">Inventory</div>
@@ -502,8 +501,7 @@
         <span class="st on" data-goto="s1"><b>1</b> Connect</span><span class="ar">→</span>
         <span class="st" data-goto="s2"><b>2</b> Verify access</span><span class="ar">→</span>
         <span class="st" data-goto="s6"><b>3</b> Scan</span><span class="ar">→</span>
-        <span class="st" data-goto="s5"><b>4</b> Findings</span><span class="ar">→</span>
-        <span class="st" data-goto="s3"><b>5</b> Prove compliance</span>
+        <span class="st" data-goto="s5"><b>4</b> Findings</span>
         <span class="loop">↺ coverage gap sends you back to step 1</span>
       </div>
 
@@ -587,184 +585,6 @@
           Note <b>prod-us</b>: one subscription lost Reader while its siblings are fine. The connection <b>degrades</b>; it doesn't fail.</div>
       </section>
 
-      <!-- ================= S3 COMPLIANCE ================= -->
-      <section class="screen" id="s3">
-        <div class="shead">
-          <div><h2>Compliance frameworks</h2><p>Continuously evaluated across every connected cloud.</p></div>
-          <div style="display:flex;gap:8px"><button class="btn">Export</button><button class="btn">Filters</button></div>
-        </div>
-
-        <div class="tw">
-          <table>
-            <thead><tr><th style="width:24%">Framework</th><th>Clouds</th><th>Score</th><th style="width:20%">Coverage</th><th>Failing</th><th>Last assessed</th></tr></thead>
-            <tbody>
-              <tr>
-                <td><b>SOC 2</b> <span class="mono" style="color:var(--faint)">v2</span></td>
-                <td><span class="cloud"><b class="b-aws">AW</b><b class="b-az">AZ</b></span></td>
-                <td><span class="score" style="color:var(--pass)">87.4%</span></td>
-                <td><div class="cov"><div class="bar"><span style="width:96%;background:var(--pass)"></span></div><span class="num" style="font-size:.78rem">96%</span></div></td>
-                <td><span class="chip fail">11 controls</span></td>
-                <td><span class="fresh now">AWS 2m</span> <span class="fresh old">· AZ 6h</span></td>
-              </tr>
-              <tr style="background:var(--partial-soft)" data-goto="s4">
-                <td><b style="color:var(--brand)">ISO/IEC 27001</b> <span class="mono" style="color:var(--faint)">2022</span></td>
-                <td><span class="cloud"><b class="b-aws">AW</b><b class="b-az">AZ</b></span></td>
-                <td><span class="score" style="color:var(--muted)">91.2%</span><div class="supp">grade withheld</div></td>
-                <td><div class="cov"><div class="bar"><span style="width:61%;background:var(--partial)"></span></div><span class="num" style="font-size:.78rem">61%</span></div></td>
-                <td><span class="chip fail">7 controls</span></td>
-                <td><span class="fresh now">AWS 2m</span> <span class="fresh old">· AZ 6h</span>
-                    <span class="opendet">View detail ›</span></td>
-              </tr>
-              <tr>
-                <td><b>PCI DSS</b> <span class="mono" style="color:var(--faint)">4.0</span></td>
-                <td><span class="cloud"><b class="b-aws">AW</b></span></td>
-                <td><span class="score" style="color:var(--pass)">89.3%</span></td>
-                <td><div class="cov"><div class="bar"><span style="width:100%;background:var(--pass)"></span></div><span class="num" style="font-size:.78rem">100%</span></div></td>
-                <td><span class="chip fail">5 controls</span></td>
-                <td><span class="fresh now">2m ago</span></td>
-              </tr>
-              <tr>
-                <td><b>CIS Azure Foundations</b> <span class="mono" style="color:var(--faint)">3.0</span></td>
-                <td><span class="cloud"><b class="b-az">AZ</b></span></td>
-                <td><span class="score" style="color:var(--partial)">72.5%</span></td>
-                <td><div class="cov"><div class="bar"><span style="width:88%;background:var(--pass)"></span></div><span class="num" style="font-size:.78rem">88%</span></div></td>
-                <td><span class="chip fail">14 controls</span></td>
-                <td><span class="fresh old">6h ago</span></td>
-              </tr>
-              <tr>
-                <td><b>CIS AWS Foundations</b> <span class="mono" style="color:var(--faint)">5.0</span></td>
-                <td><span class="cloud"><b class="b-aws">AW</b></span></td>
-                <td><span class="score" style="color:var(--pass)">86.1%</span></td>
-                <td><div class="cov"><div class="bar"><span style="width:100%;background:var(--pass)"></span></div><span class="num" style="font-size:.78rem">100%</span></div></td>
-                <td><span class="chip fail">9 controls</span></td>
-                <td><span class="fresh now">2m ago</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="why"><span class="tag">The differentiator, in one column</span>
-          Look at <b>ISO 27001</b>: a 91.2% score on only <b>61% coverage</b> — because Entra directory access hasn't been granted.
-          Every other tool would print a green 91%. We <b>withhold the grade</b> until coverage clears the bar and show the 34 unassessed controls.
-          <b>A score you can't audit isn't a score.</b></div>
-      </section>
-
-      <!-- ================= S4 DETAIL ================= -->
-      <section class="screen" id="s4">
-        <div class="crumb"><span data-goto="s3">← Compliance</span> <b>›</b> ISO/IEC 27001 · framework detail</div>
-        <div class="shead">
-          <div><h2>ISO/IEC 27001 · 2022</h2><p>AWS + Azure · assessed 2m ago (AWS) · 6h ago (Azure)</p></div>
-          <div style="display:flex;gap:8px;align-items:center"><span class="chip partial">Grade withheld — coverage 61%</span><button class="btn">Download</button></div>
-        </div>
-
-        <div class="fpanels">
-          <div class="scorecard warn">
-            <div class="lab">Posture score</div>
-            <div class="big" style="color:var(--partial)">91.2<span style="font-size:1.1rem">%</span></div>
-            <div class="cvline" style="margin-top:10px"><span>Coverage</span><div class="bar" style="width:56px"><span style="width:61%;background:var(--partial)"></span></div><b class="num" style="color:var(--partial)">61%</b></div>
-            <svg width="150" height="46" viewBox="0 0 150 46" fill="none" aria-hidden="true">
-              <polyline points="0,30 18,26 34,31 52,22 70,25 88,18 106,21 124,14 150,17" stroke="var(--partial)" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-
-          <div class="box">
-            <div class="bh">Top failing controls</div>
-            <div class="bb" style="padding:8px 14px">
-              <div class="failrow"><span style="flex:1">Storage accounts must not allow blob public access</span><span class="cloud"><b class="b-az">AZ</b></span><span class="rp"><b class="num">45%</b><span class="of">9 of 20</span></span><span class="chip fail">8 open</span></div>
-              <div class="failrow"><span style="flex:1">Storage buckets must not allow public access</span><span class="cloud"><b class="b-aws">AW</b></span><span class="rp"><b class="num">62%</b><span class="of">23 of 37</span></span><span class="chip fail">14 open</span></div>
-              <div class="failrow"><span style="flex:1">Disks must be encrypted with a customer-managed key</span><span class="cloud"><b class="b-az">AZ</b></span><span class="rp"><b class="num">4%</b><span class="of">3 of 75</span></span><span class="chip fail">72 open</span></div>
-            </div>
-          </div>
-
-          <div class="box">
-            <div class="bh">Rules by severity</div>
-            <div class="bb" style="padding:10px 14px">
-              <div class="sevrow"><span class="nm"><span class="chip fail">Critical</span></span><div class="bar"><span style="width:100%;background:var(--pass)"></span></div><span class="pc" style="color:var(--pass)">100%</span><span class="of">1 / 1</span></div>
-              <div class="sevrow"><span class="nm"><span class="chip" style="color:#ea580c;background:#fff7ed">High</span></span><div class="bar"><span style="width:76%;background:var(--pass)"></span></div><span class="pc">76%</span><span class="of">16 / 21</span></div>
-              <div class="sevrow"><span class="nm"><span class="chip partial">Medium</span></span><div class="bar"><span style="width:17%;background:var(--fail)"></span></div><span class="pc" style="color:var(--fail)">17%</span><span class="of">16 / 91</span></div>
-              <div class="sevrow"><span class="nm"><span class="chip">Low</span></span><div class="bar"><span style="width:19%;background:var(--fail)"></span></div><span class="pc" style="color:var(--fail)">19%</span><span class="of">8 / 41</span></div>
-              <div class="sevrow" style="border-top:1px solid var(--line);margin-top:6px;padding-top:9px">
-                <span class="nm"><span class="chip unknown">Unassessed</span></span>
-                <div class="bar"><span style="width:100%;background:repeating-linear-gradient(45deg,var(--unknown) 0 4px,transparent 4px 8px)"></span></div>
-                <span class="pc" style="color:var(--unknown)">—</span><span class="of">34 rules</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="scale">
-          <b style="color:var(--ink)">444 rules across 7 requirements</b>
-          <span>·</span><span>Group by <b style="color:var(--brand)">Requirement ▾</b></span>
-          <span style="margin-left:auto"><span class="chip unknown">34 rules unassessed — excluded from the score</span></span>
-        </div>
-
-        <div class="split">
-          <div class="l">
-            <div class="tw" style="border:0;border-radius:0">
-              <table>
-                <thead><tr><th style="width:66px">Control</th><th>Rule</th><th>Cloud</th><th style="width:150px">Resources passing</th><th>Posture</th><th>Coverage</th><th style="width:64px">Change</th></tr></thead>
-                <tbody>
-                  <tr class="grp"><td colspan="7">A.8 — Asset management <span class="chip fail" style="margin-left:8px">31% rules passing</span> <span class="mono" style="color:var(--faint);font-size:.75rem">18 of 58</span></td></tr>
-                  <tr><td class="num">A.8.2</td><td>Storage buckets must not allow public access</td><td><span class="cloud"><b class="b-aws">AW</b></span></td>
-                      <td><span class="rp"><div class="bar" style="width:56px"><span style="width:62%;background:var(--fail)"></span></div><b class="num">62%</b><span class="of">23/37</span></span></td>
-                      <td><span class="chip fail">Fail</span></td><td><span class="chip pass">Complete</span></td><td><span class="chg dn">−3%</span></td></tr>
-                  <tr style="background:var(--partial-soft)"><td class="num">A.8.2</td><td>Storage accounts must not allow blob public access</td><td><span class="cloud"><b class="b-az">AZ</b></span></td>
-                      <td><span class="rp"><div class="bar" style="width:56px"><span style="width:45%;background:var(--fail)"></span></div><b class="num">45%</b><span class="of">9/20</span></span></td>
-                      <td><span class="chip fail">Fail</span></td><td><span class="chip partial">Partial</span></td><td><span class="chg">0%</span></td></tr>
-                  <tr><td class="num">A.8.3</td><td>Managed disks must be encrypted at rest</td><td><span class="cloud"><b class="b-az">AZ</b></span></td>
-                      <td><span class="rp"><div class="bar" style="width:56px"><span style="width:100%;background:var(--pass)"></span></div><b class="num">100%</b><span class="of">75/75</span></span></td>
-                      <td><span class="chip pass">Pass</span></td><td><span class="chip pass">Complete</span></td><td><span class="chg up">+2%</span></td></tr>
-
-                  <tr class="grp"><td colspan="7">A.5 — Identity &amp; access <span class="chip unknown" style="margin-left:8px">6 unassessed</span> <span class="mono" style="color:var(--faint);font-size:.75rem">2 of 14 assessed</span></td></tr>
-                  <tr><td class="num">A.5.15</td><td>Root/owner accounts must have MFA enforced</td><td><span class="cloud"><b class="b-aws">AW</b></span></td>
-                      <td><span class="rp"><div class="bar" style="width:56px"><span style="width:100%;background:var(--pass)"></span></div><b class="num">100%</b><span class="of">3/3</span></span></td>
-                      <td><span class="chip pass">Pass</span></td><td><span class="chip pass">Complete</span></td><td><span class="chg">0%</span></td></tr>
-                  <tr style="background:var(--unknown-soft)"><td class="num">A.5.15</td><td>Privileged directory roles must require MFA</td><td><span class="cloud"><b class="b-az">AZ</b></span></td>
-                      <td><span class="rp" style="color:var(--faint)"><span class="of">— no denominator —</span></span></td>
-                      <td><span class="chip unknown">Unknown</span></td><td><span class="chip unknown">Not assessed</span></td><td><span class="chg">—</span></td></tr>
-                  <tr style="background:var(--unknown-soft)"><td class="num">A.5.16</td><td>Legacy authentication must be blocked</td><td><span class="cloud"><b class="b-az">AZ</b></span></td>
-                      <td><span class="rp" style="color:var(--faint)"><span class="of">— no denominator —</span></span></td>
-                      <td><span class="chip unknown">Unknown</span></td><td><span class="chip unknown">Not assessed</span></td><td><span class="chg">—</span></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <aside class="drawer">
-            <span class="chip partial">Coverage gap</span>
-            <h3 style="margin-top:9px">Privileged directory roles must require MFA</h3>
-            <div style="color:var(--muted);font-size:.83rem">A.5.15 · Microsoft Entra ID</div>
-
-            <div class="callout"><b>Why there's no "12 of 20" here.</b> A resource pass-rate needs a denominator — the set of
-            resources we enumerated. Without directory access we never enumerated any, so any percentage would be invented.</div>
-
-            <dl class="kv">
-              <dt>Status</dt><dd><span class="chip unknown">Not assessed</span></dd>
-              <dt>Reason</dt><dd class="mono" style="font-size:.78rem">missing_capability: entra_directory</dd>
-              <dt>Scope</dt><dd>Entra tenant · 1 directory</dd>
-              <dt>Frameworks</dt><dd>ISO 27001 · SOC 2 · CIS Azure</dd>
-            </dl>
-
-            <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-              <button class="btn pri" data-goto="s1">Grant directory access →</button>
-              <button class="btn">Mark not applicable</button>
-            </div>
-
-            <div style="margin-top:16px;border-top:1px solid var(--line);padding-top:12px;font-size:.8rem;color:var(--muted)">
-              Granting this unlocks <b style="color:var(--ink)">34 controls</b> across 3 frameworks and would raise ISO 27001 coverage from
-              <span class="num">61% → 97%</span>.
-            </div>
-          </aside>
-        </div>
-
-        <div class="why"><span class="tag">Borrowed, and then made auditable</span>
-          Resource pass-rates (<b>23 of 37</b>), a severity breakdown, per-requirement rollups and trend are all industry-standard —
-          and genuinely good, so we adopt them. But every one of those is a <b>denominator claim</b>. Ours are auditable: an unassessed
-          rule shows <b>"no denominator"</b> rather than a percentage, and 34 unassessed rules appear as their own severity row instead
-          of vanishing. <b>Same richness, without the invented confidence.</b></div>
-      </section>
-
-
-
 
       <!-- ================= S10 USERS & ACCESS ================= -->
       <section class="screen" id="s10">
@@ -837,7 +657,7 @@
           </div></div>
         </div>
 
-        <div class="callout" style="margin-top:14px"><b>Numbers follow the grant, not the tenant.</b> Jane sees a compliance score and
+        <div class="callout" style="margin-top:14px"><b>Numbers follow the grant, not the tenant.</b> Jane sees a posture score and
         coverage computed over <b>AWS Production only</b> — not the tenant-wide 78%. A global figure shown to a scoped user leaks how
         other teams are doing. Scoped access without scoped aggregation is an information leak wearing an access-control costume.</div>
 
@@ -1225,7 +1045,7 @@
               <div class="bb rules">
                 <div class="rule"><span class="m y">✓</span><span>Findings in <b>AWS Production</b> are created, updated, and <b>resolved</b> where fixed.</span></div>
                 <div class="rule"><span class="m n">✕</span><span><b>Staging and Azure findings are left untouched</b> — not resolved, not re-dated, not re-alerted. We didn't look, so we won't claim they're gone.</span></div>
-                <div class="rule"><span class="m i">ⓘ</span><span>Compliance coverage updates for AWS Production only. Azure keeps its last assessment, clearly timestamped.</span></div>
+                <div class="rule"><span class="m i">ⓘ</span><span>Scan coverage updates for AWS Production only. Azure keeps its last assessment, clearly timestamped.</span></div>
                 <div class="rule"><span class="m i">ⓘ</span><span><b>prod-us</b> is excluded automatically — Reader access was revoked, so it can't be assessed.</span></div>
               </div>
             </div>
@@ -1249,7 +1069,6 @@
           <span class="chip partial">Coverage 61%</span>
           <span class="grow">This inbox reflects <b>what we were able to check</b>. 34 controls across 2 clouds were not assessed —
           so a clean list here does not mean a clean estate.</span>
-          <button class="btn" data-goto="s3">See coverage →</button>
         </div>
 
         <div class="qbar">
